@@ -1,0 +1,100 @@
+/* Header.css */
+
+.header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  padding: 10px 20px;
+  position: sticky; /* Makes the header sticky */
+  top: 0; /* Stick to the top */
+  z-index: 1000; /* Ensures it stays on top */
+  background-color: transparent; /* Initial background color */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for background color and shadow */
+}
+
+.header.sticky {
+  background-color: #fff; /* Background color when sticky */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* More prominent shadow when sticky */
+  color: black;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-left .navbar-logo {
+  width: 100%;
+}
+
+.navbar-center {
+  display: flex;
+  gap: 50px; /* Space between links */
+  justify-content: start;
+  margin-left: 50px;
+  margin-top: 20px;
+}
+
+.navbar-center a {
+  text-decoration: none;
+  color: #fff; /* Initial link color */
+  font-weight: 500;
+  transition: color 0.3s;
+  font-size: larger;
+}
+
+.header.sticky .navbar-center a {
+  color: #6095FF; /* Warna hitam saat sticky */
+}
+
+.navbar-center a:hover {
+  color: black; /* Hover color for links */
+}
+
+.header.sticky .navbar-center a:hover {
+  color: black; /* Warna hitam saat sticky */
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between icon and button */
+}
+
+.navbar-user-icon {
+  width: 100%; /* Set a specific width for user icon */
+}
+
+.navbar-button {
+  background-color: #fff;
+  color: #007bff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for background color and text color */
+}
+
+.navbar-button:hover {
+  background-color: #ef0000; /* Background color on hover */
+  color: #fff; /* Text color on hover */
+}
+.sticky-button {
+  background-color: red; /* color when sticky */
+  color: #fff;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .navbar-center {
+    display: none; /* Hide links on small screens */
+  }
+  .navbar-right {
+    gap: 5px;
+  }
+}
+
+@media (min-width: 769px) {
+  .navbar-right .navbar-user-icon {
+    display: block; /* Show icon only on larger screens */
+  }
+}
