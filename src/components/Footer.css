@@ -1,0 +1,8 @@
+.footer {
+    background-image: url(../assets/footer-bg.png);
+    background-size: cover; 
+    background-position: center;
+    align-items: center;
+    justify-content: center;
+    padding: 100px;
+}
