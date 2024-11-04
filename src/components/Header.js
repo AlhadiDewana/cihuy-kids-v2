@@ -4,9 +4,13 @@ import logo from '../assets/icon.png'
 import stickyLogo from '../assets/logo.png'; // Logo saat sticky
 import userIcon from '../assets/profile-icon.png'; // Ikon normal
 import userIconSticky from '../assets/profile-icon-sticky.png';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const Header = () => {
     const [isSticky, setIsSticky] = useState(false);
+    const navigate = useNavigate();
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -48,10 +52,25 @@ const Header = () => {
                 </nav>
                 <nav>
                 <div className="navbar-center">
-                    <a href="#home">Selamat Datang</a>
-                    <a href="#a">Kenapa Konten Sesuai Usia itu Penting?</a>
-                    <a href="#access">Apa saja yang Bisa Diakses?</a>
-                </div>
+          <a 
+            onClick={() => navigate('/')} 
+            className="nav-link"
+          >
+            Selamat Datang
+          </a>
+          <a 
+            onClick={() => navigate('/Landing2')} 
+            className="nav-link"
+          >
+            Kenapa Konten Sesuai Usia itu Penting?
+          </a>
+          <a 
+            onClick={() => navigate('/Landing3')} 
+            className="nav-link"
+          >
+            Perkembangan Otak
+          </a>
+        </div>
                 </nav>
             </header>
   );

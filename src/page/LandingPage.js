@@ -1,37 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import '../components/Header.css';
-import logo from '../assets/icon.png'
-import stickyLogo from '../assets/logo.png'; // Logo saat sticky
-import userIcon from '../assets/profile-icon.png'; // Ikon normal
-import userIconSticky from '../assets/profile-icon-sticky.png';
-import HeroImage from '../assets/cover.png'
-import Preview1 from '../assets/preview/Gambar 1.png'
-import Preview2 from '../assets/preview/Gambar 2.png'
-import Preview3 from '../assets/preview/Gambar 3.png'
-import Preview4 from '../assets/preview/Gambar 4.png'
-import Footer from '../components/Footer'
-import '../page/LandingPage.css'
+import Header from '../components/Header';
+import HeroImage from '../assets/cover.png';
+import Preview1 from '../assets/preview/Gambar 1.png';
+import Preview2 from '../assets/preview/Gambar 2.png';
+import Preview3 from '../assets/preview/Gambar 3.png';
+import Preview4 from '../assets/preview/Gambar 4.png';
+import Footer from '../components/Footer';
+import '../page/LandingPage.css';
 
 
 
 const LandingPage = () => {
-  const [isSticky, setIsSticky] = useState(false);
-
-  const handleScroll = () => {
-    const offset = window.scrollY;
-    if (offset > 100) {
-      setIsSticky(true);
-    } else {
-      setIsSticky(false);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   const handleNavClick = (section) => {
     console.log(`Navigating to ${section}`);
@@ -40,35 +19,7 @@ const LandingPage = () => {
   return (
     <div className="body min-h-screen">
       {/* Header */}
-      <header className={`header ${isSticky ? 'sticky' : ''}`}>
-        <nav className="navbar">
-          <div className="navbar-left">
-            <img 
-              src={isSticky ? stickyLogo : logo} // Menggunakan variabel yang diimport
-              alt="Cihuy Kids Logo" 
-              className="navbar-logo" 
-            />
-          </div>
-          
-          <div className="navbar-right">
-            <img 
-              src={isSticky ? userIconSticky : userIcon} // Menggunakan variabel yang diimport
-              alt="User Icon" 
-              className="navbar-user-icon" 
-            />
-            <button className={`navbar-button ${isSticky ? 'sticky-button' : ''}`}>
-              Jelajahi
-            </button>
-          </div>
-        </nav>
-        <nav>
-        <div className="navbar-center">
-            <a href="#home">Selamat Datang</a>
-            <a href="#a">Kenapa Konten Sesuai Usia itu Penting?</a>
-            <a href="#access">Apa saja yang Bisa Diakses?</a>
-          </div>
-        </nav>
-      </header>
+      <Header/>
 
       {/* Hero Section */}
       <section className="relative text-white py-20">
