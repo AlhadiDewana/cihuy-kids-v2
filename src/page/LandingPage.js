@@ -10,6 +10,7 @@ import Preview2 from '../assets/preview/Gambar 2.png'
 import Preview3 from '../assets/preview/Gambar 3.png'
 import Preview4 from '../assets/preview/Gambar 4.png'
 import Footer from '../components/Footer'
+import '../page/LandingPage.css'
 
 
 
@@ -37,7 +38,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="body min-h-screen">
       {/* Header */}
       <header className={`header ${isSticky ? 'sticky' : ''}`}>
         <nav className="navbar">
@@ -73,7 +74,7 @@ const LandingPage = () => {
       <section className="relative text-white py-20">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="md:w-1/2 mb-8 md:mb-0">
+            <div className="md:w-1/2 mb-8 md:mb-0 text-start">
               <h1 className="text-5xl font-bold mb-6">
                 Selamat Datang di Cihuy Kids!
               </h1>

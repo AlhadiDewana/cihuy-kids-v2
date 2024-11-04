@@ -1,0 +1,41 @@
+.landing-2{
+    background-image: url('../assets/bglanding-2.png');
+    background-position: start;
+    background-repeat: no-repeat
+}
+
+.child-1 {
+    background-color:#FCC729;
+    background-size: cover;
+    background-position: center;
+}
+
+.child-2 {
+    background-color: #FE4C64;
+    background-size: cover;
+    background-position: center;
+}
+
+.child-3 {
+    background-color: #6095FF;
+    background-size: cover;
+    background-position: center;
+}
+
+.child-4 {
+    background-color: #FCC729;
+    background-size: cover;
+    background-position: center;
+}
+
+.child-5 {
+    background-color: #FE4C64;
+    background-size: cover;
+    background-position: center;
+}
+
+.child-6 {
+    background-color: #6095FF;
+    background-size: cover;
+    background-position: center;
+}

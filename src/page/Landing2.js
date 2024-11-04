@@ -1,113 +1,290 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import '../page/Landing\ 2.css'
+import HeroImage from '../assets/cover-landing-2.png'
+import '../components/Header.css';
+import logo from '../assets/icon.png'
+import stickyLogo from '../assets/logo.png'; // Logo saat sticky
+import userIcon from '../assets/profile-icon.png'; // Ikon normal
+import userIconSticky from '../assets/profile-icon-sticky.png';
+import child1 from '../assets/landing 2/child-1.png'
+import child2 from '../assets/landing 2/child-2.png'
+import child3 from '../assets/landing 2/child-3.png'
+import child4 from '../assets/landing 2/child-4.png'
+import child5 from '../assets/landing 2/child-5.png'
+import child6 from '../assets/landing 2/child-6.png'
+
+import Footer from '../components/Footer'
+
+
 
 const LandingPage2 = () => {
+    const [isSticky, setIsSticky] = useState(false);
+
+  const handleScroll = () => {
+    const offset = window.scrollY;
+    if (offset > 100) {
+      setIsSticky(true);
+    } else {
+      setIsSticky(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+
   return (
+
     <div className="w-full min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="bg-blue-500 text-white py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl font-bold mb-4">Konten Sesuai Usia Itu Sangat Penting</h1>
-            <p className="text-xl">
-              Menurut berbagai penelitian, anak-anak di kondisi sekarang sangat membutuhkan konten yang berkualitas untuk mendukung tumbuh kembangnya.
-            </p>
-          </div>
-        </div>
-      </section>
+        <div className='landing-2'>
+            {/* Header */}
+            <header className={`header ${isSticky ? 'sticky' : ''}`}>
+                <nav className="navbar">
+                <div className="navbar-left">
+                    <img 
+                    src={isSticky ? stickyLogo : logo} // Menggunakan variabel yang diimport
+                    alt="Cihuy Kids Logo" 
+                    className="navbar-logo" 
+                    />
+                </div>
+                
+                <div className="navbar-right">
+                    <img 
+                    src={isSticky ? userIconSticky : userIcon} // Menggunakan variabel yang diimport
+                    alt="User Icon" 
+                    className="navbar-user-icon" 
+                    />
+                    <button className={`navbar-button ${isSticky ? 'sticky-button' : ''}`}>
+                    Jelajahi
+                    </button>
+                </div>
+                </nav>
+                <nav>
+                <div className="navbar-center">
+                    <a href="#home">Selamat Datang</a>
+                    <a href="#a">Kenapa Konten Sesuai Usia itu Penting?</a>
+                    <a href="#access">Apa saja yang Bisa Diakses?</a>
+                </div>
+                </nav>
+            </header>
 
-      {/* Features Grid */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Feature 1 */}
-          <div className="bg-yellow-400 p-8 rounded-lg">
-            <h2 className="text-2xl font-bold mb-4">Mendukung Perkembangan Otak yang Optimal</h2>
-            <p className="text-lg">
-              Konten yang sesuai usia membantu perkembangan otak anak dengan memberikan stimulasi yang tepat sesuai tahap perkembangannya.
-            </p>
-          </div>
+            {/* Hero Section */}
+            <section className="relative text-white py-20">
+                <div className="container mx-auto px-4">
+                <div className="flex flex-col md:flex-row items-center justify-between">
+                    <div className="md:w-1/2 mb-8 md:mb-0 text-start">
+                    <h1 className="text-5xl font-bold mb-6">
+                    Konten Sesuai Usia Itu Sangat Penting
+                    </h1>
+                    <p className="text-lg mb-8 max-w-lg">
+                    Menurut berbagai penelitian, anak-anak di setiap tahap perkembangan membutuhkan konten yang berbeda untuk mendukung tumbuh kembangnya.               </p>
+                    </div>
+                    <div className="md:w-100">
+                    <img 
+                        src={HeroImage} 
+                        alt="Family using tablet" 
+                        className="rounded-lg"
+                    />
+                    </div>
+                </div>
+                </div>
+            </section>
+            {/* Features Grid */}
+            <div className="relative text-white py-20">
+              <div className="">
+                {/* Feature 1 */}
+                <div className=" child-1">
+                  <div className="container px-4">
+                      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                      {/* Left Image */}
+                      <div className="md:w-1/2 relative">
+                          <div className="absolute inset-0 bg-white rounded-full opacity-10 blur-lg transform -translate-x-4 translate-y-4"></div>
+                          <img 
+                          src={child1} 
+                          alt="Child reading a book" 
+                          className="relative z-10 max-w-m mx-auto"
+                          style={{
+                              clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+                              filter: 'drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.1))'
+                          }}
+                          />
+                      </div>
 
-          {/* Feature 2 */}
-          <div className="bg-red-400 p-8 rounded-lg">
-            <h2 className="text-2xl font-bold mb-4">Menghindari Paparan yang Tidak Sesuai</h2>
-            <p className="text-lg">
-              Konten yang tidak sesuai usia dapat menimbulkan kecemasan pada anak. Dengan konten terfilter, memberikan rasa aman dan kenyamanan dalam belajar.
-            </p>
-          </div>
-
-          {/* Feature 3 */}
-          <div className="bg-blue-400 p-8 rounded-lg">
-            <h2 className="text-2xl font-bold mb-4">Memfasilitasi Perkembangan Sosial dan Emosional</h2>
-            <p className="text-lg">
-              Konten yang sesuai usia membantu anak-anak memahami nilai-nilai sosial dan emosional yang mendasar, membentuk perilaku positif secara bertahap.
-            </p>
-          </div>
-
-          {/* Feature 4 */}
-          <div className="bg-yellow-400 p-8 rounded-lg">
-            <h2 className="text-2xl font-bold mb-4">Meningkatkan Kreativitas dan Keamanan Digital</h2>
-            <p className="text-lg">
-              Konten yang relevan dengan usia membuat anak lebih terlatih dalam aktivitas kreatif sambil tetap aman dari paparan yang berlebihan.
-            </p>
-          </div>
-
-          {/* Feature 5 */}
-          <div className="bg-red-400 p-8 rounded-lg">
-            <h2 className="text-2xl font-bold mb-4">Melindungi Kesehatan Fisik dan Mental</h2>
-            <p className="text-lg">
-              Batasan usia dalam penggunaan media digital membantu menjaga keseimbangan aktivitas fisik dan kesehatan mental anak-anak.
-            </p>
-          </div>
-
-          {/* Feature 6 */}
-          <div className="bg-blue-400 p-8 rounded-lg">
-            <h2 className="text-2xl font-bold mb-4">Memudahkan Pengawasan Orang Tua</h2>
-            <p className="text-lg">
-              Filter usia membantu orang tua dalam memantau konten anak, memastikan bahwa yang mereka akses sesuai dengan kebutuhan perkembangan mereka.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <footer className="bg-yellow-400 py-8">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-4 gap-8">
-            <div>
-              <h3 className="font-bold mb-4">Ikuti Kami</h3>
-              <div className="flex space-x-4">
-                <div className="w-8 h-8 bg-white rounded-full"></div>
-                <div className="w-8 h-8 bg-white rounded-full"></div>
-                <div className="w-8 h-8 bg-white rounded-full"></div>
-                <div className="w-8 h-8 bg-white rounded-full"></div>
+                      {/* Right Content */}
+                      <div className="md:w-1/2 text-white text-start">
+                          <h2 className="text-4xl font-bold mb-6">
+                          Mendukung Perkembangan Otak yang Optimal
+                          </h2>
+                          <p className="text-xl leading-relaxed">
+                          konten yang sesuai usia membantu perkembangan otak anak dengan
+                          memberikan stimulasi yang tepat sesuai tahap perkembangannya.
+                          </p>
+                      </div>
               </div>
             </div>
-            <div>
-              <h3 className="font-bold mb-4">Navigasi</h3>
-              <ul className="space-y-2">
-                <li>Home</li>
-                <li>About</li>
-                <li>Services</li>
-                <li>Contact</li>
-              </ul>
+                </div>
+
+                {/* Feature 2 */}
+                <div className=" child-2">
+                  <div className="container px-4">
+                      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                      {/* Right Content */}
+                      <div className="md:w-1/2 text-white text-start">
+                          <h2 className="text-4xl font-bold mb-6">
+                          Mendukung Perkembangan Otak yang Optimal
+                          </h2>
+                          <p className="text-xl leading-relaxed">
+                          konten yang sesuai usia membantu perkembangan otak anak dengan
+                          memberikan stimulasi yang tepat sesuai tahap perkembangannya.
+                          </p>
+                      </div>
+                      {/* Left Image */}
+                      <div className="md:w-1/2 relative">
+                          <div className="absolute inset-0 bg-white rounded-full opacity-10 blur-lg transform -translate-x-4 translate-y-4"></div>
+                          <img 
+                          src={child2} 
+                          alt="Child reading a book" 
+                          className="relative z-10 max-w-m mx-auto"
+                          style={{
+                              clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+                              filter: 'drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.1))'
+                          }}
+                          />
+                      </div>
+                  </div>
+                  </div>
+                </div>
+
+                {/* Feature 3 */}
+                <div className=" child-3">
+                  <div className="container px-4">
+                      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                      {/* Left Image */}
+                      <div className="md:w-1/2 relative">
+                          <div className="absolute inset-0 bg-white rounded-full opacity-10 blur-lg transform -translate-x-4 translate-y-4"></div>
+                          <img 
+                          src={child3} 
+                          alt="Child reading a book" 
+                          className="relative z-10 max-w-m mx-auto"
+                          style={{
+                              clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+                              filter: 'drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.1))'
+                          }}
+                          />
+                      </div>
+
+                      {/* Right Content */}
+                      <div className="md:w-1/2 text-white text-start">
+                          <h2 className="text-4xl font-bold mb-6">
+                          Memfasilitasi Perkembangan Sosial dan Emosional
+                          </h2>
+                          <p className="text-xl leading-relaxed">
+                          konten yang sesuai usia membantu anak-anak memahami nilai-nilai sosial dan emosional yang mendasar, membentuk perilaku positif secara bertahap.
+                          </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Feature 4 */}
+                <div className=" child-4">
+                  <div className="container px-4">
+                      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                      {/* Right Content */}
+                      <div className="md:w-1/2 text-white text-start">
+                          <h2 className="text-4xl font-bold mb-6">
+                          Meningkatkan Kreativitas dan Keamanan Digital</h2>
+                          <p className="text-xl leading-relaxed">
+                          konten yang relevan dengan usia membuat anak lebih terlibat dalam aktivitas kreatif sambil tetap aman dari paparan yang berlebihan.
+                          </p>
+                      </div>
+                      {/* Left Image */}
+                      <div className="md:w-1/2 relative">
+                          <div className="absolute inset-0 bg-white rounded-full opacity-10 blur-lg transform -translate-x-4 translate-y-4"></div>
+                          <img 
+                          src={child4} 
+                          alt="Child reading a book" 
+                          className="relative z-10 max-w-m mx-auto"
+                          style={{
+                              clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+                              filter: 'drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.1))'
+                          }}
+                          />
+                      </div>
+                  </div>
+                  </div>
+                </div>
+
+                {/* Feature 5 */}
+                <div className=" child-5">
+                  <div className="container px-4">
+                      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                      {/* Left Image */}
+                      <div className="md:w-1/2 relative">
+                          <div className="absolute inset-0 bg-white rounded-full opacity-10 blur-lg transform -translate-x-4 translate-y-4"></div>
+                          <img 
+                          src={child5} 
+                          alt="Child reading a book" 
+                          className="relative z-10 max-w-m mx-auto"
+                          style={{
+                              clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+                              filter: 'drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.1))'
+                          }}
+                          />
+                      </div>
+
+                      {/* Right Content */}
+                      <div className="md:w-1/2 text-white text-start">
+                          <h2 className="text-4xl font-bold mb-6">
+                          Melindungi Kesehatan Fisik dan Mental</h2>
+                          <p className="text-xl leading-relaxed">
+                          Batasan usia dalam penggunaan media digital membantu menjaga keseimbangan aktivitas fisik dan kesehatan mental anak-anak.
+                          </p>
+                      </div>
+              </div>
+                  </div>
+                </div>
+
+                {/* Feature 6 */}
+                <div className=" child-6">
+                  <div className="container px-4">
+                      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                      {/* Right Content */}
+                      <div className="md:w-1/2 text-white text-start">
+                          <h2 className="text-4xl font-bold mb-6">
+                          Memudahkan Pengawasan Orang Tua
+                          </h2>
+                          <p className="text-xl leading-relaxed">
+                          Filter usia membantu orang tua dalam memantau konten anak, memastikan bahwa yang mereka akses sesuai dengan kebutuhan perkembangan mereka.
+                          </p>
+                      </div>
+                      {/* Left Image */}
+                      <div className="md:w-1/2 relative">
+                          <div className="absolute inset-0 bg-white rounded-full opacity-10 blur-lg transform -translate-x-4 translate-y-4"></div>
+                          <img 
+                          src={child6} 
+                          alt="Child reading a book" 
+                          className="relative z-10 max-w-m mx-auto"
+                          style={{
+                              clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+                              filter: 'drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.1))'
+                          }}
+                          />
+                      </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div>
-              <h3 className="font-bold mb-4">Lisensi</h3>
-              <ul className="space-y-2">
-                <li>Privacy Policy</li>
-                <li>Terms of Use</li>
-                <li>FAQ</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold mb-4">Kontak</h3>
-              <ul className="space-y-2">
-                <li>+1234567890</li>
-                <li>email@example.com</li>
-              </ul>
-            </div>
-          </div>
+
+            {/* Footer */}
+            <Footer/>
         </div>
-      </footer>
+
     </div>
   );
 };
