@@ -45,7 +45,7 @@ const Header = () => {
                     alt="User Icon" 
                     className="navbar-user-icon" 
                     />
-                    <button className={`navbar-button ${isSticky ? 'sticky-button' : ''}`}>
+                    <button onClick={() => navigate('/Jelajahi')} className={`navbar-button ${isSticky ? 'sticky-button' : ''}`}>
                     Jelajahi
                     </button>
                 </div>

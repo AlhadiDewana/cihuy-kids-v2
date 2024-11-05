@@ -13,7 +13,7 @@ const LandingPage3 = () => {
       return (
     
         <div className="w-full min-h-screen bg-white">
-            <div className='landing-2'>
+            <div className='landing-3'>
                 {/* Header */}
                 <Header/>
     
@@ -38,7 +38,7 @@ const LandingPage3 = () => {
                     </div>
                     </div>
                 </section>
-                {/* Features Grid */}
+                {/* Explaination */}
                 <div className="relative text-white py-20">
                   <div className="">
                     {/* Feature 1 */}
