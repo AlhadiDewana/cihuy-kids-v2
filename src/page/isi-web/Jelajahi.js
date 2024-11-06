@@ -1,5 +1,5 @@
 import React from 'react';
-import Ibu from 'D:/zzzz/cihuy-kids/src/assets/isi-web/ibu.png'
+import Ibu from '../../assets/isi-web/ibu.png'
 import { useNavigate } from 'react-router-dom';
 
 

@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Settings, Bell, User, Search } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
-import Footer from 'D:/zzzz/cihuy-kids/src/components/Footer.js'
-import Kinderflix from 'D:/zzzz/cihuy-kids/src/assets/isi-web/kinderflix.png'
+import Footer from '../../components/Footer.js'
+import logo from '../../assets/icon.png'
+import banner1 from '../../assets/isi-web/kinderflix.png'
+import banner2 from '../../assets/isi-web/balonku.png'
+import banner3 from '../../assets/isi-web/puzzle.png'
+import banner4 from '../../assets/isi-web/dongeng.png'
+import { useNavigate } from 'react-router-dom';
+
 
 const ContentPage = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const initialAge = location.state?.selectedAge || '4-5 Tahun';
   
@@ -70,6 +78,64 @@ const ContentPage = () => {
     // Add more reading items
   ];
 
+    //Carousel Banner
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [isAnimating, setIsAnimating] = useState(false);
+
+    const featuredContent = [
+      {
+        tag: "#VIDEOPALINGDISUKAI",
+        title: "Kinderflix",
+        description: "Belajar huruf, angka, warna, suara binatang, dan banyak lagi",
+        image: banner1,
+        buttonText: "Tonton"
+      },
+      {
+        tag: "#MUSIKPALINGDISUKAI",
+        title: "Balonku",
+        description: "Menceritakan tentang balon yang berwarna-warni dan melambangkan kebahagiaan.",
+        image: banner2,
+        buttonText: "Dengar"
+      },
+      {
+        tag: "#GAMEPALINGDISUKAI",
+        title: "Puzzle",
+        description: "Memecahkan masalah atau menyusun sesuatu dengan cara tertentu.",
+        image: banner3,
+        buttonText: "Mainkan"
+      },
+      {
+        tag: "#BACAANPALINGDISUKAI",
+        title: "Cerita Cerdik Si Kancil dan Buaya",
+        description: "Dalam cerita ini, Kancil, seekor hewan kecil yang cerdik, berhadapan dengan Buaya, yang terkenal ganas dan rakus.",
+        image: banner4,
+        buttonText: "Baca"
+      }
+    ];
+  
+    useEffect(() => {
+      const timer = setInterval(() => {
+        handleSlideChange((prev) => prev === featuredContent.length - 1 ? 0 : prev + 1);
+      }, 5000);
+  
+      return () => clearInterval(timer);
+    }, []);
+  
+    const handleSlideChange = (newIndex) => {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentSlide(newIndex);
+        setIsAnimating(false);
+      }, 300); // Sesuaikan dengan durasi animasi
+    };
+  
+    const nextSlide = () => {
+      handleSlideChange(currentSlide === featuredContent.length - 1 ? 0 : currentSlide + 1);
+    };
+  
+    const prevSlide = () => {
+      handleSlideChange(currentSlide === 0 ? featuredContent.length - 1 : currentSlide - 1);
+    };
 
 
   // Tambahkan ini setelah deklarasi data konten dan sebelum return statement
@@ -102,7 +168,7 @@ const ContentCard = ({ item, type }) => {
         <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
                          bg-white text-[#FF4B6E] px-4 py-2 rounded-full opacity-0 hover:opacity-100
                          transition-all duration-300">
-          {type === 'video' || type === 'musik' ? 'Tonton' : type === 'game' ? 'Main' : 'Baca'}
+          {type === 'video' ? 'Tonton' : type === 'musik' ? 'Dengar' : type === 'game' ? 'Main' : 'Baca'}
         </button>
       </div>
 
@@ -127,12 +193,16 @@ const ContentCard = ({ item, type }) => {
       {/* Header/Navigation */}
       <nav className="flex items-center justify-between px-8 py-4">
         <div className="flex items-center gap-8">
-          <h1 className="text-2xl font-bold text-white">CIHUY KIDS</h1>
+        <img 
+                    src={logo} // Menggunakan variabel yang diimport
+                    alt="Cihuy Kids Logo" 
+                    className="navbar-logo" 
+                    />
           
           <select 
             value={selectedAge}
             onChange={(e) => handleAgeChange(e.target.value)}
-            className="bg-transparent text-white border border-white rounded-full px-4 py-2"
+            className="bg-transparent text-white rounded-full px-4 py-2"
           >
             <option value="4-5 Tahun">4-5 Tahun</option>
             <option value="6-7 Tahun">6-7 Tahun</option>
@@ -144,30 +214,70 @@ const ContentCard = ({ item, type }) => {
         <div className="flex items-center gap-6">
           <Settings className="w-6 h-6 text-white cursor-pointer" />
           <Bell className="w-6 h-6 text-white cursor-pointer" />
-          <User className="w-6 h-6 text-white cursor-pointer" />
+          <User onClick={() => navigate('/login')} className="w-6 h-6 text-white cursor-pointer" />
         </div>
       </nav>
 
       {/* Featured Content Banner */}
-      <div className="bg-[#FE4C64] mx-8 rounded-3xl overflow-hidden mb-8">
-        <div className="p-8 flex justify-between items-center">
-          <div className="text-white">
-            <p className="text-sm mb-2">#VIDEOPALINGDISUKAI</p>
-            <h2 className="text-4xl font-bold mb-4">Kinderflix</h2>
-            <p className="mb-6">Belajar huruf, angka, warna, suara binatang, dan banyak lagi</p>
-            <button className="bg-white text-[#FF4B6E] px-6 py-2 rounded-full font-semibold">
-              Tonton
+      <div className="relative bg-[#FE4C64] mx-8 rounded-3xl overflow-hidden mb-8">
+      <div className="p-8 flex justify-between items-center">
+        {/* Text section with darker red background */}
+        <div className="text-white flex-1 bg-[#E73A51] rounded-2xl p-6">
+          <div className={`transform transition-all duration-300 ${
+            isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
+          }`}>
+            <p className="text-sm mb-2">{featuredContent[currentSlide].tag}</p>
+            <h2 className="text-4xl font-bold mb-4">{featuredContent[currentSlide].title}</h2>
+            <p className="mb-6 max-w-md">{featuredContent[currentSlide].description}</p>
+            <button className="bg-white text-[#FF4B6E] px-6 py-2 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+              {featuredContent[currentSlide].buttonText}
             </button>
           </div>
-          <div className="relative">
+        </div>
+        
+        <div className="relative flex-1 ml-8">
+          <div className={`transform transition-all duration-300 ${
+            isAnimating ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'
+          }`}>
             <img 
-              src={Kinderflix}
-              alt="Featured content"
-              className="rounded-lg"
+              src={featuredContent[currentSlide].image}
+              alt={featuredContent[currentSlide].title}
+              className="rounded-lg w-full h-[300px] object-cover"
             />
           </div>
         </div>
       </div>
+
+      {/* Navigation Buttons */}
+      <button 
+        onClick={prevSlide}
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 p-2 rounded-full transition-colors"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft className="w-6 h-6 text-white" />
+      </button>
+      <button 
+        onClick={nextSlide}
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 p-2 rounded-full transition-colors"
+        aria-label="Next slide"
+      >
+        <ChevronRight className="w-6 h-6 text-white" />
+      </button>
+
+      {/* Dots indicator */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        {featuredContent.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => handleSlideChange(index)}
+            className={`w-2 h-2 rounded-full transition-all ${
+              currentSlide === index ? 'bg-white w-4' : 'bg-white/50'
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+      </div> 
 
       {/* Content Tabs */}
       <div className="px-8">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Parent from 'D:/zzzz/cihuy-kids/src/assets/isi-web/parent.png'
+import Parent from '../../assets/isi-web/parent.png'
 
 const ParentPage = () => {
   const navigate = useNavigate();

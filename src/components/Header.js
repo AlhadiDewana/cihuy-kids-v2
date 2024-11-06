@@ -41,6 +41,7 @@ const Header = () => {
                 
                 <div className="navbar-right">
                     <img 
+                    onClick={() => navigate('/login')}
                     src={isSticky ? userIconSticky : userIcon} // Menggunakan variabel yang diimport
                     alt="User Icon" 
                     className="navbar-user-icon" 
