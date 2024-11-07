@@ -83,6 +83,10 @@
   color: #fff;
 }
 
+.nav-link {
+  cursor: pointer;
+}
+
 /* Responsive styling */
 @media (max-width: 768px) {
   .navbar-center {

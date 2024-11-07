@@ -1,0 +1,11 @@
+.landing-3 {
+    background-image: url('../assets/landing\ 3/bg-landing-3.png');
+    background-position: start;
+    background-repeat: no-repeat}
+
+.child {
+    background-color:#FE4C64;
+    background-size: cover;
+    background-position: center;
+    padding: 100px;
+}
