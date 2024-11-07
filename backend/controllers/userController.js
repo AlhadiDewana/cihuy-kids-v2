@@ -1,10 +1,11 @@
-const User = require('../models/user');
+const User = require('../models/modelUser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
   async register(req, res) {
     try {
+      
       const { name, email, password } = req.body;
       const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -23,9 +24,12 @@ module.exports = {
       if (!user || !(await bcrypt.compare(password, user.password))) {
         return res.status(401).json({ error: 'Invalid email or password' });
       }
-
+      const { password: _, ...userWithoutPassword } = user.toJSON();
+  
+      // Kirim data user yang berhasil login
+      
       const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      res.status(200).json({ message: 'User logged in successfully', token });
+      res.status(200).json({ message: 'User logged in successfully', token,user: userWithoutPassword, });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }

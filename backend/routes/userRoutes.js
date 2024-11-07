@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/userController');
+const multer = require('multer');
+const {login , register, upgrade} = require('../controllers/userController');
 
-router.post('/register', userController.register);
-router.post('/login', userController.login);
-router.post('/upgrade', userController.upgrade);
+const upload = multer();
+
+router.post('/register',upload.none(), register);
+router.post('/login', upload.none(),login);
+router.post('/upgrade',upload.none(), upgrade);
 
 module.exports = router;
