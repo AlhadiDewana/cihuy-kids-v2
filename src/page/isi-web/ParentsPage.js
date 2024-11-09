@@ -6,7 +6,7 @@ const ParentPage = () => {
   const navigate = useNavigate();
 
   const handleAgeSelect = (age) => {
-    navigate('/video', { state: { selectedAge: age } });
+    navigate('/content', { state: { selectedAge: age } });
   };
 
 

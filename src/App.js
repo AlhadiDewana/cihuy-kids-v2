@@ -6,8 +6,9 @@ import LandingPage3 from './page/Landing3';
 import RoleSelectionPage from './page/isi-web/Jelajahi';
 import ChildPage from './page/isi-web/ChildPage';
 import ParentPage from './page/isi-web/ParentsPage';
-import VideoPage from './page/isi-web/VideoContentPage';
+import ContentPage from './page/isi-web/VideoContentPage';
 import LoginForm from './page/isi-web/login';
+import VideoPage from './page/isi-web/ContentVideo';
 
 function App() {
   return (
@@ -20,8 +21,9 @@ function App() {
           <Route path="/Jelajahi" element={<RoleSelectionPage />} />
           <Route path="/child" element={<ChildPage />} />
           <Route path="/parent" element={<ParentPage />} />
-          <Route path="/video" element={<VideoPage />} />
+          <Route path="/content" element={<ContentPage />} />
           <Route path="/login" element={<LoginForm />} />
+          <Route path="/video" element={<VideoPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>

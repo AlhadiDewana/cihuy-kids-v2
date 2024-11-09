@@ -303,8 +303,10 @@ const ContentCard = ({ item, type }) => {
 
         {/* Content Grid */}
         {activeTab === 'Video' && (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {videoContent.map((video) => (
+    <div
+    onClick={() => navigate('/video')}
+    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {videoContent.map((video) => ( 
         <ContentCard 
           key={video.id} 
           item={video} 
