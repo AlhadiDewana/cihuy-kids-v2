@@ -16,6 +16,8 @@ const Navbar = () => {
                     alt="Cihuy Kids Logo" 
                     className="navbar-logo" 
                     />
+          
+
         </div>
 
         <div className="flex items-center gap-6">

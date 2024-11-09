@@ -20,7 +20,7 @@ const LoginForm = () => {
         <div className="relative p-8">
           {/* Close button */}
           <button className="absolute right-6 top-6">
-            <svg onClick={() => navigate('/video')}  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-gray-500">
+            <svg onClick={() => navigate('/content')}  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-gray-500">
               <path d="M18 6L6 18M6 6l12 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>

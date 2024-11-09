@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Play } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import Footer from '../../components/Footer';
+import Footer2 from '../../components/Footer2';
 import Navbar from '../../components/Navbar';
 
 const VideoPage = () => {
-    
+
   return (
     <div className="min-h-screen bg-[#FCC729]">
       {/* Header/Navigation */}
@@ -104,7 +104,7 @@ const VideoPage = () => {
       </div>
 
       {/* Footer */}
-      <Footer />
+      <Footer2 />
     </div>
   );
 };
