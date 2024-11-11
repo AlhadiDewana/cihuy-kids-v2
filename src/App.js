@@ -6,7 +6,7 @@ import LandingPage3 from './page/Landing3';
 import RoleSelectionPage from './page/isi-web/Jelajahi';
 import ChildPage from './page/isi-web/ChildPage';
 import ParentPage from './page/isi-web/ParentsPage';
-import ContentPage from './page/isi-web/VideoContentPage';
+import ContentPage from './page/isi-web/ContentPage';
 import LoginForm from './page/isi-web/login';
 import VideoPage from './page/isi-web/ContentVideo';
 import Profile from './page/isi-web/Profile';
