@@ -1,154 +1,96 @@
-import React, { useState, useEffect } from 'react';
-import { Settings, Bell, User, Bookmark, BookmarkCheck } from 'lucide-react';
-import { useNavigate, useParams } from 'react-router-dom';
-import logo from '../../assets/icon.png';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/Footer';
+import kancil from '../../assets/isi-web/bacaan/kancil.png'
+import HeaderCont from '../../components/HeaderCont'
 
 const ReadingPage = () => {
-  const navigate = useNavigate();
-  const { chapterId } = useParams();
-  const [selectedAge, setSelectedAge] = useState('4-5 Tahun');
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const [bookmarkTooltip, setBookmarkTooltip] = useState(false);
-
-  // Cek status bookmark saat komponen dimount
-  useEffect(() => {
-    const checkBookmarkStatus = () => {
-      const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-      setIsBookmarked(bookmarks.includes(chapterId));
-    };
-
-    checkBookmarkStatus();
-  }, [chapterId]);
-
-  const handleBookmark = async () => {
-    try {
-      let bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-      
-      if (isBookmarked) {
-        // Hapus bookmark
-        bookmarks = bookmarks.filter(id => id !== chapterId);
-        setIsBookmarked(false);
-        setBookmarkTooltip(true);
-        setTimeout(() => setBookmarkTooltip(false), 2000);
-      } else {
-        // Tambah bookmark
-        bookmarks.push(chapterId);
-        setIsBookmarked(true);
-        setBookmarkTooltip(true);
-        setTimeout(() => setBookmarkTooltip(false), 2000);
-      }
-
-      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-
-      // Kalau mau menyimpan ke backend
-      // await fetch('http://localhost:5000/api/bookmarks', {
-      //   method: isBookmarked ? 'DELETE' : 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${localStorage.getItem('token')}`
-      //   },
-      //   body: JSON.stringify({ chapterId })
-      // });
-
-    } catch (error) {
-      console.error('Error handling bookmark:', error);
-    }
-  };
 
   return (
-    <div className="min-h-screen bg-[#FCC729]">
+    <div className="min-h-screen bg-[#6095FF]">
       {/* Header/Navigation */}
-      <nav className="flex items-center justify-between px-8 py-4">
-        <div className="flex items-center gap-8">
-          <img 
-            src={logo}
-            alt="Cihuy Kids Logo" 
-            className="navbar-logo"
-          />
-          
-          <select 
-            value={selectedAge}
-            onChange={(e) => setSelectedAge(e.target.value)}
-            className="bg-transparent text-white rounded-full px-4 py-2"
-          >
-            <option value="4-5 Tahun">4-5 Tahun</option>
-            <option value="6-7 Tahun">6-7 Tahun</option>
-            <option value="8-9 Tahun">8-9 Tahun</option>
-            <option value="10-12 Tahun">10-12 Tahun</option>
-          </select>
-        </div>
-
-        <div className="flex items-center gap-6">
-          <Settings className="w-6 h-6 text-white cursor-pointer" />
-          <Bell className="w-6 h-6 text-white cursor-pointer" />
-          <User onClick={() => navigate('/login')} className="w-6 h-6 text-white cursor-pointer" />
-        </div>
-      </nav>
+      <HeaderCont/>
 
       {/* Main Content */}
-      <div className="max-w-4xl mx-auto p-8">
-        <div className="bg-[#FFF8E7] rounded-2xl p-8 shadow-lg relative">
-          {/* Bookmark Button */}
-          <div className="absolute top-4 right-4">
-            <button 
-              onClick={handleBookmark}
-              className="relative group"
-            >
-              {isBookmarked ? (
-                <BookmarkCheck className="w-6 h-6 text-[#6095FF]" />
-              ) : (
-                <Bookmark className="w-6 h-6 text-gray-400 hover:text-[#6095FF]" />
-              )}
-              
-              {/* Tooltip */}
-              {bookmarkTooltip && (
-                <div className="absolute right-0 top-8 bg-black text-white text-sm px-2 py-1 rounded whitespace-nowrap">
-                  {isBookmarked ? 'Ditambahkan ke bookmark' : 'Dihapus dari bookmark'}
-                </div>
-              )}
-            </button>
-          </div>
+      <div className="max-w-4xl mx-auto p-8 space-y-24">
+        <div className="bg-[#FE4C64] rounded-2xl p-8 shadow-lg relative">
 
           {/* Chapter Title and Meta Info */}
           <div className="border-b border-gray-200 pb-4 mb-6">
-            <h1 className="text-2xl font-bold mb-2">
-              Chương 5: Siêu việt đạo phong (12)
+            <h1 className="text-2xl font-bold mb-2 text-[#FCC729]">
+            Kisah Petualangan si Cerdik Kancil
             </h1>
-            <div className="flex items-center text-sm text-gray-500 gap-4">
-              <span>🗸 Đăng bởi: Thanh Thành</span>
-              <span>📅 2019-06-12 23:09:48</span>
-              <span>👀 1770 lượt xem</span>
+            <div className="flex items-center text-sm text-gray-500 gap-4 text-white">
+              <span>Atisah, Desi Nurul Anggraini dkk</span>
+              <span>📅 2017</span>
+              <span>👀 7 Juta Kali Dibaca</span>
             </div>
           </div>
 
           {/* Story Content */}
-          <div className="prose max-w-none space-y-4 text-gray-800">
-            <p>Mạn đêm dần buông xuống, Long Hội đã chết.</p>
-
-            <p>Y bị treo ngược trên cột cờ, thì thế cụt tay bị đánh đến chẳng chịt thương tích, máu từ trên người tứ từ nhỏ xuống, bị gió đêm làm đông cứng lại thành băng tuyết đỏ thẫm.</p>
-
-            <p>Thủ thế của những tướng lĩnh còn lại bị treo trên cột cờ phần lớn cũng đều như thế.</p>
+          <div className="prose max-w-none space-y-4 text-white">
+            
+          <div className="mb-8">
+            <img
+              src={kancil}
+              alt="Story of kancil"
+              className="max-w-lg mx-auto"
+              style={{
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+                filter: 'drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.1))'
+              }}
+            />
+          </div>
+          <div className='px-12'>
+            <p>D i pagi hari yang cerah ketika Kancil sedang asyik tertidur. Tiba­Tiba dia dikagetkan oleh suara keras.
+              “Akhirnya aku bisa makan kali ini. Jangan lari kau, Cil!” tiba­tiba sebuah suara diikuti eranganmengerikan muncul di belakang Kancil. Ternyata itu suara Harimau yang telah berdiri di belakang Kancil,siap untuk memangsanya.
+              “Sebentar…sebentar… sabar dulu, teman. Kamu lihat aku yang kecil dan kurus keringbegini pasti­ lah tidak enak untuk dimakan,” dengan sabar Kancil menenangkan Harimau yang merasa kesal itu.
+              “Terus apa maksudmu? Kamu mau menipuku lagi?” tanya Harimau curiga.
+              “Oh… tidak. Bukan begitu maksudku. Tapi boleh aku minta satu permintaan sebelum kamu me­ makanku. Aku ingin makan dulu sebentar. Kalau aku kenyang dagingku pasti lebih enak,” bujuk Kancil terus mengulur waktu sambil berpikirbagaimana caranya bisa meloloskan diri dari ancamanHarimau berbahaya ini.
+              “Baiklah. Aku beri kamu kesempatan. Silakan kamu cari makanan di sekitar sini saja. Aku mengawasi agar kamu tidak lari,” ucap Harimau akhirnya mengalahmeski sebenarnya ia sudah sangatlapar.
+              Kancil lalu mencoba mencari umbi­umbian di sekitar tempat itu. Namun langkahnya terhentiketika melihat seekor ular besar tengah tidur melingkar di bawah semak­semak belukar. Ular itu sepertinya tidak tahu dengan keributan yang baru saja terjadi.
+              Kancil lalu duduk dengan tenang di dekat ular itu. Harimaujadi marah melihatnya. Bukannya mencari makananseperti permintaannya tadi, Kancil malah duduk­duduk santai dengan malas­ nya. Denganmarah Harimau mendekati Kancil.
+              “Hai, Cil! Bagaimana sih, kamu? Bukannya tadi minta makan? Sudah kuizinkan, malah duduk­ duduk di sini,”bentak Harimau.
+              “Ssst… sabar sahabatku. Dan tolong jangan berisik karena aku baru saja menemukan Sabuk Raja yang maha sakti itu,” timpalKancil.
+              Ia menunjuk ke arah ular besar yang tengah melingkar tidakjauh dari tempatnya duduk.
+              “Hei! Aku itu tidak bodoh, Cil! Ini ‘kan ular, bukansabuk,” seru Harimausemakin emosi.
+              “Itu sabuk tapi yang terbuat dari kulit ular. Konon siapa saja yang memakainya, ia akan menjadipenguasa binatang di muka bumi ini. Kamu tidak tertarikmenjadi rajanya hewan?”jelas Kancil meyakinkan.
+              Terus bagaimanacara memakainya?” tanya Harimau tidak sabar.
+              “Oh, gampangitu. Kamu tinggalpakai saja dengan melingkarkan sabuk itu di perutmu,” jawab Kancil.
+              “Benarkah yang kau ucapkanitu, Cil? Terus bolehkah saya memakai sabuk ini?” tanya Hari­ mau mulai tertarik denganpenjelasan Kancil.
+              “Nanti dulu, saya tanyakan Raja dulu.” Kancil menjawab, “Nanti kalau diizinkan, saya akan menjeritkan ‘Pakailah.’”
+              Kemudian kancil pergi dan tak lama kemudian dari kejauhankancil menjerit, “Pakailah.”
+              Harimau lalu meraih ular besar yang sedang tidur itu untuk dijadikan sabuk di perutnya.
+              Ularbesar itu menjadimarah karena tidurnyaterganggu. Tubuhnya langsung melilit Harimau. Ular dan Harimau bertarung seru.
+              Harimau akhirnyasadar kalau dia baru saja ditipu Kancil. Tapi nasi sudah menjadi bubur. Ia berusaha sekuat tenaga melawanular. Dengan susah payah, Harimau akhirnya bisa meloloskan diri dari lilitan ular. Meski ia juga menderita luka akibat gigitanular di sekujur tubuhnya.
+            </p>
+          </div>
 
             {/* Continue with more paragraphs */}
           </div>
-
-          {/* Navigation Buttons */}
-          <div className="flex justify-between mt-8 pt-4 border-t border-gray-200">
-            <button className="bg-[#6095FF] text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition-colors">
-              ← Chương trước
-            </button>
-            <button className="bg-[#6095FF] text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition-colors">
-              Chương sau →
-            </button>
-          </div>
         </div>
 
-        {/* Bookmark List Preview (Optional) */}
-        <div className="mt-8 bg-white rounded-2xl p-6 shadow-lg">
-          <h2 className="text-xl font-bold mb-4">Bookmark Anda</h2>
-          <div className="space-y-4">
-            {/* Render bookmark list here */}
+       {/*rekomendasi*/}
+       <div className="bg-[#FCC729] rounded-lg p-6">
+          <h2 className="text-white font-semibold mb-4">Herdin Lainnya</h2>
+          <div className="space-y-1">
+            {[1, 2, 3, 4, 5].map((_, index) => (
+              <div key={index} className="bg-[#FE4C64] rounded-lg p-4 text-white hover:bg-opacity-90 transition-colors cursor-pointer">
+                <div className="flex gap-4">
+                  <div className="relative w-40 h-24 bg-black rounded-lg overflow-hidden">
+                    <img 
+                      src="/api/placeholder/160/96" 
+                      alt="Video thumbnail" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-2">Chapter One : The Vanishing of Will Byers</h3>
+                    <p className="text-sm text-white/80">On his way from a friend's house, young Will sees something terrifying. Nearby, a sinister secret lurks in the depths of a government lab.</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

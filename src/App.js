@@ -10,6 +10,7 @@ import ContentPage from './page/isi-web/ContentPage';
 import LoginForm from './page/isi-web/login';
 import VideoPage from './page/isi-web/Video';
 import ReadingPage from './page/isi-web/Bacaan';
+import MusicPage from './page/isi-web/Music';
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
           <Route path="/content" element={<ContentPage />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/video" element={<VideoPage />} />
-          <Route path="/bacaan" element={<ReadingPage />} />
+          <Route path="/bacaan/:id" element={<ReadingPage />} />
+          <Route path="/music/:id" element={<MusicPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>

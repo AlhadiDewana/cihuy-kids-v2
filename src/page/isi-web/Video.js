@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Play } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import Footer2 from '../../components/Footer2';
-import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
+import HeaderCont from '../../components/HeaderCont';
 
 const VideoPage = () => {
 
   return (
-    <div className="min-h-screen bg-[#FCC729]">
+    <div className="min-h-screen bg-[#6095FF]">
       {/* Header/Navigation */}
-      <Navbar/>
+      <HeaderCont/>
 
       {/* Main Content */}
       <div className="max-w-6xl mx-auto p-8 space-y-6">
@@ -70,15 +70,15 @@ const VideoPage = () => {
         </div>
 
         {/* Description */}
-        <div className="bg-[#6095FF] rounded-lg p-6 text-white">
+        <div className="bg-[#FE4C64] rounded-lg p-6 text-white">
           <h2 className="font-semibold mb-2">Deskripsi</h2>
           <p>A fiery young man clashes with an unflinching forest officer in a south Indian village where spirituality, fate and folklore rule the lands.</p>
         </div>
 
         {/* Other Videos */}
-        <div className="bg-[#6095FF] rounded-lg p-6">
+        <div className="bg-[#FCC729] rounded-lg p-6">
           <h2 className="text-white font-semibold mb-4">Herdin Lainnya</h2>
-          <div className="space-y-4">
+          <div className="space-y-1">
             {[1, 2, 3, 4, 5].map((_, index) => (
               <div key={index} className="bg-[#FE4C64] rounded-lg p-4 text-white hover:bg-opacity-90 transition-colors cursor-pointer">
                 <div className="flex gap-4">
@@ -104,7 +104,7 @@ const VideoPage = () => {
       </div>
 
       {/* Footer */}
-      <Footer2 />
+      <Footer />
     </div>
   );
 };
