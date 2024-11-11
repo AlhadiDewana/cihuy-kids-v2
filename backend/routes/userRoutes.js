@@ -1,12 +1,31 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const {login , register, upgrade} = require('../controllers/userController');
+const { 
+    login, 
+    register, 
+    upgrade,
+    updateProfile,  // Tambahkan ini
+    changePassword, // Tambahkan ini
+    getProfile     // Tambahkan ini
+} = require('../controllers/userController');
+const authMiddleware = require('../middleware/jwtMiddleware');
 
 const upload = multer();
 
-router.post('/register',upload.none(), register);
-router.post('/login', upload.none(),login);
-router.post('/upgrade',upload.none(), upgrade);
+// Public routes (tidak perlu login)
+router.post('/register', upload.none(), register);
+router.post('/login', upload.none(), login);
+
+// Protected routes (perlu login)
+router.post('/upgrade', authMiddleware, upload.none(), upgrade);
+router.get('/profile', authMiddleware, getProfile);
+router.put('/update-profile', authMiddleware, upload.none(), updateProfile);
+router.put('/change-password', authMiddleware, upload.none(), changePassword);
+
+// Route untuk testing
+router.get('/test', authMiddleware, (req, res) => {
+    res.json({ message: 'Protected route works!' });
+});
 
 module.exports = router;
