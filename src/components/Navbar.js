@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/icon.png';
 import { Settings, Bell, User, LogOut } from 'lucide-react';
+import IconButton from './IconButton';
+import UserMenu from './UserMenu';
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -33,56 +35,26 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-6">
-                <Settings className="w-6 h-6 text-white cursor-pointer" />
-                <Bell className="w-6 h-6 text-white cursor-pointer" />
+                <IconButton>
+                    <Settings className="w-6 h-6 text-white" />
+                </IconButton>
+                <IconButton>
+                    <Bell className="w-6 h-6 text-white" />
+                </IconButton>
                 
                 {/* User icon with dropdown */}
                 <div className="relative">
-                    <User 
-                        onClick={user ? toggleUserMenu : () => navigate('/login')} 
-                        className="w-6 h-6 text-white cursor-pointer"
-                    />
+                    <IconButton onClick={user ? toggleUserMenu : () => navigate('/login')}>
+                        <User className="w-6 h-6 text-white" />
+                    </IconButton>
                     
-                    {/* Dropdown menu */}
                     {user && showUserMenu && (
-                        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2 z-50">
-                            {/* User info */}
-                            <div className="px-4 py-2 border-b">
-                                <p className="text-sm font-semibold text-gray-700">{user.name}</p>
-                                <p className="text-xs text-gray-500">{user.email}</p>
-                            </div>
-                            
-                            {/* Menu items */}
-                            <div className="mt-2">
-                                <button 
-                                    onClick={() => {
-                                        setShowUserMenu(false);
-                                        navigate('/profile');
-                                    }}
-                                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                >
-                                    Profile
-                                </button>
-                                
-                                <button 
-                                    onClick={() => {
-                                        setShowUserMenu(false);
-                                        navigate('/settings');
-                                    }}
-                                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                >
-                                    Settings
-                                </button>
-                                
-                                <button 
-                                    onClick={handleLogout}
-                                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center"
-                                >
-                                    <LogOut className="w-4 h-4 mr-2" />
-                                    Logout
-                                </button>
-                            </div>
-                        </div>
+                        <UserMenu 
+                            user={user}
+                            onLogout={handleLogout}
+                            onProfileClick={() => navigate('/profile')}
+                            onSettingsClick={() => navigate('/settings')}
+                        />
                     )}
                 </div>
             </div>

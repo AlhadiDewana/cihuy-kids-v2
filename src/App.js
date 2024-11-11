@@ -8,10 +8,12 @@ import ChildPage from './page/isi-web/ChildPage';
 import ParentPage from './page/isi-web/ParentsPage';
 import ContentPage from './page/isi-web/ContentPage';
 import LoginForm from './page/isi-web/login';
-import VideoPage from './page/isi-web/ContentVideo';
+import VideoPage from './page/isi-web/Video';
 import Profile from './page/isi-web/Profile';
 import EditProfile from './page/isi-web/EditProfile'; // Import komponen EditProfile
 import ChangePassword from './page/isi-web/ChangePassword'; // Import komponen ChangePassword
+import MusicPage from './page/isi-web/Music';
+import ReadingPage from './page/isi-web/Bacaan';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -73,6 +75,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <VideoPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/music/:id" 
+            element={
+              <ProtectedRoute>
+                <MusicPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/bacaan/:id" 
+            element={
+              <ProtectedRoute>
+                <ReadingPage />
               </ProtectedRoute>
             } 
           />
