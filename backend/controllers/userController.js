@@ -26,30 +26,40 @@ module.exports = {
         }
     },
 
-    async login(req, res) {
-        try {
-            const { email, password } = req.body;
+    // Di bagian login pada userController.js
+async login(req, res) {
+    try {
+        const { email, password } = req.body;
 
-            if (!email || !password) {
-                return res.status(400).json({ error: 'Email dan password harus diisi' });
-            }
-
-            const user = await User.findOne({ where: { email } });
-            if (!user) {
-                return res.status(404).json({ error: 'User tidak ditemukan' });
-            }
-
-            const isPasswordValid = await bcrypt.compare(password, user.password);
-            if (!isPasswordValid) {
-                return res.status(401).json({ error: 'Password salah' });
-            }
-
-            const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-            res.json({ message: 'Login berhasil', token });
-        } catch (error) {
-            res.status(500).json({ error: error.message });
+        if (!email || !password) {
+            return res.status(400).json({ error: 'Email dan password harus diisi' });
         }
-    },
+
+        const user = await User.findOne({ where: { email } });
+        if (!user) {
+            return res.status(404).json({ error: 'User tidak ditemukan' });
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(401).json({ error: 'Password salah' });
+        }
+
+        // Tambahkan console.log untuk debugging
+        console.log('User ID saat login:', user.id);
+        const token = jwt.sign(
+            { 
+                userId: user.id,  // Pastikan properti ini sama dengan yang dibaca di middleware
+                email: user.email // Optional: tambahan informasi yang mungkin berguna
+            }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: '1h' }
+        );
+        res.json({ message: 'Login berhasil', token });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+},
 
     async upgrade(req, res) {
         try {

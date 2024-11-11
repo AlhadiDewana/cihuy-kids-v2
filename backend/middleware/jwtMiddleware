@@ -1,4 +1,4 @@
-// middleware/auth.js
+// middleware/jwtMiddleware.js
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
@@ -9,9 +9,12 @@ module.exports = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.id; // Simpan userId dari token untuk digunakan di controller
+    // Tambahkan console.log untuk debugging
+    console.log('Decoded token:', decoded);
+    req.userId = decoded.userId; // Pastikan ini sesuai dengan yang di token
     next();
   } catch (error) {
+    console.error('JWT Error:', error);
     res.status(401).json({ error: 'Invalid token' });
   }
 };
