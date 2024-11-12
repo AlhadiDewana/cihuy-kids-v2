@@ -13,6 +13,7 @@ import Profile from './page/isi-web/Profile';
 import EditProfile from './page/isi-web/EditProfile'; // Import komponen EditProfile
 import ChangePassword from './page/isi-web/ChangePassword'; // Import komponen ChangePassword
 import MusicPage from './page/isi-web/Music';
+import GamePage from './page/isi-web/Game';
 import ReadingPage from './page/isi-web/Bacaan';
 
 // Protected Route Component
@@ -84,6 +85,14 @@ function App() {
               <ProtectedRoute>
                 <MusicPage />
               </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/game" 
+            element={
+              
+                <GamePage />
+              
             } 
           />
           <Route 
