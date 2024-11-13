@@ -233,9 +233,9 @@ const ContentPage = () => {
         </div>
 
         <div className="flex items-center gap-6">
-          <Settings className="w-6 h-6 text-white cursor-pointer" />
-          <Bell className="w-6 h-6 text-white cursor-pointer" />
-          <User onClick={() => navigate('/login')} className="w-6 h-6 text-white cursor-pointer" />
+          <Settings className="w-8 h-8 text-white cursor-pointer" />
+          <Bell className="w-8 h-8 text-white cursor-pointer fill-white" />
+          <User onClick={() => navigate('/content')} className="w-8 h-8 text-white cursor-pointer border border-3 rounded-full "/><div className='text-white text-lg font-bold'>Login</div>
         </div>
       </nav>
 

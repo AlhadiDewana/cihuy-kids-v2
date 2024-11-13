@@ -36,7 +36,7 @@ const LoginForm = () => {
             localStorage.setItem('user', JSON.stringify(response.data.user));
             
             // Redirect ke halaman video
-            navigate('/video');
+            navigate('/contnent');
         } catch (error) {
             setError(error.response?.data?.error || 'Login gagal. Silakan coba lagi.');
         } finally {

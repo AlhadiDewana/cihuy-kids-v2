@@ -17,7 +17,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="body min-h-screen">
+    <div className="body w-full min-h-screen bg-white">
       {/* Header */}
       <Header/>
 
