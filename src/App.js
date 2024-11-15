@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import LandingPage from './page/LandingPage';
-import LandingPage2 from './page/Landing2';
-import LandingPage3 from './page/Landing3';
+import LandingPage from './page/landing/LandingPage';
+import LandingPage2 from './page/landing/Landing2';
+import LandingPage3 from './page/landing/Landing3';
 import RoleSelectionPage from './page/isi-web/Jelajahi';
 import ChildPage from './page/isi-web/ChildPage';
 import ParentPage from './page/isi-web/ParentsPage';

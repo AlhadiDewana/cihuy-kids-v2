@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header/Header';
-import Footer from "../components/footer/Footer";
-import child1 from "../assets/landing 3/child-1.png"
-import child2 from "../assets/landing 3/child-2.png"
-import child3 from "../assets/landing 3/child-3.png"
-import child4 from "../assets/landing 3/child-4.png"
-import HeroImage from "../assets/landing 3/cover-3.png"
-import "../page/Landing3.css"
+import Header from '../../components/Header/Header';
+import Footer from "../../components/footer/Footer";
+import child1 from "../../assets/landing 3/child-1.png"
+import child2 from "../../assets/landing 3/child-2.png"
+import child3 from "../../assets/landing 3/child-3.png"
+import child4 from "../../assets/landing 3/child-4.png"
+import HeroImage from "../../assets/landing 3/cover-3.png"
+import "../landing/style/Landing3.css"
 
 
 const LandingPage3 = () => {
