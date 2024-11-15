@@ -10,13 +10,12 @@ import ContentPage from './page/isi-web/ContentPage';
 import LoginForm from './components/auth/login';
 import VideoPage from './page/isi-web/Video';
 import Profile from './page/isi-web/Profile';
-import EditProfile from './components/account/EditProfile';
-import ChangePassword from './components/account/ChangePassword';
+import EditProfile from './components/auth/EditProfile';
+import ChangePassword from './components/auth/ChangePassword';
 import MusicPage from './page/isi-web/Music';
 import GamePage from './page/isi-web/Game';
 import ReadingPage from './page/isi-web/Bacaan';
 import Konfirm from './components/Premium/KonfirmPay';
-import RegisterForm from './components/auth/RegisterForm';
 
 // Menggunakan isAuthenticated function
 const isAuthenticated = () => {
