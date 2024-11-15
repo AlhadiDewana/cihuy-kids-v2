@@ -5,7 +5,7 @@ import stickyLogo from '../../assets/logo.png';
 import userIcon from '../../assets/profile-icon.png';
 import userIconSticky from '../../assets/profile-icon-sticky.png';
 import { useNavigate } from 'react-router-dom';
-import LoginForm from '../account/login';
+import LoginForm from '../auth/login';
 
 const Header = () => {
     const [isSticky, setIsSticky] = useState(false);

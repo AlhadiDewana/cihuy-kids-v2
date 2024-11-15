@@ -4,11 +4,13 @@ import { X, Eye, EyeOff } from 'lucide-react';
 import axios from 'axios';
 import loginImage from '../../assets/login/login.png';
 import RegisterForm from './RegisterForm';
+import ResetPasswordForm from './ResetPassword'
 
 const LoginForm = ({ onClose }) => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
+    const [showResetPassword, setShowResetPassword] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -52,6 +54,11 @@ const LoginForm = ({ onClose }) => {
         e.preventDefault();
         setShowRegister(true);
     };
+
+    const handleResetPasswordClick = (e) => {
+        e.preventDefault();
+        setShowResetPassword(true);
+    }
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -126,9 +133,11 @@ const LoginForm = ({ onClose }) => {
                     </div>
 
                     <div className="text-right">
-                        <Link to="/forgot-password" className="text-blue-500 text-sm hover:underline">
+                    <button
+                         onClick={handleResetPasswordClick}
+                          className="text-blue-500 hover:underline">
                             Lupa kata sandi?
-                        </Link>
+                        </button>
                     </div>
 
                     <button
@@ -164,6 +173,10 @@ const LoginForm = ({ onClose }) => {
                         <RegisterForm 
                             isOpen={showRegister} 
                             onClose={() => setShowRegister(false)} 
+                        />
+                        <ResetPasswordForm 
+                            isOpen={showResetPassword}
+                            onClose={() => setShowResetPassword(false)}
                         />
             </div>
         </div>

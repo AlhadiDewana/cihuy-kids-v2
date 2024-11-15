@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Settings, Bell, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/icon.png';
-import LoginForm from '../account/login';
+import LoginForm from '../auth/login';
 
 const Navbar = ({ selectedAge, handleAgeChange }) => {
     const navigate = useNavigate();

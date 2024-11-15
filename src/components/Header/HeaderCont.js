@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Settings, Bell, User } from 'lucide-react';
 import logo from '../../assets/icon.png';
-import LoginForm from '../account/login';
+import LoginForm from '../auth/login';
 
 const HeaderCont = () => {
   const navigate = useNavigate();

@@ -7,7 +7,7 @@ import RoleSelectionPage from './page/isi-web/Jelajahi';
 import ChildPage from './page/isi-web/ChildPage';
 import ParentPage from './page/isi-web/ParentsPage';
 import ContentPage from './page/isi-web/ContentPage';
-import LoginForm from './components/account/login';
+import LoginForm from './components/auth/login';
 import VideoPage from './page/isi-web/Video';
 import Profile from './page/isi-web/Profile';
 import EditProfile from './components/account/EditProfile';
@@ -16,7 +16,7 @@ import MusicPage from './page/isi-web/Music';
 import GamePage from './page/isi-web/Game';
 import ReadingPage from './page/isi-web/Bacaan';
 import Konfirm from './components/Premium/KonfirmPay';
-import RegisterForm from './components/account/RegisterForm';
+import RegisterForm from './components/auth/RegisterForm';
 
 // Menggunakan isAuthenticated function
 const isAuthenticated = () => {
