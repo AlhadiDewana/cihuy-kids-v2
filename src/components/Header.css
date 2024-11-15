@@ -62,20 +62,22 @@
 
 .navbar-user-icon {
   width: 100%; /* Set a specific width for user icon */
+  cursor: pointer;
 }
 
 .navbar-button {
   background-color: #fff;
-  color: #007bff;
+  color: #6095FF;
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 8px 32px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s; /* Smooth transition for background color and text color */
+  font-weight: 600;
 }
 
 .navbar-button:hover {
-  background-color: #ef0000; /* Background color on hover */
+  background-color: #000000; /* Background color on hover */
   color: #fff; /* Text color on hover */
 }
 .sticky-button {

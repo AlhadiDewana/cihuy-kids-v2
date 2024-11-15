@@ -5,13 +5,14 @@ import Preview1 from '../assets/preview/Gambar 1.png';
 import Preview2 from '../assets/preview/Gambar 2.png';
 import Preview3 from '../assets/preview/Gambar 3.png';
 import Preview4 from '../assets/preview/Gambar 4.png';
+import Premium from '../components/Premium/Premium';
 import Footer from '../components/Footer';
 import '../page/LandingPage.css';
 
 
 
 const LandingPage = () => {
-
+  const [showPremium, setShowPremium] = React.useState(false);
   const handleNavClick = (section) => {
     console.log(`Navigating to ${section}`);
   };
@@ -73,11 +74,15 @@ const LandingPage = () => {
                 </li>
               </ul>
               <button 
-                onClick={() => handleNavClick('berlangganan')}
+                onClick={() => setShowPremium(true)}
                 className="bg-white text-blue-500 px-6 py-2 rounded-full font-bold hover:bg-blue-100 transition-colors"
               >
                 Berlangganan
               </button>
+              <Premium 
+              isOpen={showPremium} 
+              onClose={() => setShowPremium(false)} 
+            />
             </div>
 
             <div className="preview flex space-x-4 overflow-auto mt-16">

@@ -42,65 +42,49 @@ function App() {
           <Route 
             path="/Jelajahi" 
             element={
-              <ProtectedRoute>
                 <RoleSelectionPage />
-              </ProtectedRoute>
             } 
           />
           <Route 
             path="/child" 
             element={
-              <ProtectedRoute>
                 <ChildPage />
-              </ProtectedRoute>
             } 
           />
           <Route 
             path="/parent" 
             element={
-              <ProtectedRoute>
                 <ParentPage />
-              </ProtectedRoute>
             } 
           />
           <Route 
             path="/content" 
             element={
-              <ProtectedRoute>
                 <ContentPage />
-              </ProtectedRoute>
             } 
           />
           <Route 
             path="/video" 
             element={
-              <ProtectedRoute>
                 <VideoPage />
-              </ProtectedRoute>
             } 
           />
           <Route 
             path="/music/:id" 
             element={
-              <ProtectedRoute>
                 <MusicPage />
-              </ProtectedRoute>
             } 
           />
           <Route 
             path="/game/:id" 
             element={
-              
                 <GamePage />
-              
             } 
           />
           <Route 
             path="/bacaan/:id" 
             element={
-              <ProtectedRoute>
                 <ReadingPage />
-              </ProtectedRoute>
             } 
           />
           <Route 
