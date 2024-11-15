@@ -1,10 +1,27 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { X, Check } from 'lucide-react';
 import premiumkids from '../../assets/premium-kids.png'
+import { isAuthenticated } from '../../auth';
 import Konfirm from "./KonfirmPay";
 
 const Premium = ({isOpen, onClose}) => {
     const [showKonfirm, setShowKonfirm] = useState(false);
+    const navigate = useNavigate();
+
+    const handleBuyClick = () => {
+        if (!isAuthenticated()) {
+            // Redirect ke halaman login
+            navigate('/login', { 
+                state: { 
+                    returnUrl: '/konfirmasi-pembayaran',
+                    message: 'Silakan login terlebih dahulu untuk melakukan pembayaran' 
+                } 
+            });
+            return;
+        }
+        setShowKonfirm(true);
+    };
     
     const features = [
         'Akses video tanpa batas',
@@ -89,14 +106,17 @@ const Premium = ({isOpen, onClose}) => {
                                             </ul>
                                         </div>
                                         <button 
-                                        onClick={() => setShowKonfirm(true)}
-                                        className="w-full bg-[#6095FF] hover:bg-black text-white py-2 px-4 rounded-md transition-colors mt-20">
+                                            onClick={handleBuyClick}
+                                            className="w-full bg-[#6095FF] hover:bg-black text-white py-2 px-4 rounded-md transition-colors"
+                                        >
                                             Beli
                                         </button>
-                                        <Konfirm 
-                                            isOpen={showKonfirm} 
-                                            onClose={() => setShowKonfirm(false)} 
-                                        />
+                                        {showKonfirm && isAuthenticated() && (
+                                            <Konfirm 
+                                                isOpen={showKonfirm} 
+                                                onClose={() => setShowKonfirm(false)} 
+                                            />
+                                        )}
                                     </div>
                                 </div>
                             ))}

@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useNavigate, useEffect } from "react";
 import { X, Cloud } from 'lucide-react';
 
 const Konfirm = ({isOpen, onClose}) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [selectedPlan, setSelectedPlan] = useState("1 Bulan");
     const [selectedBank, setSelectedBank] = useState("BCA");
+    const navigate = useNavigate();
+
+    // Cek status login
+    useEffect(() => {
+        const isLoggedIn = localStorage.getItem('isLoggedIn'); // atau sessionStorage
+        if (!isLoggedIn) {
+            onClose();
+            navigate('/login');
+        }
+    }, [navigate, onClose]);
     
     const plans = {
         "1 Bulan": "Rp70.000",

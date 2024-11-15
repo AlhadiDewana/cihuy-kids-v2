@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User, Mail, Phone, ArrowLeft, Edit, Key } from 'lucide-react';
-import Navbar from '../../components/Navbar'; // Sesuaikan dengan path Navbar Anda
+import Navbar from '../../components/Header/Navbar'; // Sesuaikan dengan path Navbar Anda
 
 const Profile = () => {
     const navigate = useNavigate();

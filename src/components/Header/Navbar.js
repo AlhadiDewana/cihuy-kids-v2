@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/icon.png';
+import logo from '../../assets/icon.png';
 import { Settings, Bell, User, LogOut } from 'lucide-react';
-import IconButton from './IconButton';
-import UserMenu from './UserMenu';
+import IconButton from '../IconButton';
+import UserMenu from '../UserMenu';
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -35,17 +35,10 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-6">
-                <IconButton>
-                    <Settings className="w-6 h-6 text-white" />
-                </IconButton>
-                <IconButton>
-                    <Bell className="w-6 h-6 text-white" />
-                </IconButton>
-                
                 {/* User icon with dropdown */}
                 <div className="relative">
                     <IconButton onClick={user ? toggleUserMenu : () => navigate('/login')}>
-                        <User className="w-6 h-6 text-white" />
+                        <User className="w-8 h-8 text-white border border-3 rounded-full p-[4px]" />
                     </IconButton>
                     
                     {user && showUserMenu && (

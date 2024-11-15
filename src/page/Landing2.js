@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import '../page/Landing\ 2.css';
 import HeroImage from '../assets/cover-landing-2.png';
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 import child1 from '../assets/landing 2/child-1.png';
 import child2 from '../assets/landing 2/child-2.png';
 import child3 from '../assets/landing 2/child-3.png';
 import child4 from '../assets/landing 2/child-4.png';
 import child5 from '../assets/landing 2/child-5.png';
 import child6 from '../assets/landing 2/child-6.png';
-import Footer from '../components/Footer';
+import Footer from '../components/footer/Footer';
 
 
 

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 import HeroImage from '../assets/cover.png';
 import Preview1 from '../assets/preview/Gambar 1.png';
 import Preview2 from '../assets/preview/Gambar 2.png';
 import Preview3 from '../assets/preview/Gambar 3.png';
 import Preview4 from '../assets/preview/Gambar 4.png';
 import Premium from '../components/Premium/Premium';
-import Footer from '../components/Footer';
+import Footer from '../components/footer/Footer';
 import '../page/LandingPage.css';
 
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
-import Footer from "../components/Footer";
+import Header from '../components/Header/Header';
+import Footer from "../components/footer/Footer";
 import child1 from "../assets/landing 3/child-1.png"
 import child2 from "../assets/landing 3/child-2.png"
 import child3 from "../assets/landing 3/child-3.png"
