@@ -29,20 +29,20 @@ const LoginForm = ({ onClose }) => {
         e.preventDefault();
         setError('');
         setLoading(true);
-
+    
         try {
             const response = await axios.post('http://localhost:9000/api/login', {
                 email: formData.email,
                 password: formData.password
             });
-
+    
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('user', JSON.stringify(response.data.user));
             
             if (onClose) {
                 onClose();
             }
-            navigate('/content');
+            navigate('/Jelajahi');
         } catch (error) {
             setError(error.response?.data?.error || 'Login gagal. Silakan coba lagi.');
         } finally {
@@ -140,7 +140,7 @@ const LoginForm = ({ onClose }) => {
                         </button>
                     </div>
 
-                    <button
+                    <button 
                         type="submit"
                         disabled={loading}
                         className="w-full bg-blue-500 text-white py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors"
