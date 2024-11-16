@@ -1,11 +1,11 @@
 import React from 'react';
-import '../components/Footer.css'
+import '../footer/style/Footer.css'
 
 const Footer = () => {
   return (
     <footer className="footer text-white py-8 mt-24">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="container mx-auto ">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-24">
           <div>
             <h3 className="font-bold mb-4">Ikuti Kami</h3>
             <div className="flex space-x-4">

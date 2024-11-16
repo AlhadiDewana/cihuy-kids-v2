@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Play } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import Footer from '../../components/Footer';
-import HeaderCont from '../../components/HeaderCont';
+import Footer from '../../components/footer/Footer';
+import HeaderCont from '../../components/Header/HeaderCont';
 
 const VideoPage = () => {
 

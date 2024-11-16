@@ -2,10 +2,10 @@
 import React, {useState} from 'react';
 import { Play, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import HeaderCont from '../../components/HeaderCont';
-import Footer from '../../components/Footer';
+import HeaderCont from '../../components/Header/HeaderCont';
+import Footer from '../../components/footer/Footer';
 import game from '../../assets/isi-web/game/banner.png';
-import GameInstructions from '../../components/HowToPlay';
+import GameInstructions from '../../components/game/HowToPlay';
 
 const GamePage = () => {
     const [showInstructions, setShowInstructions] = React.useState(false);

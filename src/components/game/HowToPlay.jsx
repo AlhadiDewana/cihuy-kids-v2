@@ -1,7 +1,7 @@
 import React from 'react';
 import { X } from 'lucide-react';
-import instructionleft from '../assets/isi-web/game/ins-kiri.png'
-import instructionright from '../assets/isi-web/game/ins-kanan.png'
+import instructionleft from '../../assets/isi-web/game/ins-kiri.png'
+import instructionright from '../../assets/isi-web/game/ins-kanan.png'
 
 const GameInstructions = ({ isOpen, onClose }) => {
   if (!isOpen) return null;

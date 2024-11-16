@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
-import HeroImage from '../assets/cover.png';
-import Preview1 from '../assets/preview/Gambar 1.png';
-import Preview2 from '../assets/preview/Gambar 2.png';
-import Preview3 from '../assets/preview/Gambar 3.png';
-import Preview4 from '../assets/preview/Gambar 4.png';
-import Footer from '../components/Footer';
-import '../page/LandingPage.css';
+import Header from '../../components/Header/Header';
+import HeroImage from '../../assets/cover.png';
+import Preview1 from '../../assets/preview/Gambar 1.png';
+import Preview2 from '../../assets/preview/Gambar 2.png';
+import Preview3 from '../../assets/preview/Gambar 3.png';
+import Preview4 from '../../assets/preview/Gambar 4.png';
+import Premium from '../../components/Premium/Premium';
+import Footer from '../../components/footer/Footer';
+import '../landing/style/LandingPage.css';
 
 
 
 const LandingPage = () => {
-
+  const [showPremium, setShowPremium] = React.useState(false);
   const handleNavClick = (section) => {
     console.log(`Navigating to ${section}`);
   };
 
   return (
-    <div className="body min-h-screen">
+    <div className="body w-full min-h-screen bg-white">
       {/* Header */}
       <Header/>
 
@@ -73,11 +74,15 @@ const LandingPage = () => {
                 </li>
               </ul>
               <button 
-                onClick={() => handleNavClick('berlangganan')}
+                onClick={() => setShowPremium(true)}
                 className="bg-white text-blue-500 px-6 py-2 rounded-full font-bold hover:bg-blue-100 transition-colors"
               >
                 Berlangganan
               </button>
+              <Premium 
+              isOpen={showPremium} 
+              onClose={() => setShowPremium(false)} 
+            />
             </div>
 
             <div className="preview flex space-x-4 overflow-auto mt-16">

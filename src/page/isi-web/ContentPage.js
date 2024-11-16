@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Settings, Bell, User, Search } from 'lucide-react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
-import Footer from '../../components/Footer.js'
-import logo from '../../assets/icon.png'
+import Footer from '../../components/footer/Footer.js'
+import Navbar2 from '../../components/Header/Navbar2.jsx'
 import banner1 from '../../assets/isi-web/kinderflix.png'
 import banner2 from '../../assets/isi-web/balonku.png'
 import banner3 from '../../assets/isi-web/puzzle.png'
@@ -212,32 +211,10 @@ const ContentPage = () => {
   return (
     <div className="min-h-screen bg-[#6095FF]">
       {/* Header/Navigation */}
-      <nav className="flex items-center justify-between px-8 py-4">
-        <div className="flex items-center gap-8">
-        <img 
-                    src={logo} // Menggunakan variabel yang diimport
-                    alt="Cihuy Kids Logo" 
-                    className="navbar-logo" 
-                    />
-          
-          <select 
-            value={selectedAge}
-            onChange={(e) => handleAgeChange(e.target.value)}
-            className="bg-transparent text-white rounded-full px-4 py-2"
-          >
-            <option value="4-5 Tahun">4-5 Tahun</option>
-            <option value="6-7 Tahun">6-7 Tahun</option>
-            <option value="8-9 Tahun">8-9 Tahun</option>
-            <option value="10-12 Tahun">10-12 Tahun</option>
-          </select>
-        </div>
-
-        <div className="flex items-center gap-6">
-          <Settings className="w-6 h-6 text-white cursor-pointer" />
-          <Bell className="w-6 h-6 text-white cursor-pointer" />
-          <User onClick={() => navigate('/login')} className="w-6 h-6 text-white cursor-pointer" />
-        </div>
-      </nav>
+      <Navbar2 
+                selectedAge={selectedAge}
+                handleAgeChange={handleAgeChange}
+            />
 
       {/* Featured Content Banner */}
       <div className="relative bg-[#FE4C64] mx-8 rounded-3xl overflow-hidden mb-8">
