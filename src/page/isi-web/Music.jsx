@@ -22,7 +22,7 @@ const MusicPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#6095FF] pb-24">
+    <div className="min-h-screen bg-[#6095FF]">
       <HeaderCont />
 
      <div className='px-8'>
