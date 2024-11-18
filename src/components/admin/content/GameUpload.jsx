@@ -4,9 +4,9 @@ import { X, Upload } from 'lucide-react';
 const UploadGameModal = ({ isOpen, onClose }) => {
     const [formData, setFormData] = useState({
         title: '',
-        category: 'Edukasi',
+        category: 'Lagu Anak',
         status: 'Free',
-        Game: null,
+        game: null,
         thumbnail: null
     });
 
@@ -38,7 +38,7 @@ const UploadGameModal = ({ isOpen, onClose }) => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-white rounded-2xl p-6 w-full max-w-2xl mx-4">
                 <div className="flex justify-between items-center mb-6">
-                    <h3 className="text-2xl font-semibold">Upload Game</h3>
+                    <h3 className="text-2xl font-semibold">Upload Musik</h3>
                     <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
                         <X className="w-6 h-6" />
                     </button>
@@ -47,25 +47,25 @@ const UploadGameModal = ({ isOpen, onClose }) => {
                 <form onSubmit={handleSubmit} className="space-y-0">
                     {/* Game Upload */}
                     <div>
-                        <label className="block mb-2 font-medium">File Game</label>
+                        <label className="block mb-2 font-medium">File Musik</label>
                         <div className="border-2 border-dashed border-gray-300 rounded-xl p-8">
                             <div className="space-y-2 text-center">
                                 <Upload className="mx-auto h-12 w-12 text-gray-400" />
                                 <div className="text-sm text-gray-600">
-                                    <label htmlFor="Game-upload" className="relative cursor-pointer text-blue-500 hover:text-blue-600">
-                                        <span>Upload Game</span>
+                                    <label htmlFor="game-upload" className="relative cursor-pointer text-blue-500 hover:text-blue-600">
+                                        <span>Upload Musik</span>
                                         <input 
-                                            id="Game-upload" 
-                                            name="Game" 
+                                            id="game-upload" 
+                                            name="game" 
                                             type="file" 
                                             className="sr-only"
-                                            accept="html/*"
+                                            accept="audio/*"
                                             onChange={handleChange}
                                         />
                                     </label>
                                     <p>atau drag and drop</p>
                                 </div>
-                                <p className="text-xs text-gray-500">MP3 up to 10MB</p>
+                                <p className="text-xs text-gray-500">Mp4 up to 10MB</p>
                             </div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@ const UploadGameModal = ({ isOpen, onClose }) => {
                             value={formData.title}
                             onChange={handleChange}
                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Masukkan judul game"
+                            placeholder="Masukkan judul musik"
                             required
                         />
                     </div>
@@ -119,8 +119,8 @@ const UploadGameModal = ({ isOpen, onClose }) => {
                                 onChange={handleChange}
                                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
-                                <option value="Lagu Anak">Edukasi</option>
-                                <option value="Lagu Nasional">Puzzle</option>
+                                <option value="Lagu Anak">Lagu Anak</option>
+                                <option value="Lagu Nasional">Lagu Nasional</option>
                             </select>
                         </div>
 
