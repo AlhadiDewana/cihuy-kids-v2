@@ -109,7 +109,7 @@ const ContentPage = () => {
       }
     ];
   
-  // Tambahkan ini setelah deklarasi data konten dan sebelum return statement
+    //Card
   const ContentCard = ({ item, type }) => {
     const navigate = useNavigate();
     const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -251,6 +251,7 @@ const ContentPage = () => {
           </p>
         </div>
       )}
+      
       {/* Footer */}
       <Footer/>
     </div>
