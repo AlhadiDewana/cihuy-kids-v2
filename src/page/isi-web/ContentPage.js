@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
+import Banner from '../../components/content/Banner';
+import ContentCard from '../../components/content/ContentCard.jsx';
 import Footer from '../../components/footer/Footer.js'
 import Navbar2 from '../../components/Header/Navbar2.jsx'
 import banner1 from '../../assets/isi-web/kinderflix.png'
@@ -77,10 +78,6 @@ const ContentPage = () => {
     // Add more reading items
   ];
 
-    //Carousel Banner
-    const [currentSlide, setCurrentSlide] = useState(0);
-    const [isAnimating, setIsAnimating] = useState(false);
-
     const featuredContent = [
       {
         tag: "#VIDEOPALINGDISUKAI",
@@ -112,31 +109,6 @@ const ContentPage = () => {
       }
     ];
   
-    useEffect(() => {
-      const timer = setInterval(() => {
-        handleSlideChange((prev) => prev === featuredContent.length - 1 ? 0 : prev + 1);
-      }, 5000);
-  
-      return () => clearInterval(timer);
-    }, []);
-  
-    const handleSlideChange = (newIndex) => {
-      setIsAnimating(true);
-      setTimeout(() => {
-        setCurrentSlide(newIndex);
-        setIsAnimating(false);
-      }, 300); // Sesuaikan dengan durasi animasi
-    };
-  
-    const nextSlide = () => {
-      handleSlideChange(currentSlide === featuredContent.length - 1 ? 0 : currentSlide + 1);
-    };
-  
-    const prevSlide = () => {
-      handleSlideChange(currentSlide === 0 ? featuredContent.length - 1 : currentSlide - 1);
-    };
-
-
   // Tambahkan ini setelah deklarasi data konten dan sebelum return statement
   const ContentCard = ({ item, type }) => {
     const navigate = useNavigate();
@@ -216,69 +188,11 @@ const ContentPage = () => {
                 handleAgeChange={handleAgeChange}
             />
 
-      {/* Featured Content Banner */}
-      <div className="relative bg-[#FE4C64] mx-8 rounded-3xl overflow-hidden mb-8">
-      <div className="p-8 flex justify-between items-center">
-        {/* Text section with darker red background */}
-        <div className="text-white flex-1 bg-[#E73A51] rounded-2xl p-6">
-          <div className={`transform transition-all duration-300 ${
-            isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
-          }`}>
-            <p className="text-sm mb-2">{featuredContent[currentSlide].tag}</p>
-            <h2 className="text-4xl font-bold mb-4">{featuredContent[currentSlide].title}</h2>
-            <p className="mb-6 max-w-md">{featuredContent[currentSlide].description}</p>
-            <button className="bg-white text-[#FF4B6E] px-6 py-2 rounded-full font-semibold hover:bg-gray-100 transition-colors">
-              {featuredContent[currentSlide].buttonText}
-            </button>
-          </div>
-        </div>
-        
-        <div className="relative flex-1 ml-8">
-          <div className={`transform transition-all duration-300 ${
-            isAnimating ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'
-          }`}>
-            <img 
-              src={featuredContent[currentSlide].image}
-              alt={featuredContent[currentSlide].title}
-              className="rounded-lg w-full h-[300px] object-cover"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Navigation Buttons */}
-      <button 
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 p-2 rounded-full transition-colors"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft className="w-6 h-6 text-white" />
-      </button>
-      <button 
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 p-2 rounded-full transition-colors"
-        aria-label="Next slide"
-      >
-        <ChevronRight className="w-6 h-6 text-white" />
-      </button>
-
-      {/* Dots indicator */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-        {featuredContent.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => handleSlideChange(index)}
-            className={`w-2 h-2 rounded-full transition-all ${
-              currentSlide === index ? 'bg-white w-4' : 'bg-white/50'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
-      </div> 
+      <Banner featuredContent={featuredContent} />
 
       {/* Content Tabs */}
       <div className="px-8">
+        {/* Tab buttons */}
         <div className="flex gap-8 mb-6">
           {availableMenus.map((tab) => (
             <button
@@ -289,7 +203,6 @@ const ContentPage = () => {
               } relative group`}
             >
               {tab}
-              {/* Show message if menu is locked */}
               {!availableMenus.includes(tab) && (
                 <div className="absolute hidden group-hover:block bg-white text-black text-sm p-2 rounded shadow-lg whitespace-nowrap">
                   Menu ini tersedia untuk usia yang lebih tinggi
@@ -299,57 +212,21 @@ const ContentPage = () => {
           ))}
         </div>
 
-        {/* Content Grid */}
-        {activeTab === 'Video' && (
-    <div
-    onClick={() => navigate('/video')}
-    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {videoContent.map((video) => ( 
-        <ContentCard 
-          key={video.id} 
-          item={video} 
-          type="video" 
-        />
-      ))}
-    </div>
-  )}
-
-  {activeTab === 'Musik' && (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      
-      {musicContent.map((music) => (
-        <ContentCard 
-          key={music.id} 
-          item={music} 
-          type="musik" 
-        />
-      ))}
-    </div>
-  )}
-
-  {activeTab === 'Game' && (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {gameContent.map((game) => (
-        <ContentCard 
-          key={game.id} 
-          item={game} 
-          type="game" 
-        />
-      ))}
-    </div>
-  )}
-
-  {activeTab === 'Bacaan' && (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {readingContent.map((reading) => (
-        <ContentCard 
-          key={reading.id} 
-          item={reading} 
-          type="bacaan" 
-        />
-      ))}
-    </div>
-  )}
+        {/* Content grid using the new ContentCard component */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {activeTab === 'Video' && videoContent.map((video) => (
+            <ContentCard key={video.id} item={video} type="video" />
+          ))}
+          {activeTab === 'Musik' && musicContent.map((music) => (
+            <ContentCard key={music.id} item={music} type="musik" />
+          ))}
+          {activeTab === 'Game' && gameContent.map((game) => (
+            <ContentCard key={game.id} item={game} type="game" />
+          ))}
+          {activeTab === 'Bacaan' && readingContent.map((reading) => (
+            <ContentCard key={reading.id} item={reading} type="bacaan" />
+          ))}
+        </div>
       </div>
 
       {/* Message for locked content */}

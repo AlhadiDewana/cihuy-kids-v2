@@ -62,19 +62,19 @@ function App() {
           <Route 
             path="/Jelajahi" 
             element={
-              isAuthenticated() ? <RoleSelectionPage /> : <Navigate to="/login" replace />
+              <RoleSelectionPage />
             } 
           />
           <Route 
             path="/child" 
             element={
-              isAuthenticated() ? <ChildPage /> : <Navigate to="/login" replace />
+              <ChildPage />
             } 
           />
           <Route 
             path="/parent" 
             element={
-              isAuthenticated() ? <ParentPage /> : <Navigate to="/login" replace />
+               <ParentPage />
             } 
           />
           <Route 
@@ -92,19 +92,19 @@ function App() {
           <Route 
             path="/music/:id" 
             element={
-              isAuthenticated() ? <MusicPage /> : <Navigate to="/login" replace />
+              <MusicPage />
             } 
           />
           <Route 
             path="/game/:id" 
             element={
-              isAuthenticated() ? <GamePage /> : <Navigate to="/login" replace />
+             <GamePage />
             } 
           />
           <Route 
             path="/bacaan/:id" 
             element={
-              isAuthenticated() ? <ReadingPage /> : <Navigate to="/login" replace />
+             <ReadingPage />
             } 
           />
           <Route 
