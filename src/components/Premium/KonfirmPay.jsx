@@ -1,5 +1,7 @@
-import React, { useState, useNavigate, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import { X, Cloud } from 'lucide-react';
+import { isAuthenticated } from '../../auth';
 
 const Konfirm = ({isOpen, onClose}) => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -9,10 +11,14 @@ const Konfirm = ({isOpen, onClose}) => {
 
     // Cek status login
     useEffect(() => {
-        const isLoggedIn = localStorage.getItem('isLoggedIn'); // atau sessionStorage
-        if (!isLoggedIn) {
+        if (!isAuthenticated()) {
             onClose();
-            navigate('/login');
+            navigate('/login', { 
+                state: { 
+                    returnUrl: '/konfirmasi-pembayaran',
+                    message: 'Silakan login terlebih dahulu untuk melakukan pembayaran' 
+                } 
+            });
         }
     }, [navigate, onClose]);
     

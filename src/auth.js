@@ -1,11 +1,13 @@
 // utils/auth.js
 export const login = (userData) => {
     localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('token', 'your_token_here'); // Add this if you have a token
     localStorage.setItem('userData', JSON.stringify(userData));
 };
 
 export const logout = () => {
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token');
     localStorage.removeItem('userData');
 };
 

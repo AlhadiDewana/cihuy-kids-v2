@@ -1,17 +1,25 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
 import { X, Check } from 'lucide-react';
-import premiumkids from '../../assets/premium-kids.png'
+import premiumkids from '../../assets/premium-kids.png';
 import { isAuthenticated } from '../../auth';
 import Konfirm from "./KonfirmPay";
 
 const Premium = ({isOpen, onClose}) => {
     const [showKonfirm, setShowKonfirm] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
+
+
+    // Check untuk redirect setelah login
+     useEffect(() => {
+        if (location.state?.returnUrl === '/konfirmasi-pembayaran' && isAuthenticated()) {
+            setShowKonfirm(true);
+        }
+    }, [location]);
 
     const handleBuyClick = () => {
         if (!isAuthenticated()) {
-            // Redirect ke halaman login
             navigate('/login', { 
                 state: { 
                     returnUrl: '/konfirmasi-pembayaran',
@@ -22,6 +30,7 @@ const Premium = ({isOpen, onClose}) => {
         }
         setShowKonfirm(true);
     };
+
     
     const features = [
         'Akses video tanpa batas',
@@ -42,6 +51,13 @@ const Premium = ({isOpen, onClose}) => {
             features: features
         }
     ];
+
+    const handleKonfirmClose = () => {
+        setShowKonfirm(false);
+        if (onClose) {
+            onClose();
+        }
+    };
 
     if (!isOpen) return null;
 
@@ -111,12 +127,6 @@ const Premium = ({isOpen, onClose}) => {
                                         >
                                             Beli
                                         </button>
-                                        {showKonfirm && isAuthenticated() && (
-                                            <Konfirm 
-                                                isOpen={showKonfirm} 
-                                                onClose={() => setShowKonfirm(false)} 
-                                            />
-                                        )}
                                     </div>
                                 </div>
                             ))}
@@ -124,6 +134,14 @@ const Premium = ({isOpen, onClose}) => {
                     </div>
                 </div>
             </div>
+
+            {/* Konfirmasi Modal */}
+            {showKonfirm && (
+                <Konfirm 
+                    isOpen={showKonfirm} 
+                    onClose={handleKonfirmClose}
+                />
+            )}
         </div>
     );
 };

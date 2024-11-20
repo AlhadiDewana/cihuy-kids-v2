@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { X, Eye, EyeOff } from 'lucide-react';
 import axios from 'axios';
 import loginImage from '../../assets/login/login.png';
@@ -8,6 +8,7 @@ import ResetPasswordForm from './ResetPassword'
 
 const LoginForm = ({ onClose }) => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [showPassword, setShowPassword] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
     const [showResetPassword, setShowResetPassword] = useState(false);
@@ -23,6 +24,15 @@ const LoginForm = ({ onClose }) => {
             ...formData,
             [e.target.name]: e.target.value
         });
+    };
+
+    const handleLoginSuccess = () => {
+        // After successful login, check if there's a return URL
+        if (location.state?.returnUrl) {
+            navigate(location.state.returnUrl);
+        } else {
+            navigate('/content'); // or your default redirect
+        }
     };
 
     const handleSubmit = async (e) => {
