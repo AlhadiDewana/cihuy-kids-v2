@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
 import HeroImage from '../../assets/cover.png';
-import Preview1 from '../../assets/preview/Gambar 1.png';
-import Preview2 from '../../assets/preview/Gambar 2.png';
-import Preview3 from '../../assets/preview/Gambar 3.png';
-import Preview4 from '../../assets/preview/Gambar 4.png';
 import Premium from '../../components/Premium/Premium';
 import Footer from '../../components/footer/Footer';
 import '../landing/style/LandingPage.css';
+import ImageCarousel from '../../components/landing/BannerLanding';
 
 
 
@@ -46,54 +43,60 @@ const LandingPage = () => {
       </section>
 
       {/* Premium Content Section */}
-      <section className="py-20 mt-12">
+      <section className="py-20 mt-14 relative overflow-hidden">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-[#FF4B6E] mb-4">
+          <h2 className="text-4xl font-bold text-center text-[#FF4B6E] mb-12">
             Konten Premium
           </h2>
           <p className="text-center text-blue-500 mb-12">
             Dapatkan Akses Penuh ke Dunia Seru dan Edukatif di Cihuy Kids Premium
           </p>
 
-          <div className="flex flex-wrap items-center justify-between mt-24">
-            <div className="w-full md:w-1/4 text-white p-8 rounded-lg mb-8 md:mb-0 mt-10">
-              <h3 className="text-2xl font-bold mb-4">Hanya</h3>
-              <p className="text-3xl font-bold mb-4">Rp.70.000,00</p>
-              <ul className="mb-6">
-                <li className="flex items-center mb-2">
-                  <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-                  </svg>
-                  Konten Eksklusif
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-                  </svg>
-                  Bebas Iklan
-                </li>
-              </ul>
-              <button 
-                onClick={() => setShowPremium(true)}
-                className="bg-white text-blue-500 px-6 py-2 rounded-full font-bold hover:bg-blue-100 transition-colors"
-              >
-                Berlangganan
-              </button>
-              <Premium 
-              isOpen={showPremium} 
-              onClose={() => setShowPremium(false)} 
-            />
+          <div className="mt-24 flex relative">
+            {/* Left side - Price */}
+            <div className="relative z-20 p-8 min-w-[300px]">
+              <div className="text-white space-y-6">
+                <div>
+                  <h3 className="text-2xl font-bold">Hanya</h3>
+                  <p className="text-3xl font-bold">Rp.70.000,00</p>
+                </div>
+                
+                <ul className="space-y-2">
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                    </svg>
+                    <span>Konten Eksklusif</span>
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                    </svg>
+                    <span>Bebas Iklan</span>
+                  </li>
+                </ul>
+
+                <button 
+                  onClick={() => setShowPremium(true)}
+                  className="w-full bg-white text-[#6095FF] px-6 py-2 rounded-full font-bold hover:bg-blue-50 transition-colors"
+                >
+                  Berlangganan
+                </button>
+              </div>
             </div>
 
-            <div className="preview flex space-x-4 overflow-auto mt-16">
-              <img src={Preview1} alt="Content 1" className="rounded-lg shadow-lg border" />
-              <img src={Preview2} alt="Content 2" className="rounded-lg shadow-lg border" />
-              <img src={Preview3} alt="Content 3" className="rounded-lg shadow-lg border" />
-              <img src={Preview4} alt="Content 4" className="rounded-lg shadow-lg border" />
+            {/* Right side - Image Carousel */}
+            <div className="flex-1 -mr-[200px]">
+              <ImageCarousel />
             </div>
           </div>
         </div>
       </section>
+
+      <Premium 
+        isOpen={showPremium} 
+        onClose={() => setShowPremium(false)} 
+      />
 
         <Footer/>
     </div>
