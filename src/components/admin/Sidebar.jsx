@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../assets/icon.png';
 import { Home, Users, CreditCard, Video, Music, GamepadIcon, BookOpen, Settings, LogOut } from 'lucide-react';
 import { useTitle } from './TitleContext';
 
@@ -22,9 +23,13 @@ const Sidebar = () => {
     };
 
     return (
-        <div className="w-64 bg-[#4B7BF5] text-white min-h-screen">
+        <div className="w-64 bg-[#6095FF] text-white min-h-screen">
             <div className="p-4">
-                <h1 className="text-2xl font-bold mb-8">CIHUY KIDS</h1>
+            <img 
+                    src={logo}
+                    alt="Cihuy Kids Logo" 
+                    className="navbar-logo mb-12" 
+                />
                 
                 {/* Menu Sections */}
                 <div className="space-y-6">
@@ -37,13 +42,6 @@ const Sidebar = () => {
                             >
                                 <Home className="w-5 h-5" />
                                 <span>Home</span>
-                            </button>
-                            <button 
-                                onClick={() => handleNavigation('/data-user', 'Data User')}
-                                className="flex items-center space-x-2 w-full p-2 rounded hover:bg-white/10"
-                            >
-                                <Users className="w-5 h-5" />
-                                <span>Data User</span>
                             </button>
                         </div>
                     </div>
@@ -96,13 +94,6 @@ const Sidebar = () => {
                     <div>
                         <p className="text-sm text-white/60 mb-2">General</p>
                         <div className="space-y-2">
-                            <button 
-                                onClick={() => navigate('/settings')}
-                                className="flex items-center space-x-2 w-full p-2 rounded hover:bg-white/10"
-                            >
-                                <Settings className="w-5 h-5" />
-                                <span>Settings</span>
-                            </button>
                             <button 
                                 onClick={handleLogout}
                                 className="flex items-center space-x-2 w-full p-2 rounded hover:bg-white/10"
