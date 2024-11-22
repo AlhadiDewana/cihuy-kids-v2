@@ -1,8 +1,24 @@
-require('dotenv').config(); // Tambahkan ini di awal
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const rateLimit = require('express-rate-limit');
 const app = express();
 const userRoutes = require('./backend/routes/userRoutes');
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: { error: 'Terlalu banyak percobaan login. Coba lagi dalam 15 menit.' }
+});
+
+const forgotPasswordLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 3,
+  message: { error: 'Terlalu banyak request reset password. Coba lagi dalam 1 jam.' }
+});
+
+app.use('/api/login', loginLimiter);
+app.use('/api/forgot-password', forgotPasswordLimiter);
 
 // Konfigurasi CORS yang lebih spesifik
 app.use(cors({
