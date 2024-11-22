@@ -50,3 +50,7 @@ const PORT = process.env.API_PORT || 9000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+//video routes
+const videoRoutes = require('./backend/routes/videoRoutes');
+app.use('/api/videos', videoRoutes);
