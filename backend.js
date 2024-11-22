@@ -54,3 +54,11 @@ app.listen(PORT, () => {
 //video routes
 const videoRoutes = require('./backend/routes/videoRoutes');
 app.use('/api/videos', videoRoutes);
+
+//musik routes
+const musicRoutes = require('./backend/routes/musicRoutes');
+app.use('/api/music', musicRoutes);
+
+//bacaan
+const readingRoutes = require('./backend/routes/readingRoutes');
+app.use('/api/reading', readingRoutes);
