@@ -16,6 +16,15 @@ const User = sequelize.define('User', {
     },
   },
 
+  resetToken: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  resetTokenExpiry: {
+    type: DataTypes.DATE,
+    allowNull: true
+  },
+
   phone_number: {
     type: DataTypes.STRING,
     allowNull: true,

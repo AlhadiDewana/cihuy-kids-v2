@@ -7,7 +7,10 @@ const {
     upgrade,
     updateProfile,  // Tambahkan ini
     changePassword, // Tambahkan ini
-    getProfile     // Tambahkan ini
+    getProfile,     // Tambahkan ini
+    forgotPassword,
+    resetPassword
+
 } = require('../controllers/userController');
 const authMiddleware = require('../middleware/jwtMiddleware');
 
@@ -27,5 +30,9 @@ router.put('/change-password', authMiddleware, upload.none(), changePassword);
 router.get('/test', authMiddleware, (req, res) => {
     res.json({ message: 'Protected route works!' });
 });
+
+//route untuk forgot password
+router.post('/forgot-password', upload.none(), forgotPassword);
+router.post('/reset-password', upload.none(), resetPassword);
 
 module.exports = router;
