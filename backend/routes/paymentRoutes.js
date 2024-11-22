@@ -5,9 +5,13 @@ const {
   getPaymentHistory,
   getAllPayments,
   approvePayment,
-  rejectPayment
+  rejectPayment,
+  getSubscriptionPlans  // Tambah ini
 } = require('../controllers/paymentController');
 const authMiddleware = require('../middleware/jwtMiddleware');
+
+// Public route
+router.get('/subscription-plans', getSubscriptionPlans);
 
 // User routes
 router.post('/create', authMiddleware, createPayment);
