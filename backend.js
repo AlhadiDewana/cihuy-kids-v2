@@ -62,3 +62,7 @@ app.use('/api/music', musicRoutes);
 //bacaan
 const readingRoutes = require('./backend/routes/readingRoutes');
 app.use('/api/reading', readingRoutes);
+
+//pembayaran ceunah
+const paymentRoutes = require('./backend/routes/paymentRoutes');
+app.use('/api/payments', paymentRoutes);
