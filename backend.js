@@ -66,3 +66,11 @@ app.use('/api/reading', readingRoutes);
 //pembayaran ceunah
 const paymentRoutes = require('./backend/routes/paymentRoutes');
 app.use('/api/payments', paymentRoutes);
+
+//favorite
+const favoriteRoutes = require('./backend/routes/favoriteRoutes');
+app.use('/api/favorites', favoriteRoutes);
+
+//history
+const historyRoutes = require('./backend/routes/historyRoutes');
+app.use('/api/history', historyRoutes);

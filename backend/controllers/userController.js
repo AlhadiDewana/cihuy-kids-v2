@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize');
 const nodemailer = require('nodemailer');
-const crypto = require('crypto');
 
 const transporter = nodemailer.createTransport({
    service: 'gmail',
