@@ -1,56 +1,44 @@
 import axios from 'axios';
 
-const api = axios.create({
-    baseURL: 'http://localhost:9000/api',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    withCredentials: true
-});
+export const createApi = () => {
+    const api = axios.create({
+        baseURL: 'http://localhost:9000/api',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        withCredentials: true
+    });
 
-// Request interceptor
-api.interceptors.request.use(
-    config => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+    api.interceptors.request.use(
+        config => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
+            return config;
+        },
+        error => Promise.reject(error)
+    );
+
+    api.interceptors.response.use(
+        response => response,
+        error => {
+            if (error.response?.status === 401) {
+                localStorage.removeItem('token');
+            }
+            return Promise.reject(error);
         }
-        return config;
-    },
-    error => Promise.reject(error)
-);
+    );
 
-// Response interceptor
-api.interceptors.response.use(
-    response => response,
-    error => {
-        if (error.response?.status === 401) {
-            localStorage.removeItem('token');
-            // Redirect ke login jika menggunakan router
-            // window.location.href = '/login';
-        }
-        return Promise.reject(error);
-    }
-);
+    return api;
+};
 
-export const authAPI = {
-    register: async (userData) => {
-        const response = await api.post('/register', userData);
-        return response.data;
-    },
+const api = createApi();
 
-    login: async (credentials) => {
-        const response = await api.post('/login', credentials);
-        if (response.data.token) {
-            localStorage.setItem('token', response.data.token);
-        }
-        return response.data;
-    },
-
-    upgrade: async () => {
-        const response = await api.post('/upgrade');
-        return response.data;
-    }
+export const userAPI = {
+    register: (data) => api.post('/register', data),
+    login: (data) => api.post('/login', data),
+    // ... rest of your api methods
 };
 
 export default api;

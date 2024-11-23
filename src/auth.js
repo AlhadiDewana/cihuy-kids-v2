@@ -1,7 +1,7 @@
 // utils/auth.js
-export const login = (userData) => {
+export const login = (userData, token) => {
     localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('token', 'your_token_here'); // Add this if you have a token
+    localStorage.setItem('token', token);
     localStorage.setItem('userData', JSON.stringify(userData));
 };
 
