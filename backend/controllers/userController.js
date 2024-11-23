@@ -99,38 +99,43 @@ module.exports = {
    },
 
    async login(req, res) {
-       try {
-           const { email, password } = req.body;
+    try {
+        const { email, password } = req.body;
+        console.log('Login attempt with:', { email });  // tambahkan ini
 
-           if (!email || !password) {
-               return res.status(400).json({ error: 'Email dan password harus diisi' });
-           }
+        if (!email || !password) {
+            return res.status(400).json({ error: 'Email dan password harus diisi' });
+        }
 
-           const user = await User.findOne({ where: { email } });
-           if (!user) {
-               return res.status(404).json({ error: 'User tidak ditemukan' });
-           }
+        const user = await User.findOne({ where: { email } });
+        console.log('User found:', user ? 'Yes' : 'No'); // tambahkan ini
 
-           const isPasswordValid = await bcrypt.compare(password, user.password);
-           if (!isPasswordValid) {
-               return res.status(401).json({ error: 'Password salah' });
-           }
+        if (!user) {
+            return res.status(404).json({ error: 'User tidak ditemukan' });
+        }
 
-           console.log('User ID saat login:', user.id);
-           const token = jwt.sign(
-               { 
-                   userId: user.id,
-                   email: user.email,
-                   role: user.role || 'user'
-               }, 
-               process.env.JWT_SECRET, 
-               { expiresIn: '1h' }
-           );
-           res.json({ message: 'Login berhasil', token });
-       } catch (error) {
-           res.status(500).json({ error: error.message });
-       }
-   },
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        console.log('Password valid:', isPasswordValid); // tambahkan ini
+
+        if (!isPasswordValid) {
+            return res.status(401).json({ error: 'Password salah' });
+        }
+
+        const token = jwt.sign(
+            { 
+                userId: user.id,
+                email: user.email,
+                role: user.role || 'user'
+            }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: '1h' }
+        );
+        res.json({ message: 'Login berhasil', token });
+    } catch (error) {
+        console.error('Login error:', error); // tambahkan ini
+        res.status(500).json({ error: error.message });
+    }
+},
 
    async upgrade(req, res) {
        try {

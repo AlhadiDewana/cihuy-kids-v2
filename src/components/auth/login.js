@@ -30,9 +30,11 @@ const LoginForm = ({ onClose }) => {
        e.preventDefault();
        setError('');
        setLoading(true);
+       console.log('Attempting login with:', formData); 
 
        try {
            const response = await userAPI.login(formData); // Changed from authAPI to userAPI
+           console.log('Login response:', response);
            const { token } = response.data; // Added .data
            const decodedToken = JSON.parse(atob(token.split('.')[1]));
            const userRole = decodedToken.role;
@@ -49,6 +51,7 @@ const LoginForm = ({ onClose }) => {
            if (onClose) onClose();
 
        } catch (error) {
+        console.error('Login error:', error.response);
            if (error.response?.status === 401) {
                setError('Email atau password salah');
            } else if (error.response?.status === 404) {

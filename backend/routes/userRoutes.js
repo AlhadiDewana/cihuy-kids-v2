@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const userController = require('../controllers/userController');
+const jwtMiddleware = require('../middleware/jwtMiddleware');
 const multer = require('multer');
 const { 
     login, 
@@ -34,5 +36,10 @@ router.get('/test', authMiddleware, (req, res) => {
 //route untuk forgot password
 router.post('/forgot-password', upload.none(), forgotPassword);
 router.post('/reset-password', upload.none(), resetPassword);
+
+//apdet profil cees
+router.get('/user/profile', jwtMiddleware, userController.getProfile);
+router.put('/user/profile', jwtMiddleware, userController.updateProfile);
+router.put('/user/change-password', jwtMiddleware, userController.changePassword);
 
 module.exports = router;
