@@ -9,6 +9,10 @@ const Profile = () => {
     const [userData, setUserData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const handleBack = () => {
+        navigate(-1); // Ini akan kembali ke halaman sebelumnya di history
+      };
+      
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -55,13 +59,13 @@ const Profile = () => {
             
             <div className="container mx-auto px-4 py-8">
                 <div className="flex items-center mb-6">
-                    <button 
-                        onClick={() => navigate('/video')} 
-                        className="flex items-center text-white hover:text-gray-200"
-                    >
-                        <ArrowLeft className="w-5 h-5 mr-2" />
-                        Kembali
-                    </button>
+                <button 
+    onClick={handleBack}  // Ganti dengan handleBack
+    className="flex items-center text-white hover:text-gray-200"
+>
+    <ArrowLeft className="w-5 h-5 mr-2" />
+    Kembali
+</button>
                 </div>
 
                 {error && (
