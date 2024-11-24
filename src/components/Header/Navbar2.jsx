@@ -28,15 +28,19 @@ const Navbar = ({ selectedAge, handleAgeChange }) => {
                     />
                     
                     <select 
-                        value={selectedAge}
-                        onChange={(e) => handleAgeChange(e.target.value)}
-                        className="bg-transparent text-white rounded-full px-4 py-2"
-                    >
-                        <option value="4-5 Tahun">4-5 Tahun</option>
-                        <option value="6-7 Tahun">6-7 Tahun</option>
-                        <option value="8-9 Tahun">8-9 Tahun</option>
-                        <option value="10-12 Tahun">10-12 Tahun</option>
-                    </select>
+    value={selectedAge}
+    onChange={(e) => handleAgeChange(e.target.value)}
+    className="bg-transparent text-white rounded-full px-4 py-2 appearance-none cursor-pointer hover:bg-white hover:text-black transition-colors"
+    style={{
+        WebkitAppearance: 'none',
+        MozAppearance: 'none'
+    }}
+>
+<option className="text-black bg-white" value="4-5 Tahun">4-5 Tahun</option>
+    <option className="text-black bg-white" value="6-7 Tahun">6-7 Tahun</option>
+    <option className="text-black bg-white" value="8-9 Tahun">8-9 Tahun</option>
+    <option className="text-black bg-white" value="10-12 Tahun">10-12 Tahun</option>
+</select>
                 </div>
 
                 <div className="flex items-center gap-6">
