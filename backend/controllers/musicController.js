@@ -2,41 +2,32 @@
 const Music = require('../models/Music');
 
 module.exports = {
-    async upload(req, res) {
+    async uploadMusic(req, res) {
         try {
-            if (req.user.role !== 'admin') {
-                return res.status(403).json({
-                    error: 'Unauthorized'
-                });
-            }
+            // if (req.userRole !== 'admin') {
+            //     return res.status(403).json({
+            //         error: 'Unauthorized'
+            //     });
+            // }
 
             const {
                 title,
-                description,
-                url,
-                genre,
-                isPremium,
+                musicUrl,         // Ubah dari url
                 thumbnailUrl,
+                category,         // Ubah dari genre
+                isPremium,
                 ageRange
             } = req.body;
-
-            const validAgeRanges = ['4-5', '6-7', '8-9', '10-12'];
-            if (!validAgeRanges.includes(ageRange)) {
-                return res.status(400).json({
-                    error: 'Invalid age range. Must be one of: 4-5, 6-7, 8-9, 10-12'
-                });
-            }
-
-
+            
             const music = await Music.create({
                 title,
-                description,
-                url,
-                genre,
-                isPremium,
+                url: musicUrl,    // Sesuaikan dengan nama kolom di database
                 thumbnailUrl,
+                genre: category,  // Sesuaikan dengan nama kolom di database
+                isPremium: isPremium === 'true',
                 ageRange
             });
+
             res.status(201).json({
                 message: 'Music berhasil diupload',
                 music
@@ -48,7 +39,7 @@ module.exports = {
         }
     },
 
-    async getAllMusic(req, res) {
+    async getMusicList(req, res) {
         try {
             let query = {};
             if (req.query.genre) {

@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 export const createApi = () => {
     const api = axios.create({
         baseURL: 'http://localhost:9000/api',
@@ -40,7 +41,8 @@ export const userAPI = {
     login: (data) => api.post('/login', data),
     getProfile: () => api.get('/profile'),  // Tambah endpoint get profile
     updateProfile: (data) => api.put('/update-profile', data),  // Tambah endpoint update profile
-    changePassword: (data) => api.put('/change-password', data), // Tambah endpoint change password
+    changePassword: (data) => api.put('/change-password', data),
+    forgotPassword: (data) => api.post('/forgot-password', data)// Tambah endpoint change password
 };
 
 export const paymentAPI = {
@@ -51,12 +53,14 @@ export const paymentAPI = {
 };
 
 export const musicAPI = {
-    uploadMusic: (data) => api.post('/music/upload', data),
+    uploadMusic: (data) => api.post('/music/upload', data, {
+        
+       
+    }),
     getAllMusic: () => api.get('/music'),
     getMusicById: (id) => api.get(`/music/${id}`),
     deleteMusic: (id) => api.delete(`/music/${id}`),
     updateMusic: (id, data) => api.put(`/music/${id}`, data),
-    // tambahkan method music lainnya sesuai kebutuhan
 };
 
 export const readingAPI = {
