@@ -1,36 +1,49 @@
-const {
-    DataTypes
-} = require('sequelize');
-const sequelize = require('../../config');
+// backend/models/Video.js
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
 const Video = sequelize.define('Video', {
-    ageRange: {
-        type: DataTypes.ENUM('4-5', '6-7', '8-9', '10-12'),
-        allowNull: false
-    },
     title: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+            notEmpty: true,
+            len: [3, 100]
+        }
     },
     description: {
         type: DataTypes.TEXT,
-        allowNull: true,
+        allowNull: true
     },
-    url: {
+    videoUrl: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+            isUrl: true
+        }
     },
-    genre: {
-        type: DataTypes.ENUM('education', 'entertainment', 'music', 'story'),
+    thumbnailUrl: {
+        type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+            isUrl: true
+        }
+    },
+    category: {
+        type: DataTypes.ENUM('Edukasi', 'Hiburan'),
+        allowNull: false
     },
     isPremium: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
-    thumbnailUrl: {
-        type: DataTypes.STRING,
-        allowNull: true
+    ageRange: {
+        type: DataTypes.ENUM('4-5', '6-7', '8-9', '10-12'),
+        allowNull: false
+    },
+    viewCount: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     }
 });
 

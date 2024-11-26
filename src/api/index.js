@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const createApi = () => {
     const api = axios.create({
-        baseURL: 'http://localhost:9001/api',
+        baseURL: 'http://localhost:9000/api',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -38,9 +38,9 @@ const api = createApi();
 export const userAPI = {
     register: (data) => api.post('/register', data),
     login: (data) => api.post('/login', data),
-    getProfile: () => api.get('/user/profile'),  // Tambah endpoint get profile
-    updateProfile: (data) => api.put('/user/profile', data),  // Tambah endpoint update profile
-    changePassword: (data) => api.put('/user/change-password', data), // Tambah endpoint change password
+    getProfile: () => api.get('/profile'),  // Tambah endpoint get profile
+    updateProfile: (data) => api.put('/update-profile', data),  // Tambah endpoint update profile
+    changePassword: (data) => api.put('/change-password', data), // Tambah endpoint change password
 };
 
 export const paymentAPI = {
@@ -69,12 +69,15 @@ export const readingAPI = {
 };
 
 export const videoAPI = {
-    uploadVideo: (data) => api.post('/video/upload', data),
-    getAllVideos: () => api.get('/video'),
-    getVideoById: (id) => api.get(`/video/${id}`),
-    deleteVideo: (id) => api.delete(`/video/${id}`),
-    updateVideo: (id, data) => api.put(`/video/${id}`, data),
-    // tambahkan method video lainnya sesuai kebutuhan
+    uploadVideo: (formData) => api.post('/videos/upload', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }),
+    getAllVideos: () => api.get('/videos'),
+    getVideoById: (id) => api.get(`/videos/${id}`),
+    deleteVideo: (id) => api.delete(`/videos/${id}`),
+    updateVideo: (id, data) => api.put(`/videos/${id}`, data),
 };
 
 export default api;

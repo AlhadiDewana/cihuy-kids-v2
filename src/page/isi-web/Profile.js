@@ -9,9 +9,20 @@ const Profile = () => {
     const [userData, setUserData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    
     const handleBack = () => {
-        navigate(-1); // Ini akan kembali ke halaman sebelumnya di history
-      };
+        const role = localStorage.getItem('role');
+        switch(role) {
+            case 'admin':
+                navigate('/admin/dashboard');
+                break;
+            case 'premium':
+                navigate('/premium/dashboard');
+                break;
+            default:
+                navigate('/content'); // atau '/home' atau path default lainnya
+        }
+    };
       
 
     useEffect(() => {
