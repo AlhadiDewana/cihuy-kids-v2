@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import '../landing/style/Landing\ 2.css';
-import HeroImage from '../../assets/cover-landing-2.png';
+import HeroImage from '../../assets/landing 2/cover-landing-2.gif';
 import Header from '../../components/Header/Header';
-import child1 from '../../assets/landing 2/child-1.png';
-import child2 from '../../assets/landing 2/child-2.png';
-import child3 from '../../assets/landing 2/child-3.png';
-import child4 from '../../assets/landing 2/child-4.png';
-import child5 from '../../assets/landing 2/child-5.png';
-import child6 from '../../assets/landing 2/child-6.png';
+import child1 from '../../assets/landing 2/Landing_2_1.gif';
+import child2 from '../../assets/landing 2/Landing_2_2.gif';
+import child3 from '../../assets/landing 2/Landing_2_3.gif';
+import child4 from '../../assets/landing 2/Landing_2_4.gif';
+import child5 from '../../assets/landing 2/Landing_2_5.gif';
+import child6 from '../../assets/landing 2/Landing_2_6.gif';
 import Footer from '../../components/footer/Footer';
 
 
@@ -35,7 +35,7 @@ const LandingPage2 = () => {
                     <img 
                         src={HeroImage} 
                         alt="Family using tablet" 
-                        className="rounded-lg"
+                        className="rounded-lg w-[750px]"
                     />
                     </div>
                 </div>

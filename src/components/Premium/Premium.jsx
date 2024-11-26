@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { X, Check } from 'lucide-react';
-import premiumkids from '../../assets/premium-kids.png'
+import premiumkids from '../../assets/Premium-kids.gif'
 import { isAuthenticated } from '../../auth';
 import Konfirm from "./KonfirmPay";
 

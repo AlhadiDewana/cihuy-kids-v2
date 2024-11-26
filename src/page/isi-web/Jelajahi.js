@@ -1,5 +1,5 @@
 import React from 'react';
-import Ibu from '../../assets/isi-web/ibu.png'
+import Ibu from '../../assets/isi-web/Lanjut_Orang Tua.gif'
 import { useNavigate } from 'react-router-dom';
 
 

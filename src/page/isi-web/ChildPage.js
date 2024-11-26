@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Child from '../../assets/isi-web/child.png'
+import Child from '../../assets/isi-web/Lanjut_Anak.gif'
 
 
 const ChildPage = () => {

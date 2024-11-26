@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
-import HeroImage from '../../assets/cover.png';
+import HeroImage from '../../assets/Landing_1.gif';
 import Premium from '../../components/Premium/Premium';
 import Footer from '../../components/footer/Footer';
 import '../landing/style/LandingPage.css';
@@ -20,7 +20,7 @@ const LandingPage = () => {
       <Header/>
 
       {/* Hero Section */}
-      <section className="relative text-white py-20">
+      <section className="relative text-white py-20 mb-24">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="md:w-1/2 mb-8 md:mb-0 text-start">
@@ -35,7 +35,7 @@ const LandingPage = () => {
               <img 
                 src={HeroImage} 
                 alt="Family using tablet" 
-                className="rounded-lg"
+                className="rounded-lg w-[750px]"
               />
             </div>
           </div>
