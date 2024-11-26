@@ -7,7 +7,7 @@ const ChildPage = () => {
   const navigate = useNavigate();
 
   const handleOkClick = () => {
-    navigate('/parent'); // or wherever you want to navigate after OK
+    navigate('/jelajahi'); // or wherever you want to navigate after OK
   };
 
   return (

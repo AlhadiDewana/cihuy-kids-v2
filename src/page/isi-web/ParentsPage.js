@@ -11,7 +11,7 @@ const ParentPage = () => {
 
 
   return (
-    <div className="min-h-screen bg-[#4B7BFF] flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-[#6095FF] flex flex-col items-center justify-center p-4">
       {/* Image */}
       <div className="mb-12">
         <img
@@ -32,12 +32,12 @@ const ParentPage = () => {
       </h1>
 
       {/* Age Range Buttons */}
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="flex flex-wrap justify-center gap-20">
         {['4-5 Tahun', '6-7 Tahun', '8-9 Tahun', '10-12 Tahun'].map((age) => (
           <button
             key={age}
             onClick={() => handleAgeSelect(age)}
-            className="px-8 py-3 bg-white text-[#FE4C64] rounded-full font-semibold 
+            className="px-8 py-3 bg-white text-[#6095FF] rounded-full font-semibold 
                      hover:bg-opacity-90 transition-all duration-300
                      shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >

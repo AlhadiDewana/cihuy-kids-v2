@@ -35,22 +35,22 @@ const RoleSelectionPage = () => {
       </div>
 
       {/* Title */}
-      <h1 className="text-4xl font-bold text-white mb-12 text-center">
+      <h1 className="text-4xl font-bold text-[#FE4C64] mb-12 text-center">
         Minta orang tua untuk menyiapkan Cihuy Kids
       </h1>
 
       {/* Buttons Container */}
-      <div className="flex flex-col md:flex-row gap-24 mb-12">
+      <div className="flex flex-col md:flex-row gap-[270px] mb-12">
         <button
           onClick={() => handleRoleSelect('child')}
-          className="px-8 py-3 bg-white text-blue-500 rounded-full font-semibold hover:bg-blue-50 transition-colors duration-300"
+          className="px-8 py-3 bg-white text-[#FCC729] rounded-full font-semibold hover:bg-blue-50 transition-colors duration-300"
         >
           Saya Seorang Anak
         </button>
 
         <button
           onClick={() => handleRoleSelect('parent')}
-          className="px-8 py-3 bg-white text-blue-500 rounded-full font-semibold hover:bg-blue-50 transition-colors duration-300"
+          className="px-8 py-3 bg-white text-[#FCC729] rounded-full font-semibold hover:bg-blue-50 transition-colors duration-300"
         >
           Saya Seorang Orang Tua
         </button>
@@ -59,7 +59,7 @@ const RoleSelectionPage = () => {
       {/* Learn More Link */}
       <button
         onClick={handleLearnMore}
-        className="text-blue-500 hover:text-blue-600 transition-colors duration-300 cursor-pointer"
+        className="text-[#FE4C64] hover:text-blue-600 transition-colors duration-300 cursor-pointer"
       >
         Pelajari Lebih Lanjut
       </button>
