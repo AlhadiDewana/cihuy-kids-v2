@@ -26,12 +26,47 @@ const getGoogleDriveThumbnailUrl = (url) => {
   return url;
 };
 
+const getVideoEmbedUrl = (url) => {
+  if (!url) return '';
+  
+  // Handle YouTube URLs
+  if (url.includes('youtube.com') || url.includes('youtu.be')) {
+    let videoId = '';
+    if (url.includes('youtu.be')) {
+      videoId = url.split('/').pop().split('?')[0];
+    } else if (url.includes('youtube.com')) {
+      videoId = url.split('v=')[1];
+      const ampersandPosition = videoId?.indexOf('&');
+      if (ampersandPosition !== -1) {
+        videoId = videoId.substring(0, ampersandPosition);
+      }
+    }
+    return `https://www.youtube.com/embed/${videoId}`;
+  }
+  
+  // Handle Google Drive URLs
+  if (url.includes('drive.google.com')) {
+    let fileId;
+    if (url.includes('/file/d/')) {
+      fileId = url.match(/\/file\/d\/([^/]+)/)?.[1];
+    } else if (url.includes('id=')) {
+      fileId = url.match(/id=([^&]+)/)?.[1];
+    }
+    if (fileId) {
+      return `https://drive.google.com/file/d/${fileId}/preview`;
+    }
+  }
+  
+  return url;
+};
+
 const VideoPage = () => {
   const { id } = useParams();
   const location = useLocation();
   const [video, setVideo] = useState(null);
   const [relatedVideos, setRelatedVideos] = useState([]);
   const navigate = useNavigate();
+
   useEffect(() => {
     window.scrollTo(0, 0);
     
@@ -40,7 +75,6 @@ const VideoPage = () => {
         const response = await videoAPI.getVideoById(id);
         setVideo(response.data);
 
-        // Fetch related videos (semua video kecuali yang sedang diputar)
         const allVideosResponse = await videoAPI.getAllVideos();
         const filteredVideos = allVideosResponse.data.videos.filter(v => v.id !== id);
         setRelatedVideos(filteredVideos);
@@ -52,29 +86,9 @@ const VideoPage = () => {
     fetchVideoData();
   }, [id]);
 
-  
-
   if (!video) return <div className="min-h-screen bg-[#6095FF] flex items-center justify-center">
     <div className="text-white">Loading...</div>
   </div>;
-
-  // Format YouTube URL untuk embedded player
-  const getYouTubeEmbedUrl = (url) => {
-    if (!url) return '';
-    let videoId = '';
-    
-    if (url.includes('youtu.be')) {
-      videoId = url.split('/').pop().split('?')[0];
-    } else if (url.includes('youtube.com')) {
-      videoId = url.split('v=')[1];
-      const ampersandPosition = videoId.indexOf('&');
-      if (ampersandPosition !== -1) {
-        videoId = videoId.substring(0, ampersandPosition);
-      }
-    }
-    
-    return `https://www.youtube.com/embed/${videoId}`;
-  };
 
   return (
     <div className="min-h-screen bg-[#6095FF]">
@@ -87,7 +101,7 @@ const VideoPage = () => {
             <div className="relative bg-black rounded-lg overflow-hidden">
               <iframe
                 className="w-full aspect-video"
-                src={getYouTubeEmbedUrl(video.videoUrl)}
+                src={getVideoEmbedUrl(video.videoUrl)}
                 title={video.title}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -112,6 +126,22 @@ const VideoPage = () => {
                 <span className="block mb-2">Untuk Usia</span>
                 <span className="bg-[#6095FF] text-white px-3 py-1 rounded-full text-sm">
                   {video.ageRange} Tahun
+                </span>
+              </div>
+
+              <div>
+                <span className="block mb-2">Genre</span>
+                <span className="bg-[#6095FF] text-white px-3 py-1 rounded-full text-sm">
+                  {video.category}
+                </span>
+              </div>
+
+              <div>
+                <span className="block mb-2">Status</span>
+                <span className={`px-3 py-1 rounded-full text-sm ${
+                  video.isPremium ? 'bg-purple-500 text-white' : 'bg-green-500 text-white'
+                }`}>
+                  {video.isPremium ? 'Premium' : 'Free'}
                 </span>
               </div>
             </div>

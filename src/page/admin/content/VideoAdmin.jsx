@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { PenSquare, Trash2 } from 'lucide-react';
-import UploadVideoModal from '../../../components/admin/content/VideoUpload';
+import VideoUpload from '../../../components/admin/content/VideoUpload';
 import Sidebar from '../../../components/admin/Sidebar';
 import TopNavigation from '../../../components/admin/TopNavigation';
 import { videoAPI } from '../../../api';
 
 const VideoAdmin = () => {
-    const [showUploadModal, setShowUploadModal] = useState(false);
-    const [videos, setVideos] = useState([]); // Inisialisasi sebagai array kosong
+    const [showModal, setShowModal] = useState(false);
+    const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [editingVideo, setEditingVideo] = useState(null);
 
     useEffect(() => {
         fetchVideos();
@@ -18,21 +19,37 @@ const VideoAdmin = () => {
     const fetchVideos = async () => {
         try {
             const response = await videoAPI.getAllVideos();
-            // Pastikan yang disimpan adalah array
-            setVideos(response.data.videos || []); // Gunakan response.data.videos jika API mengembalikan {videos: [...]}
+            setVideos(response.data.videos || []);
         } catch (err) {
             console.error('Error fetching videos:', err);
             setError('Failed to fetch videos');
-            setVideos([]); // Set empty array jika error
+            setVideos([]);
         } finally {
             setLoading(false);
         }
     };
 
-    const handleUploadSuccess = (newVideo) => {
-        setVideos(prev => [...prev, newVideo]);
-        setShowUploadModal(false);
-        fetchVideos(); // Refresh list
+    const handleEditClick = (video) => {
+        setEditingVideo(video);
+        setShowModal(true);
+    };
+
+    const handleDeleteClick = async (videoId) => {
+        if (window.confirm('Apakah Anda yakin ingin menghapus video ini?')) {
+            try {
+                await videoAPI.deleteVideo(videoId);
+                fetchVideos();
+            } catch (error) {
+                console.error('Error deleting video:', error);
+                alert('Gagal menghapus video');
+            }
+        }
+    };
+
+    const handleSuccess = (response) => {
+        fetchVideos();
+        setShowModal(false);
+        setEditingVideo(null);
     };
 
     if (loading) return <div>Loading...</div>;
@@ -46,7 +63,7 @@ const VideoAdmin = () => {
                 <div className="p-6 bg-gray-100 min-h-screen">
                     <div className="flex justify-end items-center mb-6">
                         <button 
-                            onClick={() => setShowUploadModal(true)}
+                            onClick={() => setShowModal(true)}
                             className="bg-[#FF4B6E] text-white px-4 py-2 rounded-lg hover:bg-[#FF3355] transition-colors"
                         >
                             Upload Video
@@ -93,12 +110,14 @@ const VideoAdmin = () => {
                                             <td className="p-4">
                                                 <div className="flex gap-2">
                                                     <button 
+                                                        onClick={() => handleEditClick(video)}
                                                         className="p-2 hover:bg-gray-100 rounded transition-colors"
                                                         title="Edit"
                                                     >
                                                         <PenSquare className="w-5 h-5 text-blue-500" />
                                                     </button>
                                                     <button 
+                                                        onClick={() => handleDeleteClick(video.id)}
                                                         className="p-2 hover:bg-gray-100 rounded transition-colors"
                                                         title="Delete"
                                                     >
@@ -120,10 +139,14 @@ const VideoAdmin = () => {
                     </div>
                 </div>
 
-                <UploadVideoModal 
-                    isOpen={showUploadModal}
-                    onClose={() => setShowUploadModal(false)}
-                    onSuccess={handleUploadSuccess}
+                <VideoUpload 
+                    isOpen={showModal}
+                    onClose={() => {
+                        setShowModal(false);
+                        setEditingVideo(null);
+                    }}
+                    onSuccess={handleSuccess}
+                    editData={editingVideo}
                 />
             </div>
         </div>

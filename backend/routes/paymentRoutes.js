@@ -1,25 +1,28 @@
 const express = require('express');
 const router = express.Router();
 const {
-  createPayment,
-  getPaymentHistory,
-  getAllPayments,
-  approvePayment,
-  rejectPayment,
-  getSubscriptionPlans  // Tambah ini
+  paymentController, // Mengambil semua fungsi dari namespace paymentController
+  upload,
+  handleMulterError,
 } = require('../controllers/paymentController');
-const authMiddleware = require('../middleware/jwtMiddleware');
+const jwtMiddleware = require('../middleware/jwtMiddleware');
 
-// Public route
-router.get('/subscription-plans', getSubscriptionPlans);
+// Public routes
+router.get('/subscription-plans', paymentController.getSubscriptionPlans);
 
 // User routes
-router.post('/create', authMiddleware, createPayment);
-router.get('/history', authMiddleware, getPaymentHistory);
+router.post(
+  '/create',
+  jwtMiddleware, // Verifikasi JWT
+  (req, res, next) => upload(req, res, (err) => handleMulterError(err, req, res, next)), // Upload file bukti pembayaran
+  paymentController.createPayment
+);
+
+router.get('/history', jwtMiddleware, paymentController.getPaymentHistory);
 
 // Admin routes
-router.get('/all', authMiddleware, getAllPayments);
-router.put('/approve/:id', authMiddleware, approvePayment);
-router.put('/reject/:id', authMiddleware, rejectPayment);
+router.get('/all', jwtMiddleware, paymentController.getAllPayments);
+router.put('/approve/:id', jwtMiddleware, paymentController.approvePayment);
+router.put('/reject/:id', jwtMiddleware, paymentController.rejectPayment);
 
 module.exports = router;

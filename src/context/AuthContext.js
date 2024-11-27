@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [isPremium, setIsPremium] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     // Cek token dan user data saat aplikasi dimuat
@@ -27,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('token', token);
     localStorage.setItem('userRole', userRole);
     localStorage.setItem('isPremium', isPremium);
-    
+    setUserRole(userRole);
     setIsAuthenticated(true);
   };
 
@@ -35,9 +36,12 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('isPremium');
+    localStorage.removeItem('userRole');
+  
     setIsAuthenticated(false);
     setUser(null);
     setIsPremium(false);
+    setUserRole(null);
   };
 
   const updatePremiumStatus = (status) => {
@@ -51,7 +55,8 @@ export const AuthProvider = ({ children }) => {
     isPremium,
     login,
     logout,
-    updatePremiumStatus
+    updatePremiumStatus,
+    userRole,
   };
 
   if (loading) {

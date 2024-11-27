@@ -3,12 +3,13 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Settings, Bell, User } from 'lucide-react';
 import logo from '../../assets/icon.png';
 import LoginForm from '../auth/login';
+import { useAuth } from '../../context/AuthContext';
 
 const HeaderCont = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [showLogin, setShowLogin] = useState(false);
-  
+  const {logout}=useAuth();
   // Ambil selectedAge dari state atau localStorage
   const initialAge = location.state?.selectedAge || localStorage.getItem('lastSelectedAge') || '4-5 Tahun';
   const [selectedAge, setSelectedAge] = useState(initialAge);
@@ -38,8 +39,8 @@ const HeaderCont = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    logout();
+
     navigate('/');
   };
 

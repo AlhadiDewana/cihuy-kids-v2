@@ -29,42 +29,53 @@ const LoginForm = ({ onClose }) => {
    };
 
    const handleSubmit = async (e) => {
-       e.preventDefault();
-       setError('');
-       setLoading(true);
-       console.log('Attempting login with:', formData); 
+    e.preventDefault();
+    setError('');
+    setLoading(true);
 
-       try {
-           const response = await userAPI.login(formData); // Changed from authAPI to userAPI
-           console.log('Login response:', response);
-           const { token } = response.data; // Added .data
-           const decodedToken = JSON.parse(atob(token.split('.')[1]));
-           const userRole = decodedToken.role;
-           const isPremium = response.data.isPremium;
+    try {
+        const response = await userAPI.login(formData);
+        
+        // Destructure necessary data from response
+        const { token, user } = response.data;
+        const isPremium = response.data.isPremium === 1;
+        
+        // Update context with user data
+        contextLogin(token, isPremium ? '1' : '0', user?.role);
+        
+        // Store user data
+        localStorage.setItem('user', JSON.stringify({
+            ...user,
+            isPremium: isPremium ? '1' : '0'
+        }));
 
-           contextLogin(response.data.token, isPremium, userRole, )
-           
-           if (userRole === 'admin') {
-               navigate('/admin/dashboard');
-           } else {
-               navigate('/Jelajahi');
-           }
+        // Handle redirect
+        if (user?.role === 'admin') {
+            navigate('/dashboard');
+        } else {
+            // Redirect ke halaman sebelumnya atau default
+            const returnUrl = location.state?.returnUrl || '/Jelajahi';
+            navigate(returnUrl);
+        }
 
-           if (onClose) onClose();
+        // Close modal if exists
+        if (onClose) onClose();
 
-       } catch (error) {
-        console.error('Login error:', error.response);
-           if (error.response?.status === 401) {
-               setError('Email atau password salah');
-           } else if (error.response?.status === 404) {
-               setError('Email tidak terdaftar');
-           } else {
-               setError('Terjadi kesalahan. Silakan coba lagi');
-           }
-       } finally {
-           setLoading(false);
-       }
-   };
+    } catch (error) {
+        console.error('Login error:', error);
+        
+        const errorMessage = {
+            401: 'Email atau password salah',
+            404: 'Email tidak terdaftar',
+            default: 'Terjadi kesalahan. Silakan coba lagi'
+        }[error.response?.status] || 'Terjadi kesalahan. Silakan coba lagi';
+        
+        setError(errorMessage);
+    } finally {
+        setLoading(false);
+    }
+};
+
 
    const handleRegisterClick = (e) => {
        e.preventDefault();

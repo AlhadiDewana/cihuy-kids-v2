@@ -9,7 +9,7 @@ const Payment = sequelize.define('Payment', {
         allowNull: false,
     },
     durationType: {
-        type: DataTypes.ENUM('1_month', '3_month', '6_month', '12_month'),
+        type: DataTypes.ENUM('1_month', '12_month'),
         allowNull: false
     },
     amount: {

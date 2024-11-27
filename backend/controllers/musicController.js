@@ -55,7 +55,10 @@ module.exports = {
                     ['createdAt', 'DESC']
                 ]
             });
-            res.json(musics);
+            res.json({
+                musics,
+                
+            });
         } catch (error) {
             res.status(500).json({
                 error: error.message

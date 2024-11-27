@@ -64,7 +64,7 @@ module.exports = {
                     ['createdAt', 'DESC']
                 ]
             });
-            res.json(readings);
+            res.json({readings});
         } catch (error) {
             res.status(500).json({
                 error: error.message

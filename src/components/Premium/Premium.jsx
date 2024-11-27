@@ -2,45 +2,37 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { X, Check } from 'lucide-react';
 import premiumkids from '../../assets/premium-kids.png';
-import { isAuthenticated } from '../../auth';
 import Konfirm from "./KonfirmPay";
+import { useAuth } from '../../context/AuthContext';
 
 const Premium = ({isOpen=true, onClose}) => {  // Berikan default value true untuk isOpen
-    const [showKonfirm, setShowKonfirm] = useState(false);
+    
     const navigate = useNavigate();
     const location = useLocation();
+    const { isAuthenticated } = useAuth();
 
     // Tambahkan handle close jika tidak ada onClose prop
     const handleClose = () => {
-        if (onClose) {
-            onClose();
-        } else {
-            navigate(-1); // Kembali ke halaman sebelumnya
-        }
+        // if (onClose) {
+        //     onClose();
+        // }
+        navigate('/content'); // Selalu kembali ke halaman content
     };
 
-
-
-    // Check untuk redirect setelah login
-     useEffect(() => {
-        if (location.state?.returnUrl === '/konfirmasi-pembayaran' && isAuthenticated()) {
-            setShowKonfirm(true);
-        }
-    }, [location]);
 
     const handleBuyClick = () => {
-        // if (!isAuthenticated()) {
-        //     navigate('/login', { 
-        //         state: { 
-        //             returnUrl: '/konfirmasi-pembayaran',
-        //             message: 'Silakan login terlebih dahulu untuk melakukan pembayaran' 
-        //         } 
-        //     });
-        //     return;
-        // }
-        setShowKonfirm(true);
+        if (!isAuthenticated) {
+            navigate('/login', { 
+                state: { 
+                    returnUrl: '/konfirmasi-pembayaran',
+                    message: 'Silakan login terlebih dahulu untuk membeli premium' 
+                } 
+            });
+            return;
+        }
+        // Jika sudah login, langsung ke halaman konfirmasi pembayaran
+        navigate('/konfirmasi-pembayaran');
     };
-
     
     const features = [
         'Akses video tanpa batas',
@@ -62,12 +54,6 @@ const Premium = ({isOpen=true, onClose}) => {  // Berikan default value true unt
         }
     ];
 
-    const handleKonfirmClose = () => {
-        setShowKonfirm(false);
-        if (onClose) {
-            onClose();
-        }
-    };
 
     if (!isOpen) return null;
 
@@ -144,13 +130,6 @@ const Premium = ({isOpen=true, onClose}) => {  // Berikan default value true unt
                     </div>
                 </div>
             </div>
-
-            {showKonfirm && (
-                <Konfirm 
-                    isOpen={showKonfirm} 
-                    onClose={handleKonfirmClose}
-                />
-            )}
         </div>
     );
 };

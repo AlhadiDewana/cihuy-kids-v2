@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { X, Cloud } from 'lucide-react';
-import { isAuthenticated } from '../../auth';
-import { paymentAPI } from '../../api';
+import { useAuth } from '../../context/AuthContext';
+import { paymentAPI } from '../../api/payment';
 
 const Konfirm = ({isOpen, onClose, onSuccess}) => {
-   const [selectedFile, setSelectedFile] = useState(null);
-   const [selectedPlan, setSelectedPlan] = useState("1 Bulan");
-   const [selectedBank, setSelectedBank] = useState("BCA");
-   const [loading, setLoading] = useState(false);
-   const [error, setError] = useState('');
-   const navigate = useNavigate();
-
-//    useEffect(() => {
-//        if (!isAuthenticated()) {
-//            onClose();
-//            navigate('/login', { 
-//                state: { 
-//                    returnUrl: '/konfirmasi-pembayaran',
-//                    message: 'Silakan login terlebih dahulu untuk melakukan pembayaran' 
-//                } 
-//            });
-//        }
-//    }, [navigate, onClose]);
+    const { isAuthenticated } = useAuth();
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedPlan, setSelectedPlan] = useState("1 Bulan");
+    const [selectedBank, setSelectedBank] = useState("BCA");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+ 
+const handleClose = () => {
+    navigate('/penawaranpremium');
+}
+    useEffect(() => {
+        if (!isAuthenticated) {
+            onClose?.();
+            navigate('/login', { 
+                state: { 
+                    returnUrl: '/konfirmasi-pembayaran',
+                    message: 'Silakan login terlebih dahulu untuk melakukan pembayaran' 
+                } 
+            });
+        }
+    }, [isAuthenticated, navigate, onClose]);
    
    const plans = {
        "1 Bulan": "Rp70.000",
@@ -56,30 +60,51 @@ const Konfirm = ({isOpen, onClose, onSuccess}) => {
    };
 
    const handleSubmit = async () => {
-       if (!selectedFile) {
-           setError('Pilih bukti pembayaran terlebih dahulu');
-           return;
-       }
+    if (!selectedFile) {
+        setError('Pilih bukti pembayaran terlebih dahulu');
+        return;
+    }
 
-       setLoading(true);
-       setError('');
+    setLoading(true);
+    setError('');
 
-       try {
-           const formData = new FormData();
-           formData.append('buktiPembayaran', selectedFile);
-           formData.append('plan', selectedPlan);
-           formData.append('bank', selectedBank);
-           formData.append('nominal', plans[selectedPlan].replace('Rp', '').replace('.', ''));
+    try {
+        const formData = new FormData();
+        // Konversi durasi ke format yang sesuai dengan enum di database
+        const durationTypeMap = {
+            "1 Bulan": "1_month",
+            "1 Tahun": "12_month"
+        };
 
-           await paymentAPI.confirmPayment(formData);
-           onSuccess?.();
-           onClose();
-       } catch (error) {
-           setError(error.response?.data?.error || 'Gagal mengirim bukti pembayaran');
-       } finally {
-           setLoading(false);
-       }
-   };
+        // Konversi nominal ke format decimal tanpa 'Rp' dan tanda titik
+        const amount = plans[selectedPlan]
+            .replace('Rp', '')
+            .replace('.', '')
+            .replace(',00', '');
+
+        // Append semua data yang dibutuhkan
+        formData.append('proofImage', selectedFile);
+        formData.append('durationType', durationTypeMap[selectedPlan]);
+        formData.append('amount', amount);
+        formData.append('bankName', selectedBank);
+        formData.append('accountName', selectedBank); // Sesuai bank yang dipilih
+        formData.append('status', 'pending'); // Default status
+
+        const response = await paymentAPI.createPayment(formData);
+        
+        if (response.data) {
+            // Jika berhasil, redirect ke halaman sukses atau tampilkan pesan
+            alert('Pembayaran berhasil dikirim dan menunggu konfirmasi admin');
+            navigate('/content');
+        }
+
+    } catch (error) {
+        console.error('Error submitting payment:', error);
+        setError(error.response?.data?.error || 'Gagal mengirim bukti pembayaran');
+    } finally {
+        setLoading(false);
+    }
+};
 
    if (!isOpen) return null;
 
@@ -87,7 +112,7 @@ const Konfirm = ({isOpen, onClose, onSuccess}) => {
        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
            <div className="bg-white rounded-2xl max-w-4xl w-full mx-4 relative overflow-y-auto max-h-[90vh]">
                <button 
-                   onClick={onClose}
+                   onClick={handleClose}
                    className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-[#6095FF] rounded-full hover:opacity-90 z-10"
                >
                    <X className="w-5 h-5 text-white" />
@@ -102,22 +127,13 @@ const Konfirm = ({isOpen, onClose, onSuccess}) => {
                <div className="p-8">
                    <div className="grid grid-cols-3 gap-8 text-black">
                        <div>
-                           <h2 className="text-xl font-bold mb-4">Informasi Pengguna</h2>
+                           <h2 className="text-xl font-bold mb-4">Informasi Pemilik Rekening</h2>
                            <div className="space-y-4">
                                <div>
-                                   <label className="block text-sm mb-1">Nama Pengguna</label>
+                                   <label className="block text-sm mb-1">Atas Nama</label>
                                    <input 
                                        type="text"
                                        value="Herdinata Dwi Putra"
-                                       className="w-full p-2 bg-gray-100 rounded-md"
-                                       disabled
-                                   />
-                               </div>
-                               <div>
-                                   <label className="block text-sm mb-1">Email</label>
-                                   <input 
-                                       type="email"
-                                       value="herdinatadwiputra@gmail.com"
                                        className="w-full p-2 bg-gray-100 rounded-md"
                                        disabled
                                    />

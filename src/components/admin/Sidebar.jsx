@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/icon.png';
 import { Home, Users, CreditCard, Video, Music, GamepadIcon, BookOpen, Settings, LogOut } from 'lucide-react';
 import { useTitle } from './TitleContext';
+import { useAuth } from '../../context/AuthContext';
 
 
 const Sidebar = () => {
     const navigate = useNavigate();
     const { setTitle } = useTitle();
+    const {logout}=useAuth();
 
     const handleNavigation = (path, title) => {
         navigate(path);
@@ -15,10 +17,7 @@ const Sidebar = () => {
     };
 
     const handleLogout = () => {
-        // Hapus data autentikasi
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        // Redirect ke halaman login
+        logout();
         navigate('/');
     };
 

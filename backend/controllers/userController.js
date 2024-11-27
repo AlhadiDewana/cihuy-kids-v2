@@ -130,7 +130,7 @@ module.exports = {
             process.env.JWT_SECRET, 
             { expiresIn: '1h' }
         );
-        res.json({ message: 'Login berhasil', token, isPremium:user.isPremium });
+        res.json({ message: 'Login berhasil', token, isPremium:user.isPremium, user });
     } catch (error) {
         console.error('Login error:', error); // tambahkan ini
         res.status(500).json({ error: error.message });

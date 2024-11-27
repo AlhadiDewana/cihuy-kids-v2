@@ -46,10 +46,12 @@ export const userAPI = {
 };
 
 export const paymentAPI = {
-    createPayment: (data) => api.post('/payment/create', data),
     confirmPayment: (data) => api.post('/payment/confirm', data),
     getPaymentStatus: (id) => api.get(`/payment/status/${id}`),
-    // tambahkan method payment lainnya sesuai kebutuhan
+    getAllPayments: () => api.get('/payments/all'),
+    updatePayment: (id, data) => api.put(`/payments/approve/${id}`, data),
+    deletePayment: (id) => api.delete(`/payment/${id}`),
+    getPaymentById: (id) => api.get(`/payment/${id}`)
 };
 
 export const musicAPI = {
