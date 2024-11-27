@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Settings, Bell, User } from 'lucide-react';
 import logo from '../../assets/icon.png';
@@ -8,14 +8,26 @@ const HeaderCont = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [showLogin, setShowLogin] = useState(false);
-  const initialAge = location.state?.selectedAge || '4-5 Tahun';
+  
+  // Ambil selectedAge dari state atau localStorage
+  const initialAge = location.state?.selectedAge || localStorage.getItem('lastSelectedAge') || '4-5 Tahun';
   const [selectedAge, setSelectedAge] = useState(initialAge);
+  
+  // Simpan selectedAge ke localStorage setiap kali berubah
+  useEffect(() => {
+    if (location.state?.selectedAge) {
+      localStorage.setItem('lastSelectedAge', location.state.selectedAge);
+    }
+  }, [location.state?.selectedAge]);
 
-  const handleAgeChange = (newAge) => {
-    setSelectedAge(newAge);
+  const handleBack = () => {
+    const lastSelectedAge = localStorage.getItem('lastSelectedAge');
+    navigate('/content', { 
+      state: { 
+        selectedAge: lastSelectedAge || selectedAge 
+      } 
+    });
   };
-
-  const isLoggedIn = localStorage.getItem('token');
 
   const handleProfileClick = () => {
     if (isLoggedIn) {
@@ -31,6 +43,8 @@ const HeaderCont = () => {
     navigate('/');
   };
 
+  const isLoggedIn = localStorage.getItem('token');
+
   return (
     <nav className="flex items-center justify-between px-8 py-4">
       {/* Left Section */}
@@ -43,14 +57,14 @@ const HeaderCont = () => {
         />
 
         <button
-          onClick={() => navigate('/content')}
+          onClick={handleBack}
           className="text-white font-semibold px-4 py-2"
         >
           Kembali
         </button>
       </div>
 
-      {/* Right Section */}
+      {/* Rest of the code remains the same */}
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2 cursor-pointer" onClick={handleProfileClick}>
           <User className="w-8 h-8 text-white border border-3 rounded-full p-[4px]" />

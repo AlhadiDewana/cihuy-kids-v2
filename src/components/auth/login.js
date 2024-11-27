@@ -5,6 +5,7 @@ import { userAPI } from '../../api';
 import loginImage from '../../assets/login/login.png';
 import RegisterForm from './RegisterForm';
 import ResetPasswordForm from './ResetPassword';
+import { useAuth } from '../../context/AuthContext';
 
 const LoginForm = ({ onClose }) => {
    const navigate = useNavigate();
@@ -18,6 +19,7 @@ const LoginForm = ({ onClose }) => {
    });
    const [error, setError] = useState('');
    const [loading, setLoading] = useState(false);
+   const{login:contextLogin}=useAuth();
 
    const handleChange = (e) => {
        setFormData({
@@ -38,9 +40,9 @@ const LoginForm = ({ onClose }) => {
            const { token } = response.data; // Added .data
            const decodedToken = JSON.parse(atob(token.split('.')[1]));
            const userRole = decodedToken.role;
+           const isPremium = response.data.isPremium;
 
-           localStorage.setItem('token', token);
-           localStorage.setItem('userRole', userRole);
+           contextLogin(response.data.token, isPremium, userRole, )
            
            if (userRole === 'admin') {
                navigate('/admin/dashboard');

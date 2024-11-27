@@ -5,10 +5,20 @@ import premiumkids from '../../assets/premium-kids.png';
 import { isAuthenticated } from '../../auth';
 import Konfirm from "./KonfirmPay";
 
-const Premium = ({isOpen, onClose}) => {
+const Premium = ({isOpen=true, onClose}) => {  // Berikan default value true untuk isOpen
     const [showKonfirm, setShowKonfirm] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
+
+    // Tambahkan handle close jika tidak ada onClose prop
+    const handleClose = () => {
+        if (onClose) {
+            onClose();
+        } else {
+            navigate(-1); // Kembali ke halaman sebelumnya
+        }
+    };
+
 
 
     // Check untuk redirect setelah login
@@ -19,15 +29,15 @@ const Premium = ({isOpen, onClose}) => {
     }, [location]);
 
     const handleBuyClick = () => {
-        if (!isAuthenticated()) {
-            navigate('/login', { 
-                state: { 
-                    returnUrl: '/konfirmasi-pembayaran',
-                    message: 'Silakan login terlebih dahulu untuk melakukan pembayaran' 
-                } 
-            });
-            return;
-        }
+        // if (!isAuthenticated()) {
+        //     navigate('/login', { 
+        //         state: { 
+        //             returnUrl: '/konfirmasi-pembayaran',
+        //             message: 'Silakan login terlebih dahulu untuk melakukan pembayaran' 
+        //         } 
+        //     });
+        //     return;
+        // }
         setShowKonfirm(true);
     };
 
@@ -66,7 +76,7 @@ const Premium = ({isOpen, onClose}) => {
             <div className="bg-white rounded-2xl max-w-6xl w-full mx-4 relative overflow-y-auto max-h-[90vh]">
                 {/* Close button */}
                 <button 
-                    onClick={onClose}
+                    onClick={handleClose}  // Gunakan handleClose
                     className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-[#6095FF] rounded-full hover:opacity-90 z-10"
                 >
                     <X className="w-5 h-5 text-white" />
@@ -135,7 +145,6 @@ const Premium = ({isOpen, onClose}) => {
                 </div>
             </div>
 
-            {/* Konfirmasi Modal */}
             {showKonfirm && (
                 <Konfirm 
                     isOpen={showKonfirm} 

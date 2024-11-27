@@ -12,17 +12,17 @@ const Konfirm = ({isOpen, onClose, onSuccess}) => {
    const [error, setError] = useState('');
    const navigate = useNavigate();
 
-   useEffect(() => {
-       if (!isAuthenticated()) {
-           onClose();
-           navigate('/login', { 
-               state: { 
-                   returnUrl: '/konfirmasi-pembayaran',
-                   message: 'Silakan login terlebih dahulu untuk melakukan pembayaran' 
-               } 
-           });
-       }
-   }, [navigate, onClose]);
+//    useEffect(() => {
+//        if (!isAuthenticated()) {
+//            onClose();
+//            navigate('/login', { 
+//                state: { 
+//                    returnUrl: '/konfirmasi-pembayaran',
+//                    message: 'Silakan login terlebih dahulu untuk melakukan pembayaran' 
+//                } 
+//            });
+//        }
+//    }, [navigate, onClose]);
    
    const plans = {
        "1 Bulan": "Rp70.000",

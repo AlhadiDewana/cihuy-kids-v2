@@ -30,6 +30,9 @@ const User = sequelize.define('User', {
     defaultValue: 'user',
     allowNull: false
   },
+  isPremium: {
+    type:DataTypes.TINYINT, 
+  },
   premiumUntil: {
     type: DataTypes.DATE,
     allowNull: true

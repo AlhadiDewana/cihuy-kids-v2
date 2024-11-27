@@ -24,6 +24,8 @@ import VideoAdmin from './page/admin/content/VideoAdmin';
 import MusicAdmin from './page/admin/content/MusikAdmin';
 import GameAdmin from './page/admin/content/GameAdmin';
 import ReadingAdmin from './page/admin/content/ReadingAdmin';
+import Premium from './components/Premium/Premium';
+
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -51,6 +53,7 @@ const AppRoutes = () => {
           <Route path="/Landing3" element={<LandingPage3 />} />
           <Route path="/login" element={<LoginForm />} />
           
+          
           {/* Admin Routes */}
           <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/konfirmasi-pembayaran" element={<KonfirmasiPembayaran />} />
@@ -69,10 +72,19 @@ const AppRoutes = () => {
           <Route path="/child" element={<ChildPage />} />
           <Route path="/parent" element={<ParentPage />} />
           <Route path="/content" element={<ContentPage />} />
-          <Route path="/video" element={<VideoPage />} />
+          <Route path="/video/:id" element={<VideoPage />} />
           <Route path="/music/:id" element={<MusicPage />} />
           <Route path="/game/:id" element={<GamePage />} />
           <Route path="/bacaan/:id" element={<ReadingPage />} />
+          <Route 
+    path="/penawaranpremium" 
+    element={
+        <Premium 
+            isOpen={true}
+            onClose={() => window.history.back()}
+        />
+    } 
+/>
           
           <Route
             path="/profile"
