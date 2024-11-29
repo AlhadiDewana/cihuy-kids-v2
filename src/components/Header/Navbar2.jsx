@@ -3,6 +3,7 @@ import { Settings, Bell, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/icon.png';
 import LoginForm from '../auth/login';
+import { ChevronDown } from 'lucide-react';
 
 const Navbar = ({ selectedAge, handleAgeChange }) => {
     const navigate = useNavigate();
@@ -27,16 +28,23 @@ const Navbar = ({ selectedAge, handleAgeChange }) => {
                         className="navbar-logo" 
                     />
                     
-                    <select 
-                        value={selectedAge}
-                        onChange={(e) => handleAgeChange(e.target.value)}
-                        className="bg-transparent text-white rounded-full px-4 py-2"
-                    >
-                        <option value="4-5 Tahun">4-5 Tahun</option>
-                        <option value="6-7 Tahun">6-7 Tahun</option>
-                        <option value="8-9 Tahun">8-9 Tahun</option>
-                        <option value="10-12 Tahun">10-12 Tahun</option>
-                    </select>
+                    <div className="relative inline-block">
+  <select 
+    value={selectedAge}
+    onChange={(e) => handleAgeChange(e.target.value)}
+    className="bg-transparent text-white rounded-full px-5 pr-10 border py-2 appearance-none cursor-pointer hover:bg-white hover:text-black transition-colors"
+    style={{
+      WebkitAppearance: 'none',
+      MozAppearance: 'none'
+    }}
+  >
+    <option className="text-black bg-white" value="4-5 Tahun">4-5 Tahun</option>
+    <option className="text-black bg-white" value="6-7 Tahun">6-7 Tahun</option>
+    <option className="text-black bg-white" value="8-9 Tahun">8-9 Tahun</option>
+    <option className="text-black bg-white" value="10-12 Tahun">10-12 Tahun</option>
+  </select>
+  <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none" size={20} />
+</div>
                 </div>
 
                 <div className="flex items-center gap-6">

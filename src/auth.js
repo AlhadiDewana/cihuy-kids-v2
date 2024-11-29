@@ -1,11 +1,13 @@
 // utils/auth.js
-export const login = (userData) => {
+export const login = (userData, token) => {
     localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('token', token);
     localStorage.setItem('userData', JSON.stringify(userData));
 };
 
 export const logout = () => {
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token');
     localStorage.removeItem('userData');
 };
 

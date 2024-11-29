@@ -1,26 +1,38 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
 import { X, Check } from 'lucide-react';
 import premiumkids from '../../assets/Premium-kids.gif'
 import { isAuthenticated } from '../../auth';
 import Konfirm from "./KonfirmPay";
+import { useAuth } from '../../context/AuthContext';
 
-const Premium = ({isOpen, onClose}) => {
-    const [showKonfirm, setShowKonfirm] = useState(false);
+const Premium = ({isOpen=true, onClose}) => {  // Berikan default value true untuk isOpen
+    
     const navigate = useNavigate();
+    const location = useLocation();
+    const { isAuthenticated } = useAuth();
+
+    // Tambahkan handle close jika tidak ada onClose prop
+    const handleClose = () => {
+        // if (onClose) {
+        //     onClose();
+        // }
+        navigate('/content'); // Selalu kembali ke halaman content
+    };
+
 
     const handleBuyClick = () => {
-        if (!isAuthenticated()) {
-            // Redirect ke halaman login
+        if (!isAuthenticated) {
             navigate('/login', { 
                 state: { 
                     returnUrl: '/konfirmasi-pembayaran',
-                    message: 'Silakan login terlebih dahulu untuk melakukan pembayaran' 
+                    message: 'Silakan login terlebih dahulu untuk membeli premium' 
                 } 
             });
             return;
         }
-        setShowKonfirm(true);
+        // Jika sudah login, langsung ke halaman konfirmasi pembayaran
+        navigate('/konfirmasi-pembayaran');
     };
     
     const features = [
@@ -43,6 +55,7 @@ const Premium = ({isOpen, onClose}) => {
         }
     ];
 
+
     if (!isOpen) return null;
 
     return (
@@ -50,7 +63,7 @@ const Premium = ({isOpen, onClose}) => {
             <div className="bg-white rounded-2xl max-w-6xl w-full mx-4 relative overflow-y-auto max-h-[90vh]">
                 {/* Close button */}
                 <button 
-                    onClick={onClose}
+                    onClick={handleClose}  // Gunakan handleClose
                     className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-[#6095FF] rounded-full hover:opacity-90 z-10"
                 >
                     <X className="w-5 h-5 text-white" />
@@ -111,12 +124,6 @@ const Premium = ({isOpen, onClose}) => {
                                         >
                                             Beli
                                         </button>
-                                        {showKonfirm && isAuthenticated() && (
-                                            <Konfirm 
-                                                isOpen={showKonfirm} 
-                                                onClose={() => setShowKonfirm(false)} 
-                                            />
-                                        )}
                                     </div>
                                 </div>
                             ))}

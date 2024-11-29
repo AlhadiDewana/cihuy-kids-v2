@@ -1,78 +1,97 @@
-// components/HeaderCont.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Settings, Bell, User } from 'lucide-react';
 import logo from '../../assets/icon.png';
 import LoginForm from '../auth/login';
+import { useAuth } from '../../context/AuthContext';
 
 const HeaderCont = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [showLogin, setShowLogin] = useState(false);
-  const initialAge = location.state?.selectedAge || '4-5 Tahun';
+  const {logout}=useAuth();
+  // Ambil selectedAge dari state atau localStorage
+  const initialAge = location.state?.selectedAge || localStorage.getItem('lastSelectedAge') || '4-5 Tahun';
   const [selectedAge, setSelectedAge] = useState(initialAge);
+  
+  // Simpan selectedAge ke localStorage setiap kali berubah
+  useEffect(() => {
+    if (location.state?.selectedAge) {
+      localStorage.setItem('lastSelectedAge', location.state.selectedAge);
+    }
+  }, [location.state?.selectedAge]);
 
-  const handleAgeChange = (newAge) => {
-    setSelectedAge(newAge);
+  const handleBack = () => {
+    const lastSelectedAge = localStorage.getItem('lastSelectedAge');
+    navigate('/content', { 
+      state: { 
+        selectedAge: lastSelectedAge || selectedAge 
+      } 
+    });
   };
-
-  // Cek apakah user sudah login
-  const isLoggedIn = localStorage.getItem('token');
 
   const handleProfileClick = () => {
     if (isLoggedIn) {
-        navigate('/profile');
+      navigate('/profile');
     } else {
-        setShowLogin(true);
+      setShowLogin(true);
     }
-};
+  };
 
-const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+  const handleLogout = () => {
+    logout();
+
     navigate('/');
-};
+  };
+
+  const isLoggedIn = localStorage.getItem('token');
 
   return (
     <nav className="flex items-center justify-between px-8 py-4">
+      {/* Left Section */}
       <div className="flex items-center gap-8">
         <img 
           src={logo}
           alt="Cihuy Kids Logo" 
-          className="navbar-logo"
+          className="navbar-logo cursor-pointer"
           onClick={() => navigate('/')}
-          style={{ cursor: 'pointer' }}
         />
 
         <button
-        onClick={() => navigate('/content')}
-        className='text-white font-semibold px-4 py-2'>Kembali
+          onClick={handleBack}
+          className="text-white font-semibold px-4 py-2"
+        >
+          Kembali
         </button>
       </div>
-      <div className="flex items-center gap-6">
-                    <div className="flex items-center gap-2 cursor-pointer" onClick={handleProfileClick}>
-                        <User className="w-8 h-8 text-white border border-3 rounded-full p-[4px]" />
-                        <div className='text-white text-lg font-bold'>
-                            {isLoggedIn ? 'Profile' : 'Login'}
-                        </div>
-                    </div>
-                </div>
+
+      {/* Rest of the code remains the same */}
+      <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 cursor-pointer" onClick={handleProfileClick}>
+          <User className="w-8 h-8 text-white border border-3 rounded-full p-[4px]" />
+          <span className="text-white text-lg font-bold">
+            {isLoggedIn ? 'Profile' : 'Login'}
+          </span>
+        </div>
+
         {isLoggedIn && (
           <button 
             onClick={handleLogout}
-            className="text-sm text-gray-600 hover:text-gray-800 mr-4"
+            className="text-white hover:text-gray-200 ml-4"
           >
             Logout
           </button>
-         )}
-         {/* Modal Login */}
-         {showLogin && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
-                    <div className="w-full max-w-md">
-                        <LoginForm onClose={() => setShowLogin(false)} />
-                    </div>
-                </div>
-            )}
+        )}
+      </div>
+
+      {/* Login Modal */}
+      {showLogin && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
+          <div className="w-full max-w-md">
+            <LoginForm onClose={() => setShowLogin(false)} />
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

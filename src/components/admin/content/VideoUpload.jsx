@@ -1,165 +1,234 @@
-import React, { useState } from 'react';
-import { X, Upload } from 'lucide-react';
+// components/admin/content/VideoUpload.jsx
+import React, { useState, useEffect } from 'react';
+import { Upload, Link, AlertCircle } from 'lucide-react';
+import { videoAPI } from '../../../api';
 
-const UploadVideoModal = ({ isOpen, onClose }) => {
-    const [formData, setFormData] = useState({
-        judul: '',
-        kategori: 'Edukasi',
-        status: 'Free',
-        video: null,
-        thumbnail: null
-    });
+const VideoUpload = ({ isOpen, onClose, onSuccess, editData = null }) => {
+ const [formData, setFormData] = useState({
+   title: '',
+   description: '',
+   videoUrl: '',
+   thumbnailUrl: '',
+   category: 'Edukasi',
+   isPremium: false,
+   ageRange: '4-5'
+ });
+ const [loading, setLoading] = useState(false);
+ const [error, setError] = useState(null);
 
-    const handleChange = (e) => {
-        const { name, value, files } = e.target;
-        if (files) {
-            setFormData(prev => ({
-                ...prev,
-                [name]: files[0]
-            }));
-        } else {
-            setFormData(prev => ({
-                ...prev,
-                [name]: value
-            }));
-        }
-    };
+ // Isi form dengan data edit jika ada
+ useEffect(() => {
+   if (editData) {
+     setFormData({
+       title: editData.title,
+       description: editData.description,
+       videoUrl: editData.videoUrl,
+       thumbnailUrl: editData.thumbnailUrl,
+       category: editData.category,
+       isPremium: editData.isPremium,
+       ageRange: editData.ageRange
+     });
+   } else {
+     // Reset form jika tidak ada editData
+     setFormData({
+       title: '',
+       description: '',
+       videoUrl: '',
+       thumbnailUrl: '',
+       category: 'Edukasi',
+       isPremium: false,
+       ageRange: '4-5'
+     });
+   }
+ }, [editData]);
 
-    if (!isOpen) return null;
+ const validateVideoUrl = (url) => {
+   const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/|drive\.google\.com\/file\/d\/).+/;
+   return youtubeRegex.test(url);
+ };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle upload logic here
-        console.log(formData);
-    };
+ const handleSubmit = async (e) => {
+   e.preventDefault();
+   setError(null);
 
-    return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-2xl w-full max-w-2xl mx-4 flex flex-col max-h-[90vh]">
-                {/*Header*/}
-                <div className="sticky top-0 bg-white p-6 border-b">
-                    <div className="flex justify-between items-center">
-                        <h3 className="text-xl font-bold">Upload Video</h3>
-                        <button onClick={onClose}>
-                            <X className="w-6 h-6" />
-                        </button>
-                    </div>
-                </div>
+   if (!validateVideoUrl(formData.videoUrl)) {
+     setError('Please enter a valid YouTube or Google Drive URL');
+     return;
+   }
 
-                {/*Form*/}
-                <div className="flex-1 overflow-y-auto p-6">
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        {/* Video Upload */}
-                        <div>
-                            <label className="block mb-2 font-medium">File Game</label>
-                            <div className="border-2 border-dashed border-gray-300 rounded-xl p-8">
-                                <div className="space-y-2 text-center">
-                                    <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                                    <div className="text-sm text-gray-600">
-                                        <label htmlFor="game-upload" className="relative cursor-pointer text-blue-500 hover:text-blue-600">
-                                            <span>Upload Game</span>
-                                            <input 
-                                                id="game-upload" 
-                                                name="game" 
-                                                type="file" 
-                                                className="sr-only"
-                                                accept="video/*"
-                                                onChange={handleChange}
-                                            />
-                                        </label>
-                                        <p>atau drag and drop</p>
-                                    </div>
-                                    <p className="text-xs text-gray-500">MP4 up to 1GB</p>
-                                </div>
-                            </div>
-                        </div>
+   try {
+     setLoading(true);
+     let response;
 
-                        {/* Thumbnail Upload */}
-                        <div>
-                            <label className="block mb-2 font-medium">Thumbnail</label>
-                            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                                <div className='space-y-2 text-center'>
-                                    <Upload className="w-12 h-12 mx-auto text-gray-400 mb-2" />
-                                    <div className='text-sm text-gray-600'>
-                                        <label className='relative cursor-pointer text-blue-500 hover:text-blue-600'>
-                                            <span>Upload Thumbnail</span>
-                                            <input 
-                                            type="file"
-                                            className='sr-only'
-                                            accept='image/*'
-                                            onChange={handleChange}
-                                            name='thumbnail'
-                                            />
-                                        </label>
-                                        <p>atau drag and drop</p>
-                                    </div>
-                                    <p  className='text-xs text-gray-500'>
-                                        PNG, JPG up to 5MB
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+     if (editData) {
+       // Update existing video
+       response = await videoAPI.updateVideo(editData.id, formData);
+     } else {
+       // Upload new video
+       const formDataToSend = new FormData();
+       Object.keys(formData).forEach(key => {
+         formDataToSend.append(key, formData[key]);
+       });
+       response = await videoAPI.uploadVideo(formDataToSend);
+     }
 
-                        {/* Video Details */}
-                        <div>
-                            <label className="block mb-2 font-medium">Judul</label>
-                            <input 
-                                type="text"
-                                className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
-                                value={formData.judul}
-                                onChange={(e) => setFormData({...formData, judul: e.target.value})}
-                            />
-                        </div>
+     onSuccess?.(response.data);
+     onClose();
+   } catch (err) {
+     console.error(editData ? 'Update error:' : 'Upload error:', err);
+     setError(err.response?.data?.error || `Failed to ${editData ? 'update' : 'upload'} video`);
+   } finally {
+     setLoading(false);
+   }
+ };
 
-                        {/* Category & Status */}
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block mb-2 font-medium">Kategori</label>
-                                <select 
-                                    className="w-full p-2 border rounded"
-                                    value={formData.kategori}
-                                    onChange={(e) => setFormData({...formData, kategori: e.target.value})}
-                                >
-                                    <option value="Edukasi">Edukasi</option>
-                                    <option value="Hiburan">Hiburan</option>
-                                </select>
-                            </div>
+ if (!isOpen) return null;
 
-                            <div>
-                                <label className="block mb-2 font-medium">Status</label>
-                                <select 
-                                    className="w-full p-2 border rounded"
-                                    value={formData.status}
-                                    onChange={(e) => setFormData({...formData, status: e.target.value})}
-                                >
-                                    <option value="Free">Free</option>
-                                    <option value="Premium">Premium</option>
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                {/* Footer */}
-                <div className="sticky bottom-0 bg-white p-6 border-t">
-                        <div className="flex justify-end gap-4">
-                            <button
-                                type="button"
-                                onClick={onClose}
-                                className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                onClick={handleSubmit}
-                                className="px-6 py-2 bg-[#FF4B6E] text-white rounded-lg hover:bg-[#FF3355]"
-                            >
-                                Upload
-                            </button>
-                        </div>
-                </div>
-            </div>
-        </div>
-    );
+ return (
+   <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+     <div className="bg-white rounded-lg max-w-2xl w-full">
+       <div className="p-6">
+         <div className="flex justify-between items-center mb-6">
+           <h2 className="text-2xl font-bold">
+             {editData ? 'Edit Video' : 'Upload Video'}
+           </h2>
+           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+             ×
+           </button>
+         </div>
+
+         <form onSubmit={handleSubmit} className="space-y-4">
+           <div>
+             <label className="block text-sm font-medium mb-1">Title</label>
+             <input
+               type="text"
+               value={formData.title}
+               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+               className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+               required
+             />
+           </div>
+
+           <div>
+             <label className="block text-sm font-medium mb-1">Video URL (YouTube/Google Drive)</label>
+             <div className="flex gap-2">
+               <input
+                 type="url"
+                 value={formData.videoUrl}
+                 onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
+                 className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+                 required
+               />
+               <button
+                 type="button"
+                 onClick={() => window.open('https://www.youtube.com', '_blank')}
+                 className="p-2 bg-gray-100 rounded hover:bg-gray-200"
+                 title="Open YouTube"
+               >
+                 <Link className="w-5 h-5" />
+               </button>
+             </div>
+           </div>
+
+           <div>
+             <label className="block text-sm font-medium mb-1">Thumbnail URL (Google Drive)</label>
+             <input
+               type="url"  
+               value={formData.thumbnailUrl}
+               onChange={(e) => setFormData({ ...formData, thumbnailUrl: e.target.value })}
+               className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+               required
+             />
+           </div>
+
+           <div>
+             <label className="block text-sm font-medium mb-1">Description</label>
+             <textarea
+               value={formData.description}
+               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+               className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 h-24"
+             />
+           </div>
+
+           <div className="grid grid-cols-2 gap-4">
+             <div>
+               <label className="block text-sm font-medium mb-1">Category</label>
+               <select
+                 value={formData.category}
+                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                 className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+               >
+                 <option value="Edukasi">Edukasi</option>
+                 <option value="Hiburan">Hiburan</option>
+               </select>
+             </div>
+
+             <div>
+               <label className="block text-sm font-medium mb-1">Age Range</label>
+               <select
+                 value={formData.ageRange}
+                 onChange={(e) => setFormData({ ...formData, ageRange: e.target.value })}
+                 className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+               >
+                 <option value="4-5">4-5 years</option>
+                 <option value="6-7">6-7 years</option>
+                 <option value="8-9">8-9 years</option>
+                 <option value="10-12">10-12 years</option>
+               </select>
+             </div>
+           </div>
+
+           <div className="flex items-center gap-2">
+             <input
+               type="checkbox"
+               id="isPremium"
+               checked={formData.isPremium}
+               onChange={(e) => setFormData({ ...formData, isPremium: e.target.checked })}
+               className="rounded text-blue-500"
+             />
+             <label htmlFor="isPremium" className="text-sm font-medium">
+               Premium Content
+             </label>
+           </div>
+
+           {error && (
+             <div className="bg-red-50 text-red-500 p-3 rounded flex items-center gap-2">
+               <AlertCircle className="w-5 h-5" />
+               {error}
+             </div>
+           )}
+
+           <div className="flex justify-end gap-3 mt-6">
+             <button
+               type="button"
+               onClick={onClose}
+               className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
+             >
+               Cancel
+             </button>
+             <button
+               type="submit"
+               disabled={loading}
+               className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 flex items-center gap-2"
+             >
+               {loading ? (
+                 <>
+                   <div className="w-5 h-5 border-t-2 border-b-2 border-white rounded-full animate-spin" />
+                   {editData ? 'Updating...' : 'Uploading...'}
+                 </>
+               ) : (
+                 <>
+                   <Upload className="w-5 h-5" />
+                   {editData ? 'Save Changes' : 'Upload Video'}
+                 </>
+               )}
+             </button>
+           </div>
+         </form>
+       </div>
+     </div>
+   </div>
+ );
 };
 
-export default UploadVideoModal;
+export default VideoUpload;

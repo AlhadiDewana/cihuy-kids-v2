@@ -13,7 +13,8 @@ const ContentCard = ({ item, type }) => {
   const handleClick = () => {
     switch(type) {
       case 'video':
-        navigate('/video');
+        // Navigasi ke video detail dengan id video
+        navigate(`/video/${item.id}`, { state: { videoData: item } });
         break;
       case 'musik':
         navigate(`/music/${item.id}`, { state: { readingData: item } });
