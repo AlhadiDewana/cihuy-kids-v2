@@ -65,13 +65,13 @@ const ResetPasswordForm = ({ isOpen, onClose }) => {
    if (!isOpen) return null;
 
    return (
-       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
-           <div className="relative w-full max-w-4xl grid grid-cols-[1.2fr,1fr] bg-white rounded-2xl overflow-hidden">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999] p-4 sm:p-8">
+   <div className="relative w-full max-w-4xl grid grid-cols-1 md:grid-cols-[1.2fr,1fr] bg-white rounded-2xl overflow-hidden">
                <div className="relative h-full">
                    <img 
                        src={resetImage} 
                        alt="Reset Password" 
-                       className="w-full h-full object-cover"
+                       className="w-full h-40 sm:h-full object-cover"
                    />
                </div>
 
@@ -84,7 +84,7 @@ const ResetPasswordForm = ({ isOpen, onClose }) => {
                    </button>
 
                    <div className="mb-8">
-                       <h2 className="text-xl font-bold text-gray-800">
+                       <h2 className="text-lg sm:text-xl font-bold text-gray-800">
                            {step === 1 ? 'Masukkan email yang terkait dengan akun anda' :
                             step === 2 ? 'Masukkan kode verifikasi' :
                             'Buat kata sandi baru'}
@@ -100,14 +100,14 @@ const ResetPasswordForm = ({ isOpen, onClose }) => {
                    {step === 1 && (
                        <form onSubmit={handleSubmitEmail} className="space-y-4">
                            <div>
-                               <label className="block text-gray-700 mb-1">Email</label>
+                               <label className="block text-sm sm:text-base text-gray-700 mb-1">Email</label>
                                <input
                                    type="email"
                                    name="email"
                                    value={formData.email}
                                    onChange={handleChange}
                                    placeholder="Masukkan email anda"
-                                   className="w-full p-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-blue-500"
+                                   className="w-full p-2 sm:p-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-blue-500"
                                    required
                                />
                            </div>
@@ -203,7 +203,7 @@ const ResetPasswordForm = ({ isOpen, onClose }) => {
                            <button
                                type="submit"
                                disabled={loading}
-                               className="w-full bg-[#6095FF] hover:bg-blue-600 text-white py-3 rounded-lg font-medium transition-colors"
+                               className="w-full bg-[#6095FF] hover:bg-blue-600 text-white py-2 sm:py-3 rounded-lg font-medium transition-colors"
                            >
                                {loading ? 'Loading...' : 'Reset Kata Sandi'}
                            </button>

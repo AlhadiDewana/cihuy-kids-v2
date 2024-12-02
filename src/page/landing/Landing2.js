@@ -23,30 +23,35 @@ const LandingPage2 = () => {
             {/* Hero Section */}
             <section className="relative text-white py-20">
                 <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row items-center justify-between">
-                    <div className="md:w-1/2 mb-8 md:mb-0 text-start">
-                    <h1 className="text-5xl font-bold mb-6">
-                    Konten Sesuai Usia Itu Sangat Penting
-                    </h1>
-                    <p className="text-lg mb-8 max-w-lg">
-                    Menurut berbagai penelitian, anak-anak di setiap tahap perkembangan membutuhkan konten yang berbeda untuk mendukung tumbuh kembangnya.               </p>
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                    {/* Text Section */}
+                    <div className="md:w-1/2 text-center md:text-start mb-6 md:mb-0">
+                        <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6">
+                        Konten Sesuai Usia Itu Sangat Penting
+                        </h1>
+                        <p className="text-base md:text-lg leading-relaxed">
+                        Menurut berbagai penelitian, anak-anak di setiap tahap perkembangan
+                        membutuhkan konten yang berbeda untuk mendukung tumbuh kembangnya.
+                        </p>
                     </div>
-                    <div className="md:w-100">
-                    <img 
-                        src={HeroImage} 
-                        alt="Family using tablet" 
-                        className="rounded-lg w-[750px]"
-                    />
+                    {/* Image Section */}
+                    <div className="md:w-1/2">
+                        <img
+                        src={HeroImage}
+                        alt="Family using tablet"
+                        className="rounded-lg w-full max-w-[600px] mx-auto"
+                        />
                     </div>
-                </div>
+                    </div>
                 </div>
             </section>
+
             {/* Features Grid */}
-            <div className="relative text-white py-20">
-              <div className="">
+            <div className="relative text-white mt-[150px]">
+              <div>
                 {/* Feature 1 */}
                 <div className=" child-1">
-                  <div className="container px-4">
+                  <div className="container mx-auto px-4">
                       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                       {/* Left Image */}
                       <div className="md:w-1/2 relative">
@@ -73,12 +78,12 @@ const LandingPage2 = () => {
                           </p>
                       </div>
               </div>
-            </div>
+                  </div>
                 </div>
 
                 {/* Feature 2 */}
                 <div className=" child-2">
-                  <div className="container px-4">
+                  <div className="container mx-auto px-4">
                       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                       {/* Right Content */}
                       <div className="md:w-1/2 text-white text-start">
@@ -109,7 +114,7 @@ const LandingPage2 = () => {
 
                 {/* Feature 3 */}
                 <div className=" child-3">
-                  <div className="container px-4">
+                  <div className="container mx-auto px-4">
                       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                       {/* Left Image */}
                       <div className="md:w-1/2 relative">
@@ -140,7 +145,7 @@ const LandingPage2 = () => {
 
                 {/* Feature 4 */}
                 <div className=" child-4">
-                  <div className="container px-4">
+                  <div className="container mx-auto px-4">
                       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                       {/* Right Content */}
                       <div className="md:w-1/2 text-white text-start">
@@ -169,7 +174,7 @@ const LandingPage2 = () => {
 
                 {/* Feature 5 */}
                 <div className=" child-5">
-                  <div className="container px-4">
+                  <div className="container mx-auto px-4">
                       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                       {/* Left Image */}
                       <div className="md:w-1/2 relative">
@@ -199,7 +204,7 @@ const LandingPage2 = () => {
 
                 {/* Feature 6 */}
                 <div className=" child-6">
-                  <div className="container px-4">
+                  <div className="container mx-auto px-4">
                       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                       {/* Right Content */}
                       <div className="md:w-1/2 text-white text-start">

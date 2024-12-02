@@ -92,17 +92,17 @@ const LoginForm = ({ onClose }) => {
    };
 
    return (
-       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
-           <div className="relative w-full max-w-4xl grid grid-cols-[1fr,1fr] bg-white rounded-2xl overflow-hidden">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999] p-4 sm:p-8">
+   <div className="relative w-full max-w-4xl grid grid-cols-1 md:grid-cols-[1fr,1fr] bg-white rounded-2xl overflow-hidden">
                <div className="relative h-full">
                    <img 
                        src={loginImage} 
                        alt="Father and son" 
-                       className="w-full h-full object-cover"
+                       className="w-full h-40 sm:h-full object-cover"
                    />
                </div>
 
-               <div className="bg-white p-8 relative">
+               <div className="bg-white p-6 sm:p-8 relative">
                    <button 
                        onClick={onClose}
                        className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-[#6095FF] rounded-full hover:opacity-90 z-10"
@@ -110,8 +110,8 @@ const LoginForm = ({ onClose }) => {
                        <X className="w-5 h-5 text-white" />
                    </button>
 
-                   <div className="mb-8">
-                       <h2 className="text-2xl font-bold text-gray-800">
+                   <div className="mb-6 sm:mb-8">
+                       <h2 className="text-lg sm:text-xl font-bold text-gray-800">
                            Senang bertemu denganmu lagi
                        </h2>
                    </div>
@@ -122,22 +122,22 @@ const LoginForm = ({ onClose }) => {
                        </div>
                    )}
 
-                   <form onSubmit={handleSubmit} className="space-y-6">
+                   <form onSubmit={handleSubmit} className="space-y-4">
                        <div>
-                           <label className="block text-gray-700 mb-1">Email</label>
+                           <label className="block text-sm sm:text-base text-gray-700 mb-1">Email</label>
                            <input
                                type="email"
                                name="email"
                                value={formData.email}
                                onChange={handleChange}
                                placeholder="Masukkan email anda"
-                               className="w-full p-3 rounded-lg bg-gray-100 border-none"
+                               className="w-full p-2 sm:p-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-blue-500"
                                required
                            />
                        </div>
 
                        <div>
-                           <label className="block text-gray-700 mb-1">Kata sandi</label>
+                           <label className="block text-sm sm:text-base text-gray-700 mb-1">Kata sandi</label>
                            <div className="relative">
                                <input
                                    type={showPassword ? "text" : "password"}
@@ -145,7 +145,7 @@ const LoginForm = ({ onClose }) => {
                                    value={formData.password}
                                    onChange={handleChange}
                                    placeholder="Masukkan kata sandi anda"
-                                   className="w-full p-3 rounded-lg bg-gray-100 border-none"
+                                   className="w-full p-2 sm:p-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-blue-500"
                                    required
                                />
                                <button
@@ -173,7 +173,7 @@ const LoginForm = ({ onClose }) => {
                        <button 
                            type="submit"
                            disabled={loading}
-                           className="w-full bg-blue-500 text-white py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors"
+                           className="w-full bg-[#6095FF] hover:bg-blue-600 text-white py-2 sm:py-3 rounded-lg font-medium transition-colors"
                        >
                            {loading ? 'Loading...' : 'Masuk'}
                        </button>
