@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Settings, Bell, User } from 'lucide-react';
+import { User, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/icon.png';
 import LoginForm from '../auth/login';
-import { ChevronDown } from 'lucide-react';
 
 const Navbar = ({ selectedAge, handleAgeChange }) => {
     const navigate = useNavigate();
@@ -20,39 +19,75 @@ const Navbar = ({ selectedAge, handleAgeChange }) => {
 
     return (
         <>
-            <nav className="flex items-center justify-between px-8 py-4">
-                <div className="flex items-center gap-8">
+            <nav style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '16px',
+                backgroundColor: '#6095FF',
+            }}>
+                {/* Logo and Dropdown */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <img 
                         src={logo}
-                        alt="Cihuy Kids Logo" 
-                        className="navbar-logo" 
+                        alt="Cihuy Kids Logo"
+                        style={{ height: '40px', width: 'auto' }}
                     />
-                    
-                    <div className="relative inline-block">
-  <select 
-    value={selectedAge}
-    onChange={(e) => handleAgeChange(e.target.value)}
-    className="bg-transparent text-white rounded-full px-5 pr-10 border py-2 appearance-none cursor-pointer hover:bg-white hover:text-black transition-colors"
-    style={{
-      WebkitAppearance: 'none',
-      MozAppearance: 'none'
-    }}
-  >
-    <option className="text-black bg-white" value="4-5 Tahun">4-5 Tahun</option>
-    <option className="text-black bg-white" value="6-7 Tahun">6-7 Tahun</option>
-    <option className="text-black bg-white" value="8-9 Tahun">8-9 Tahun</option>
-    <option className="text-black bg-white" value="10-12 Tahun">10-12 Tahun</option>
-  </select>
-  <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none" size={20} />
-</div>
+
+                    {/* Dropdown for Age Selection */}
+                    <div style={{ position: 'relative', display: 'inline-block' }}>
+                        <select 
+                            value={selectedAge}
+                            onChange={(e) => handleAgeChange(e.target.value)}
+                            style={{
+                                backgroundColor: 'transparent',
+                                color: 'white',
+                                border: '1px solid white',
+                                borderRadius: '9999px',
+                                padding: '8px 32px 8px 16px',
+                                cursor: 'pointer',
+                                appearance: 'none',
+                            }}
+                        >
+                            <option style={{ color: 'black', backgroundColor: 'white' }} value="4-5 Tahun">4-5 Tahun</option>
+                            <option style={{ color: 'black', backgroundColor: 'white' }} value="6-7 Tahun">6-7 Tahun</option>
+                            <option style={{ color: 'black', backgroundColor: 'white' }} value="8-9 Tahun">8-9 Tahun</option>
+                            <option style={{ color: 'black', backgroundColor: 'white' }} value="10-12 Tahun">10-12 Tahun</option>
+                        </select>
+                        <ChevronDown 
+                            style={{
+                                position: 'absolute',
+                                right: '8px',
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                pointerEvents: 'none',
+                                color: 'white',
+                            }} 
+                            size={20} 
+                        />
+                    </div>
                 </div>
 
-                <div className="flex items-center gap-6">
-                    <div className="flex items-center gap-2 cursor-pointer" onClick={handleProfileClick}>
-                        <User className="w-8 h-8 text-white border border-3 rounded-full p-[4px]" />
-                        <div className='text-white text-lg font-bold'>
+                {/* Profile and Login */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '8px' }}>
+                    <div 
+                        style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                        onClick={handleProfileClick}
+                    >
+                        <User 
+                            style={{
+                                width: '32px',
+                                height: '32px',
+                                color: 'white',
+                                border: '2px solid white',
+                                borderRadius: '50%',
+                                padding: '4px',
+                            }} 
+                        />
+                        <span style={{ color: 'white', fontSize: '16px', fontWeight: 'bold' }}>
                             {isLoggedIn ? 'Profile' : 'Login'}
-                        </div>
+                        </span>
                     </div>
                 </div>
             </nav>
