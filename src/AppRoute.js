@@ -1,7 +1,7 @@
 // routes.js
 import React, { useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation} from 'react-router-dom';
-import { TitleProvider } from './components/admin/TitleContext';
+import { TitleProvider } from './components/admin/navigation/TitleContext';
 import LandingPage from './page/landing/LandingPage';
 import LandingPage2 from './page/landing/Landing2';
 import LandingPage3 from './page/landing/Landing3';

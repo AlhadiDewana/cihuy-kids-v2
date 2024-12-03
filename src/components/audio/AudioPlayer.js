@@ -68,12 +68,12 @@ const AudioPlayer = ({ title, artist, thumbnail, show }) => {
                 <div className="absolute h-full w-full rounded-full opacity-0 group-hover:opacity-100 bg-white/10 transition-opacity" />
               </div>
 
-              {/* Duration */}
-              <span className="text-sm text-[#6095FF] w-12">{formatTime(duration)}</span>
+              {/* Duration (Hidden on small screens) */}
+              <span className="text-sm text-[#6095FF] w-12 hidden sm:flex">{formatTime(duration)}</span>
             </div>
 
             {/* Volume Control */}
-            <div className="flex items-center gap-3 bg-white/10 px-3 py-2 rounded-full">
+            <div className="hidden sm:flex items-center gap-3 bg-white/10 px-3 py-2 rounded-full">
               <Volume2 className="w-5 h-5 text-[#6095FF]" />
               <input 
                 type="range"

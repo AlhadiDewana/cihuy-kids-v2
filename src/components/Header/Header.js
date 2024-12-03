@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../Header/style/Header.css';
-import logo from '../../assets/icon.png'
+import logo from '../../assets/icon.png';
 import stickyLogo from '../../assets/logo.png';
 import userIcon from '../../assets/profile-icon.png';
 import userIconSticky from '../../assets/profile-icon-sticky.png';
@@ -31,18 +31,16 @@ const Header = () => {
     // Cek apakah user sudah login
     const isLoggedIn = localStorage.getItem('token');
 
-    const handleProfileClick = () => {
-        if (isLoggedIn) {
-            navigate('/profile');
-        } else {
-            setShowLogin(true);
-        }
-    };
-
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         navigate('/');
+    };
+
+    const handleProfileClick = () => {
+        if (!isLoggedIn) {
+            setShowLogin(true);
+        }
     };
 
     return (
@@ -50,30 +48,33 @@ const Header = () => {
             <header className={`header ${isSticky ? 'sticky' : ''}`}>
                 <nav className="navbar">
                     <div className="navbar-left">
-                        <img 
+                        <img
                             src={isSticky ? stickyLogo : logo}
-                            alt="Cihuy Kids Logo" 
-                            className="navbar-logo" 
+                            alt="Cihuy Kids Logo"
+                            className="navbar-logo"
                         />
                     </div>
-                    
+
                     <div className="navbar-right">
-                        <img 
-                            onClick={handleProfileClick}
-                            src={isSticky ? userIconSticky : userIcon}
-                            alt="User Icon" 
-                            className="navbar-user-icon cursor-pointer" 
-                        />
-                        {isLoggedIn && (
-                            <button 
+                        {isLoggedIn ? (
+                            <img
                                 onClick={handleLogout}
-                                className="text-sm text-gray-600 hover:text-gray-800 mr-4"
-                            >
-                                Logout
-                            </button>
+                                src={isSticky ? userIconSticky : userIcon}
+                                alt="Logout Icon"
+                                className="navbar-user-icon cursor-pointer"
+                                title="Logout"
+                            />
+                        ) : (
+                            <img
+                                onClick={handleProfileClick}
+                                src={isSticky ? userIconSticky : userIcon}
+                                alt="Login Icon"
+                                className="navbar-user-icon cursor-pointer"
+                                title="Login"
+                            />
                         )}
-                        <button 
-                            onClick={() => navigate('/Jelajahi')} 
+                        <button
+                            onClick={() => navigate('/Jelajahi')}
                             className={`navbar-button ${isSticky ? 'sticky-button' : ''}`}
                         >
                             Jelajahi
@@ -82,20 +83,20 @@ const Header = () => {
                 </nav>
                 <nav>
                     <div className="navbar-center">
-                        <a 
-                            onClick={() => navigate('/')} 
+                        <a
+                            onClick={() => navigate('/')}
                             className="nav-link cursor-pointer"
                         >
                             Selamat Datang
                         </a>
-                        <a 
-                            onClick={() => navigate('/Landing2')} 
+                        <a
+                            onClick={() => navigate('/Landing2')}
                             className="nav-link cursor-pointer"
                         >
                             Kenapa Konten Sesuai Usia itu Penting?
                         </a>
-                        <a 
-                            onClick={() => navigate('/Landing3')} 
+                        <a
+                            onClick={() => navigate('/Landing3')}
                             className="nav-link cursor-pointer"
                         >
                             Perkembangan Otak
@@ -114,6 +115,6 @@ const Header = () => {
             )}
         </>
     );
-}
+};
 
 export default Header;

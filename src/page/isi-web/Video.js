@@ -5,9 +5,8 @@ import Footer from '../../components/footer/Footer';
 import HeaderCont from '../../components/Header/HeaderCont';
 import { videoAPI } from '../../api';
 
-// Fungsi untuk mendapatkan URL thumbnail dari Google Drive
 const getGoogleDriveThumbnailUrl = (url) => {
-  if (!url) return '/path/to/default-thumbnail.png'; // Thumbnail default jika URL tidak valid
+  if (!url) return '/path/to/default-thumbnail.png';
 
   let fileId;
   if (url.includes('drive.google.com')) {
@@ -16,10 +15,9 @@ const getGoogleDriveThumbnailUrl = (url) => {
 
   return fileId
     ? `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`
-    : '/path/to/default-thumbnail.png'; // Kembali ke default jika gagal
+    : '/path/to/default-thumbnail.png';
 };
 
-// Fungsi untuk mendapatkan URL embed video
 const getVideoEmbedUrl = (url) => {
   if (!url) return '';
 
@@ -45,7 +43,6 @@ const getVideoEmbedUrl = (url) => {
   return url;
 };
 
-// Komponen untuk video terkait
 const RelatedVideoCard = ({ video, onClick }) => (
   <div
     className="bg-[#FE4C64] rounded-lg p-4 text-white hover:bg-opacity-90 transition-colors cursor-pointer"
@@ -121,10 +118,10 @@ const VideoPage = () => {
     <div className="min-h-screen bg-[#6095FF]">
       <HeaderCont />
 
-      <div className="max-w-6xl mx-auto p-8 space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Video Player */}
-          <div className="col-span-1 md:col-span-2">
+          <div className="col-span-1 lg:col-span-2">
             <div className="relative bg-black rounded-lg overflow-hidden">
               <iframe
                 className="w-full aspect-video"
@@ -139,34 +136,32 @@ const VideoPage = () => {
           </div>
 
           {/* Video Info */}
-          <div className="bg-[#FE4C64] rounded-lg p-6 text-white">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <span>Tanggal Rilis:</span>
-                <span>{new Date(video.createdAt).toLocaleDateString('id-ID')}</span>
-              </div>
-              <div>
-                <span className="block mb-2">Untuk Usia</span>
-                <span className="bg-[#6095FF] text-white px-3 py-1 rounded-full text-sm">
-                  {video.ageRange} Tahun
-                </span>
-              </div>
-              <div>
-                <span className="block mb-2">Genre</span>
-                <span className="bg-[#6095FF] text-white px-3 py-1 rounded-full text-sm">
-                  {video.category}
-                </span>
-              </div>
-              <div>
-                <span className="block mb-2">Status</span>
-                <span
-                  className={`px-3 py-1 rounded-full text-sm ${
-                    video.isPremium ? 'bg-purple-500 text-white' : 'bg-green-500 text-white'
-                  }`}
-                >
-                  {video.isPremium ? 'Premium' : 'Free'}
-                </span>
-              </div>
+          <div className="bg-[#FE4C64] rounded-lg p-6 text-white space-y-4">
+            <div className="flex flex-wrap items-center gap-2">
+              <span>Tanggal Rilis:</span>
+              <span>{new Date(video.createdAt).toLocaleDateString('id-ID')}</span>
+            </div>
+            <div>
+              <span className="block mb-2">Untuk Usia</span>
+              <span className="bg-[#6095FF] text-white px-3 py-1 rounded-full text-sm">
+                {video.ageRange} Tahun
+              </span>
+            </div>
+            <div>
+              <span className="block mb-2">Genre</span>
+              <span className="bg-[#6095FF] text-white px-3 py-1 rounded-full text-sm">
+                {video.category}
+              </span>
+            </div>
+            <div>
+              <span className="block mb-2">Status</span>
+              <span
+                className={`px-3 py-1 rounded-full text-sm ${
+                  video.isPremium ? 'bg-purple-500 text-white' : 'bg-green-500 text-white'
+                }`}
+              >
+                {video.isPremium ? 'Premium' : 'Free'}
+              </span>
             </div>
           </div>
         </div>
@@ -180,7 +175,7 @@ const VideoPage = () => {
         {/* Related Videos */}
         <div className="bg-[#FCC729] rounded-lg p-6">
           <h2 className="text-white font-semibold mb-4">Video Lainnya</h2>
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
             {relatedVideos.map((relatedVideo) => (
               <RelatedVideoCard
                 key={relatedVideo.id}

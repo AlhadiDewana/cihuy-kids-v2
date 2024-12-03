@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Eye, Trash2 } from 'lucide-react';
-import Sidebar from '../../components/admin/Sidebar';
-import TopNavigation from '../../components/admin/TopNavigation';
+import Sidebar from '../../components/admin/navigation/Sidebar';
+import TopNavigation from '../../components/admin/navigation/TopNavigation';
 import { useNavigate } from 'react-router-dom';
 import { paymentAPI } from '../../api';
 
 const KonfirmasiPembayaran = () => {
-    const [entriesPerPage, setEntriesPerPage] = useState('6');
+    const [entriesPerPage, setEntriesPerPage] = useState(6);
     const [payments, setPayments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -37,7 +37,6 @@ const KonfirmasiPembayaran = () => {
         setSelectedImage(fullImageUrl);
     };
     
-
     const handleStatusChange = async (id, status) => {
         try {
             await paymentAPI.updatePayment(id, { status });
@@ -58,7 +57,6 @@ const KonfirmasiPembayaran = () => {
         }
     };
 
-    // Format price to IDR
     const formatPrice = (price) => {
         return new Intl.NumberFormat('id-ID', {
             style: 'currency',
@@ -66,7 +64,6 @@ const KonfirmasiPembayaran = () => {
         }).format(price);
     };
 
-    // Format date
     const formatDate = (dateString) => {
         return new Date(dateString).toLocaleDateString('id-ID', {
             year: 'numeric',
@@ -75,8 +72,30 @@ const KonfirmasiPembayaran = () => {
         });
     };
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error}</div>;
+    // Pagination Logic
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const currentPayments = payments.slice(
+        (currentPage - 1) * entriesPerPage,
+        currentPage * entriesPerPage
+    );
+
+    const totalPages = Math.ceil(payments.length / entriesPerPage);
+
+    if (loading) return (
+        <div className="flex justify-center items-center min-h-screen">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600"></div>
+        </div>
+    );
+
+    if (error) return (
+        <div className="flex justify-center items-center min-h-screen text-red-600">
+            <div>Error: {error}. Please try again later.</div>
+            <button onClick={fetchPayments} className="ml-4 bg-blue-500 text-white p-2 rounded">Retry</button>
+        </div>
+    );
 
     return (
         <div className="flex min-h-screen bg-gray-100">
@@ -117,7 +136,7 @@ const KonfirmasiPembayaran = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {payments.map((payment) => (
+                                {currentPayments.map((payment) => (
                                     <tr key={payment.id} className="border-b hover:bg-gray-50">
                                         <td className="p-3">{payment.id}</td>
                                         <td className="p-3">{payment.userId}</td>
@@ -138,59 +157,90 @@ const KonfirmasiPembayaran = () => {
                                             <span className={`px-3 py-1 rounded-full text-sm
                                                 ${payment.status === 'success' ? 'bg-green-100 text-green-600' : 
                                                 payment.status === 'pending' ? 'bg-yellow-100 text-yellow-600' : 
-                                                'bg-red-100 text-red-600'}`}
-                                            >
+                                                'bg-red-100 text-red-600'}`}>
                                                 {payment.status}
                                             </span>
                                         </td>
                                         <td className="p-3">
-                                        <div className="flex gap-2">
-   {payment.status === 'pending' && (
-       <>
-           <button 
-               onClick={() => handleStatusChange(payment.id, 'success')}
-               className="px-3 py-1 bg-green-100 text-green-600 rounded hover:bg-green-200"
-           >
-               Approve
-           </button>
-           <button 
-               onClick={() => handleStatusChange(payment.id, 'failed')}
-               className="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200"
-           >
-               Reject
-           </button>
-           <button 
-               onClick={() => handleDelete(payment.id)}
-               className="px-3 py-1 bg-gray-100 text-gray-600 rounded hover:bg-gray-200"
-           >
-               <Trash2 size={16} />
-           </button>
-       </>
-   )}
-</div>
+                                            <div className="flex gap-2">
+                                                {payment.status === 'pending' && (
+                                                    <>
+                                                        <button 
+                                                            onClick={() => handleStatusChange(payment.id, 'success')}
+                                                            className="px-3 py-1 bg-green-100 text-green-600 rounded hover:bg-green-200"
+                                                        >
+                                                            Approve
+                                                        </button>
+                                                        <button 
+                                                            onClick={() => handleStatusChange(payment.id, 'failed')}
+                                                            className="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200"
+                                                        >
+                                                            Reject
+                                                        </button>
+                                                        <button 
+                                                            onClick={() => handleDelete(payment.id)}
+                                                            className="px-3 py-1 bg-gray-100 text-gray-600 rounded hover:bg-gray-200"
+                                                        >
+                                                            <Trash2 size={16} />
+                                                        </button>
+                                                    </>
+                                                )}
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
-                    </div>                  
+                    </div>
+
+                    {/* Pagination */}
+                    <div className="flex justify-center mt-6 space-x-2">
+                        {/* Previous Button */}
+                        <button
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                            className={`px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        >
+                            Previous
+                        </button>
+
+                        {/* Page Numbers */}
+                        {Array.from({ length: totalPages }, (_, index) => index + 1).map((pageNumber) => (
+                            <button
+                                key={pageNumber}
+                                onClick={() => handlePageChange(pageNumber)}
+                                className={`px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-400 ${pageNumber === currentPage ? 'bg-blue-500 text-white' : ''}`}
+                            >
+                                {pageNumber}
+                            </button>
+                        ))}
+
+                        {/* Next Button */}
+                        <button
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                            className={`px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        >
+                            Next
+                        </button>
+                    </div>
                 </div>
             </div>
 
             {/* Image Preview Modal */}
             {selectedImage && (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-        <div className="relative bg-white p-4 rounded">
-            <button
-                onClick={() => setSelectedImage(null)}
-                className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded"
-            >
-                Close
-            </button>
-            <img src={selectedImage} alt="Payment Proof" className="max-w-full max-h-[80vh]" />
-        </div>
-    </div>
-)}
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                    <div className="relative bg-white p-4 rounded">
+                        <button
+                            onClick={() => setSelectedImage(null)}
+                            className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded"
+                        >
+                            Close
+                        </button>
+                        <img src={selectedImage} alt="Payment Proof" className="max-w-full max-h-[80vh]" />
+                    </div>
+                </div>
+            )}
 
         </div>
     );
