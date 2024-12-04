@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Play } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Footer from '../../components/footer/Footer';
-import HeaderCont from '../../components/Header/HeaderCont';
-import { videoAPI } from '../../api';
+import Footer from '../../../components/footer/Footer';
+import HeaderCont from '../../../components/Header/HeaderCont';
+import { videoAPI } from '../../../api';
 
 const getGoogleDriveThumbnailUrl = (url) => {
   if (!url) return '/path/to/default-thumbnail.png';

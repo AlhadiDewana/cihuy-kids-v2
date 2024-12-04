@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Footer from '../../components/footer/Footer';
-import kancil from '../../assets/isi-web/bacaan/kancil.png'
-import HeaderCont from '../../components/Header/HeaderCont'
+import Footer from '../../../components/footer/Footer';
+import kancil from '../../../assets/isi-web/bacaan/kancil.png'
+import HeaderCont from '../../../components/Header/HeaderCont'
 
 const ReadingPage = () => {
 

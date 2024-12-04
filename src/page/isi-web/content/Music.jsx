@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Play, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import HeaderCont from '../../components/Header/HeaderCont';
-import Footer from '../../components/footer/Footer';
-import balonkuImg from '../../assets/isi-web/balonku.png';
-import AudioPlayer from '../../components/audio/AudioPlayer';
+import HeaderCont from '../../../components/Header/HeaderCont';
+import Footer from '../../../components/footer/Footer';
+import balonkuImg from '../../../assets/isi-web/balonku.png';
+import AudioPlayer from '../../../components/audio/AudioPlayer';
 
 const MusicPage = () => {
     const [showPlayer, setShowPlayer] = useState(false);
