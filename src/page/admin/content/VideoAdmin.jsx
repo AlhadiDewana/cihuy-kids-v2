@@ -157,6 +157,7 @@ const VideoAdmin = () => {
                 editData={editingVideo}
             />
         </div>
+</div>
     );
 };
 
