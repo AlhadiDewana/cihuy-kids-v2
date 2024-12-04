@@ -1,29 +1,82 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User, Mail, Phone, ArrowLeft, Edit, Key } from 'lucide-react';
-import Navbar from '../../components/Header/Navbar'; // Sesuaikan dengan path Navbar Anda
+import Navbar from '../../components/Header/Navbar';
+import { userAPI } from '../../api';
+import HeaderCont from '../../components/Header/HeaderCont';
 
 const Profile = () => {
     const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem('user'));
+    const [userData, setUserData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    
+    const handleBack = () => {
+        const role = localStorage.getItem('role');
+        switch(role) {
+            case 'admin':
+                navigate('/admin/dashboard');
+                break;
+            case 'premium':
+                navigate('/premium/dashboard');
+                break;
+            default:
+                navigate('/content'); // atau '/home' atau path default lainnya
+        }
+    };
+      
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await userAPI.getProfile();
+                console.log('Profile response:', response.data); // untuk debugging
+                setUserData(response.data.user);
+                // Update localStorage dengan data terbaru
+                localStorage.setItem('user', JSON.stringify(response.data.user));
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+                setError('Gagal memuat data profil');
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchUserData();
+    }, []);
+
+    const formatDate = (dateString) => {
+        if (!dateString) return 'Invalid Date';
+        try {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('id-ID', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+        } catch {
+            return 'Invalid Date';
+        }
+    };
+
+    if (isLoading) {
+        return <div className="min-h-screen bg-gradient-to-b from-blue-500 to-blue-400 flex items-center justify-center">
+            <div className="text-white">Loading...</div>
+        </div>;
+    }
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-blue-500 to-blue-400">
-            <Navbar />
+            <HeaderCont />
             
             <div className="container mx-auto px-4 py-8">
-                {/* Header dengan tombol back */}
-                <div className="flex items-center mb-6">
-                    <button 
-                        onClick={() => navigate('/video')} 
-                        className="flex items-center text-white hover:text-gray-200"
-                    >
-                        <ArrowLeft className="w-5 h-5 mr-2" />
-                        Kembali
-                    </button>
-                </div>
 
-                {/* Profile Card */}
+                {error && (
+                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                        {error}
+                    </div>
+                )}
+
                 <div className="bg-white rounded-3xl shadow-xl p-8 max-w-2xl mx-auto">
                     <div className="flex justify-between items-center mb-8">
                         <h1 className="text-3xl font-bold text-gray-800">Profile Saya</h1>
@@ -36,9 +89,7 @@ const Profile = () => {
                         </button>
                     </div>
 
-                    {/* Profile Info */}
                     <div className="space-y-6">
-                        {/* Name */}
                         <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-xl">
                             <User className="w-6 h-6 text-blue-500 mt-1" />
                             <div className="flex-1">
@@ -46,12 +97,11 @@ const Profile = () => {
                                     Nama Lengkap
                                 </label>
                                 <p className="text-lg font-medium text-gray-900">
-                                    {user?.name || 'Belum diisi'}
+                                    {userData?.name || 'Belum diisi'}
                                 </p>
                             </div>
                         </div>
 
-                        {/* Email */}
                         <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-xl">
                             <Mail className="w-6 h-6 text-blue-500 mt-1" />
                             <div className="flex-1">
@@ -59,12 +109,11 @@ const Profile = () => {
                                     Email
                                 </label>
                                 <p className="text-lg font-medium text-gray-900">
-                                    {user?.email || 'Belum diisi'}
+                                    {userData?.email || 'Belum diisi'}
                                 </p>
                             </div>
                         </div>
 
-                        {/* Phone */}
                         <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-xl">
                             <Phone className="w-6 h-6 text-blue-500 mt-1" />
                             <div className="flex-1">
@@ -72,13 +121,12 @@ const Profile = () => {
                                     Nomor Telepon
                                 </label>
                                 <p className="text-lg font-medium text-gray-900">
-                                    {user?.phone || 'Belum diisi'}
+                                    {userData?.phone_number || 'Belum diisi'}
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    {/* Action Buttons */}
                     <div className="mt-8 space-y-4">
                         <button
                             onClick={() => navigate('/edit-profile')}
@@ -97,9 +145,8 @@ const Profile = () => {
                         </button>
                     </div>
 
-                    {/* Additional Info */}
                     <div className="mt-6 text-center text-sm text-gray-500">
-                        <p>Bergabung sejak {new Date(user?.createdAt).toLocaleDateString()}</p>
+                        <p>Bergabung sejak {formatDate(userData?.createdAt)}</p>
                     </div>
                 </div>
             </div>

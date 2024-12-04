@@ -6,8 +6,10 @@ import userIcon from '../../assets/profile-icon.png';
 import userIconSticky from '../../assets/profile-icon-sticky.png';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../auth/login';
+import { useAuth } from '../../context/AuthContext';
 
 const Header = () => {
+    const {logout}=useAuth();
     const [isSticky, setIsSticky] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const navigate = useNavigate();
@@ -40,8 +42,8 @@ const Header = () => {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        logout();
+
         navigate('/');
     };
 
