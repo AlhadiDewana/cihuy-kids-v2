@@ -1,7 +1,7 @@
 // routes.js
 import React, { useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation} from 'react-router-dom';
-import { TitleProvider } from './components/admin/TitleContext';
+import { TitleProvider } from './components/admin/navigation/TitleContext';
 import LandingPage from './page/landing/LandingPage';
 import LandingPage2 from './page/landing/Landing2';
 import LandingPage3 from './page/landing/Landing3';
@@ -10,13 +10,13 @@ import ChildPage from './page/isi-web/ChildPage';
 import ParentPage from './page/isi-web/ParentsPage';
 import ContentPage from './page/isi-web/ContentPage';
 import LoginForm from './components/auth/login';
-import VideoPage from './page/isi-web/Video';
+import VideoPage from './page/isi-web/content/Video';
 import Profile from './page/isi-web/Profile';
 import EditProfile from './components/auth/EditProfile';
 import ChangePassword from './components/auth/ChangePassword';
-import MusicPage from './page/isi-web/Music';
-import GamePage from './page/isi-web/Game';
-import ReadingPage from './page/isi-web/Bacaan';
+import MusicPage from './page/isi-web/content/Music';
+import GamePage from './page/isi-web/content/Game';
+import ReadingPage from './page/isi-web/content/Bacaan';
 import Konfirm from './components/Premium/KonfirmPay';
 import AdminDashboard from './page/admin/Dashboard';
 import KonfirmasiPembayaran from './page/admin/KonfirmasiPembayaran';

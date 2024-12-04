@@ -66,7 +66,7 @@ const Profile = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-blue-500 to-blue-400">
+        <div className="min-h-screen bg-[#6095FF]">
             <HeaderCont />
             
             <div className="container mx-auto px-4 py-8">

@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/icon.png';
+import logo from '../../../assets/icon.png';
 import { Home, Users, CreditCard, Video, Music, GamepadIcon, BookOpen, Settings, LogOut } from 'lucide-react';
 import { useTitle } from './TitleContext';
-import { useAuth } from '../../context/AuthContext';
-
+import { useAuth } from '../../../context/AuthContext';
 
 const Sidebar = () => {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const navigate = useNavigate();
     const { setTitle } = useTitle();
-    const {logout}=useAuth();
+    const { logout } = useAuth();
 
     const handleNavigation = (path, title) => {
         navigate(path);
@@ -22,14 +22,15 @@ const Sidebar = () => {
     };
 
     return (
-        <div className="w-64 bg-[#6095FF] text-white min-h-screen">
-            <div className="p-4">
-            <img 
+        <div className="relative flex">
+            {/* Sidebar - Hidden on mobile */}
+            <div className={`w-64 bg-[#6095FF] text-white min-h-screen p-4 md:block ${isSidebarOpen ? 'block' : 'hidden'}`}>
+                <img 
                     src={logo}
                     alt="Cihuy Kids Logo" 
                     className="navbar-logo mb-12" 
                 />
-                
+
                 {/* Menu Sections */}
                 <div className="space-y-6">
                     <div>
@@ -104,6 +105,16 @@ const Sidebar = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Mobile Sidebar toggle */}
+            <button 
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                className="md:hidden fixed top-4 left-4 z-50 bg-[#6095FF] text-white p-3 rounded-full"
+            >
+                <span className="w-5 h-0.5 bg-white block mb-1"></span>
+                <span className="w-5 h-0.5 bg-white block mb-1"></span>
+                <span className="w-5 h-0.5 bg-white block"></span>
+            </button>
         </div>
     );
 };

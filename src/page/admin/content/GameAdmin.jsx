@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { PenSquare, Trash2 } from 'lucide-react';
 import UploadGameModal from '../../../components/admin/content/GameUpload.jsx';
-import Sidebar from '../../../components/admin/Sidebar';
-import TopNavigation from '../../../components/admin/TopNavigation';
+import Sidebar from '../../../components/admin/navigation/Sidebar.jsx';
+import TopNavigation from '../../../components/admin/navigation/TopNavigation.jsx';
 
 const GameAdmin = () => {
     const [showUploadModal, setShowUploadModal] = useState(false);
@@ -35,14 +35,14 @@ const GameAdmin = () => {
     ];
 
     return (
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
             {/* Sidebar */}
             <Sidebar />
             
             {/* Main Content */}
-            <div className="flex-1">
+            <div className="flex-1 p-6 bg-gray-100 min-h-screen">
                 {/* Header */}
-                <TopNavigation/>
+                <TopNavigation />
                 
                 {/* Content Container */}
                 <div className="p-6 bg-gray-100 min-h-screen">
@@ -58,7 +58,7 @@ const GameAdmin = () => {
 
                     {/* Table */}
                     <div className="bg-white rounded-lg shadow overflow-x-auto">
-                        <table className="w-full">
+                        <table className="w-full table-auto">
                             <thead>
                                 <tr className="bg-gray-50">
                                     <th className="p-4 text-left">Image</th>
@@ -83,7 +83,7 @@ const GameAdmin = () => {
                                         <td className="p-4">{Game.judul}</td>
                                         <td className="p-4">
                                             <span className={`px-3 py-1 rounded-full text-sm 
-                                                ${Game.kategori === 'Lagu Anak' ? 'bg-pink-100 text-pink-600' : 
+                                                ${Game.kategori === 'Puzzle' ? 'bg-pink-100 text-pink-600' : 
                                                 'bg-orange-100 text-orange-600'}`}>
                                                 {Game.kategori}
                                             </span>

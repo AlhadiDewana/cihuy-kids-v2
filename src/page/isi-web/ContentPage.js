@@ -5,7 +5,7 @@ import Footer from '../../components/footer/Footer.js'
 import Navbar2 from '../../components/Header/Navbar2.jsx'
 import banner1 from '../../assets/isi-web/kinderflix.png'
 import banner2 from '../../assets/isi-web/balonku.png'
-import banner3 from '../../assets/isi-web/puzzle.png'
+import banner3 from '../../assets/isi-web/flappy.png'
 import banner4 from '../../assets/isi-web/dongeng.png'
 import { useNavigate } from 'react-router-dom';
 import { videoAPI, musicAPI, readingAPI } from '../../api';
@@ -206,7 +206,7 @@ const ContentPage = () => {
     },
     {
       tag: "#GAMEPALINGDISUKAI",
-      title: "Puzzle",
+      title: "Flappy Bird",
       description: "Memecahkan masalah atau menyusun sesuatu dengan cara tertentu.",
       image: banner3,
       buttonText: "Mainkan"
@@ -299,81 +299,82 @@ const ContentPage = () => {
 
   return (
     <div className="min-h-screen bg-[#6095FF]">
-      <Navbar2 
-        selectedAge={selectedAge}
-        handleAgeChange={handleAgeChange}
-      />
-
-      <Banner featuredContent={featuredContent} />
-
-      <div className="px-8">
-        <div className="flex gap-8 mb-6">
-          {availableMenus.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`text-xl font-semibold ${
-                activeTab === tab ? 'text-white' : 'text-white/60'
-              } relative group`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {activeTab === 'Video' && getCurrentContent(videoContent).map((video) => (
-            <ContentCard key={video.id} item={video} type="video" />
-          ))}
-          {activeTab === 'Musik' && getCurrentContent(musicContent).map((music) => (
-            <ContentCard key={music.id} item={music} type="musik" />
-          ))}
-          {activeTab === 'Game' && getCurrentContent(gameContent).map((game) => (
-            <ContentCard key={game.id} item={game} type="game" />
-          ))}
-          {activeTab === 'Bacaan' && getCurrentContent(readingContent).map((reading) => (
-            <ContentCard key={reading.id} item={reading} type="bacaan" />
-          ))}
-        </div>
-
-        <Pagination 
-          totalItems={
-            activeTab === 'Video' ? videoContent.length :
-            activeTab === 'Musik' ? musicContent.length :
-            activeTab === 'Game' ? gameContent.length :
-            activeTab === 'Bacaan' ? readingContent.length :
-            0
-          }
-          itemsPerPage={itemsPerPage}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+    <Navbar2 
+      selectedAge={selectedAge}
+      handleAgeChange={handleAgeChange}
+    />
+  
+    <Banner featuredContent={featuredContent} />
+  
+    <div className="px-4 sm:px-8">
+      <div className="flex flex-wrap gap-8 mb-6 justify-center md:justify-start">
+        {availableMenus.map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`text-xl sm:text-2xl font-semibold ${
+              activeTab === tab ? 'text-white' : 'text-white/60'
+            } relative group`}
+          >
+            {tab}
+          </button>
+        ))}
       </div>
-
-      {selectedAge === '4-5 Tahun' && (
-        <div className="px-8 mt-4">
-          <p className="text-white/80 text-sm">
-            * Konten Musik, Game, dan Bacaan tersedia untuk usia yang lebih tinggi
-          </p>
-        </div>
-      )}
-      {selectedAge === '6-7 Tahun' && (
-        <div className="px-8 mt-4">
-          <p className="text-white/80 text-sm">
-            * Konten Game dan Bacaan tersedia untuk usia yang lebih tinggi
-          </p>
-        </div>
-      )}
-      {selectedAge === '8-9 Tahun' && (
-        <div className="px-8 mt-4">
-          <p className="text-white/80 text-sm">
-            * Konten Bacaan tersedia untuk usia 10+ tahun
-          </p>
-        </div>
-      )}
-      
-      <Footer/>
+  
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {activeTab === 'Video' && getCurrentContent(videoContent).map((video) => (
+          <ContentCard key={video.id} item={video} type="video" />
+        ))}
+        {activeTab === 'Musik' && getCurrentContent(musicContent).map((music) => (
+          <ContentCard key={music.id} item={music} type="musik" />
+        ))}
+        {activeTab === 'Game' && getCurrentContent(gameContent).map((game) => (
+          <ContentCard key={game.id} item={game} type="game" />
+        ))}
+        {activeTab === 'Bacaan' && getCurrentContent(readingContent).map((reading) => (
+          <ContentCard key={reading.id} item={reading} type="bacaan" />
+        ))}
+      </div>
+  
+      <Pagination 
+        totalItems={
+          activeTab === 'Video' ? videoContent.length :
+          activeTab === 'Musik' ? musicContent.length :
+          activeTab === 'Game' ? gameContent.length :
+          activeTab === 'Bacaan' ? readingContent.length :
+          0
+        }
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
+  
+    {selectedAge === '4-5 Tahun' && (
+      <div className="px-4 sm:px-8 mt-4">
+        <p className="text-white/80 text-sm sm:text-base">
+          * Konten Musik, Game, dan Bacaan tersedia untuk usia yang lebih tinggi
+        </p>
+      </div>
+    )}
+    {selectedAge === '6-7 Tahun' && (
+      <div className="px-4 sm:px-8 mt-4">
+        <p className="text-white/80 text-sm sm:text-base">
+          * Konten Game dan Bacaan tersedia untuk usia yang lebih tinggi
+        </p>
+      </div>
+    )}
+    {selectedAge === '8-9 Tahun' && (
+      <div className="px-4 sm:px-8 mt-4">
+        <p className="text-white/80 text-sm sm:text-base">
+          * Konten Bacaan tersedia untuk usia 10+ tahun
+        </p>
+      </div>
+    )}
+  
+    <Footer />
+  </div>
+  
   );
 };
 

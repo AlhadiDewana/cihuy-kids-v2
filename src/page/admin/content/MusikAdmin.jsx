@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { PenSquare, Trash2 } from 'lucide-react';
 import UploadMusicModal from '../../../components/admin/content/MusicUpload';
-import Sidebar from '../../../components/admin/Sidebar';
-import TopNavigation from '../../../components/admin/TopNavigation';
+import Sidebar from '../../../components/admin/navigation/Sidebar';
+import TopNavigation from '../../../components/admin/navigation/TopNavigation';
 import { musicAPI } from '../../../api';
 import VideoThumbnail from '../../../components/VideoThumbnail';
 
@@ -67,20 +67,19 @@ const MusicAdmin = () => {
     }
 
     return (
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
             {/* Sidebar */}
             <Sidebar />
             
             {/* Main Content */}
-            <div className="flex-1">
+            <div className="flex-1 p-6 bg-gray-100 min-h-screen">
                 {/* Header */}
-                <TopNavigation/>
+                <TopNavigation />
                 
                 {/* Content Container */}
                 <div className="p-6 bg-gray-100 min-h-screen">
                     {/* Header with Upload Button */}
-                    <div className="flex justify-between items-center mb-6">
-                        <h1 className="text-2xl font-bold text-gray-800">Music Management</h1>
+                    <div className="flex justify-end items-center mb-6">
                         <button 
                             onClick={() => setShowUploadModal(true)}
                             className="bg-[#FF4B6E] text-white px-4 py-2 rounded-lg hover:bg-[#FF3355] transition-colors"

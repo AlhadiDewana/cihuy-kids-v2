@@ -11,13 +11,15 @@ const TopNavigation = () => {
                 <div className="flex justify-between items-center h-16">
                     <h2 className="text-2xl font-bold">{title}</h2>
                     <div className="flex items-center space-x-4">
+                        {/* Notification Button */}
                         <button className="relative">
                             <Bell className="w-6 h-6" />
                             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">
                                 2
                             </span>
                         </button>
-                        <div className="flex items-center space-x-2">
+                        {/* User Info Section */}
+                        <div className="hidden md:flex items-center space-x-2">
                             <img 
                                 src="https://via.placeholder.com/40" 
                                 alt="Admin" 

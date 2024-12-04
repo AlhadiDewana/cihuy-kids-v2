@@ -126,14 +126,13 @@ const RegisterForm = ({ isOpen, onClose }) => {
    if (!isOpen) return null;
 
    return (
-       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
-           <div className="relative w-full max-w-4xl grid grid-cols-[1.2fr,1fr] bg-white rounded-2xl overflow-hidden">
-               <div className="relative h-full">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999] p-4 sm:p-8">
+            <div className="relative w-full max-w-4xl grid grid-cols-1 md:grid-cols-[1.2fr,1fr] bg-white rounded-2xl overflow-hidden">
+                 <div className="relative h-full">
                    <img 
                        src={registerImage} 
                        alt="Mother and daughter" 
-                       className="w-full h-full object-cover"
-                       style={{ maxHeight: '700px' }}
+                       className="w-full h-40 sm:h-full object-cover"
                    />
                </div>
 
@@ -146,7 +145,7 @@ const RegisterForm = ({ isOpen, onClose }) => {
                    </button>
 
                    <div className="mb-8">
-                       <h2 className="text-xl font-bold text-gray-800">
+                       <h2 className="text-lg sm:text-xl font-bold text-gray-800">
                            Selamat bergabung dengan kami
                        </h2>
                    </div>
@@ -159,14 +158,14 @@ const RegisterForm = ({ isOpen, onClose }) => {
 
                    <form onSubmit={handleSubmit} className="space-y-4">
                        <div>
-                           <label className="block text-gray-700 mb-1">Nama</label>
+                           <label className="block text-sm sm:text-base text-gray-700 mb-1">Nama</label>
                            <input
                                type="text"
                                name="name"
                                value={formData.name}
                                onChange={handleChange}
                                placeholder="Masukkan nama lengkap anda"
-                               className={`w-full p-3 rounded-lg bg-gray-50 border 
+                               className={`w-full p-2 sm:p-3 rounded-lg bg-gray-50 border 
                                    ${inputErrors.name ? 'border-red-500' : 'border-gray-200'} 
                                    focus:outline-none focus:border-blue-500`}
                                required
@@ -177,14 +176,14 @@ const RegisterForm = ({ isOpen, onClose }) => {
                        </div>
 
                        <div>
-                           <label className="block text-gray-700 mb-1">Email</label>
+                           <label className="block text-sm sm:text-base text-gray-700 mb-1">Email</label>
                            <input
                                type="email"
                                name="email"
                                value={formData.email}
                                onChange={handleChange}
                                placeholder="Masukkan email anda"
-                               className="w-full p-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-blue-500"
+                               className="w-full p-2 sm:p-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-blue-500"
                                required
                            />
                            {inputErrors.email && (
@@ -193,7 +192,7 @@ const RegisterForm = ({ isOpen, onClose }) => {
                        </div>
 
                        <div>
-                           <label className="block text-gray-700 mb-1">Buat kata sandi</label>
+                           <label className="block text-sm sm:text-base text-gray-700 mb-1">Buat kata sandi</label>
                            <div className="relative">
                                <input
                                    type={showPassword ? "text" : "password"}
@@ -201,7 +200,7 @@ const RegisterForm = ({ isOpen, onClose }) => {
                                    value={formData.password}
                                    onChange={handleChange}
                                    placeholder="Masukkan kata sandi"
-                                   className="w-full p-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-blue-500"
+                                   className="w-full p-2 sm:p-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-blue-500"
                                    required
                                />
                                {inputErrors.password && (
@@ -222,7 +221,7 @@ const RegisterForm = ({ isOpen, onClose }) => {
                        </div>
 
                        <div>
-                           <label className="block text-gray-700 mb-1">Konfirmasi kata sandi</label>
+                           <label className="block text-sm sm:text-base text-gray-700 mb-1">Konfirmasi kata sandi</label>
                            <div className="relative">
                                <input
                                    type={showConfirmPassword ? "text" : "password"}
@@ -230,7 +229,7 @@ const RegisterForm = ({ isOpen, onClose }) => {
                                    value={formData.confirmPassword}
                                    onChange={handleChange}
                                    placeholder="Konfirmasi kata sandi anda"
-                                   className="w-full p-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-blue-500"
+                                   className="w-full p-2 sm:p-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-blue-500"
                                    required
                                />
                                <button
@@ -250,24 +249,24 @@ const RegisterForm = ({ isOpen, onClose }) => {
                        <button
                            type="submit"
                            disabled={loading}
-                           className="w-full bg-[#6095FF] hover:bg-blue-600 text-white py-3 rounded-lg font-medium transition-colors"
+                           className="w-full bg-[#6095FF] hover:bg-blue-600 text-white py-2 sm:py-3 rounded-lg font-medium transition-colors"
                        >
                            {loading ? 'Loading...' : 'Daftar'}
                        </button>
 
                        <button
-                           type="button"
-                           className="w-full flex items-center justify-center gap-2 border bg-black text-white p-3 rounded-lg hover:bg-gray-900 transition-colors"
-                       >
-                           <img 
-                               src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" 
-                               alt="Google"
-                               className="w-5 h-5"
-                           />
-                           <span>Daftar dengan google</span>
-                       </button>
+                            type="button"
+                            className="w-full flex items-center justify-center gap-2 border bg-black text-white py-2 sm:py-3 rounded-lg hover:bg-gray-900 transition-colors"
+                        >
+                            <img 
+                                src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" 
+                                alt="Google"
+                                className="w-4 h-4 sm:w-5 sm:h-5"
+                            />
+                            <span>Daftar dengan google</span>
+                        </button>
 
-                       <p className="text-center text-gray-600 text-sm">
+                       <p className="text-center text-gray-600 text-xs sm:text-sm">
                            Sudah punya akun?{' '}
                            <Link to="/login" className="text-blue-500 hover:underline">
                                Masuk sekarang

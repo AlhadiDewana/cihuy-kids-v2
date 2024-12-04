@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userAPI } from '../../api';
 import Navbar from '../Header/Navbar';
+import HeaderCont from '../../components/Header/HeaderCont';
+
 
 const ChangePassword = () => {
    const navigate = useNavigate();
@@ -38,8 +40,8 @@ const ChangePassword = () => {
    };
 
    return (
-       <div className="min-h-screen bg-gradient-to-b from-blue-500 to-blue-400">
-           <Navbar />
+       <div className="min-h-screen bg-[#6095FF]">
+           <HeaderCont />
            <div className="container mx-auto px-4 py-8">
                <div className="bg-white rounded-3xl shadow-xl p-8 max-w-2xl mx-auto">
                    <h1 className="text-3xl font-bold text-gray-800 mb-6">Ganti Password</h1>
