@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { PenSquare, Trash2 } from 'lucide-react';
+import { PenSquare, Trash2, Image } from 'lucide-react';
 import VideoUpload from '../../../components/admin/content/VideoUpload';
 import Sidebar from '../../../components/admin/Sidebar';
 import TopNavigation from '../../../components/admin/TopNavigation';
 import { videoAPI } from '../../../api';
+import VideoThumbnail from '../../../components/VideoThumbnail';  // Adjust the import path as needed
 
+// VideoThumbnail Component
 const VideoAdmin = () => {
     const [showModal, setShowModal] = useState(false);
     const [videos, setVideos] = useState([]);
@@ -20,6 +22,7 @@ const VideoAdmin = () => {
         try {
             const response = await videoAPI.getAllVideos();
             setVideos(response.data.videos || []);
+            console.log(response.data.videos)
         } catch (err) {
             console.error('Error fetching videos:', err);
             setError('Failed to fetch videos');
@@ -61,7 +64,8 @@ const VideoAdmin = () => {
             <div className="flex-1">
                 <TopNavigation/>
                 <div className="p-6 bg-gray-100 min-h-screen">
-                    <div className="flex justify-end items-center mb-6">
+                    <div className="flex justify-between items-center mb-6">
+                        <h1 className="text-2xl font-semibold">Video List</h1>
                         <button 
                             onClick={() => setShowModal(true)}
                             className="bg-[#FF4B6E] text-white px-4 py-2 rounded-lg hover:bg-[#FF3355] transition-colors"
@@ -86,11 +90,10 @@ const VideoAdmin = () => {
                                     videos.map((video) => (
                                         <tr key={video.id} className="border-t hover:bg-gray-50">
                                             <td className="p-4">
-                                                <img 
-                                                    src={video.thumbnailUrl} 
-                                                    alt={video.title}
-                                                    className="w-24 h-16 object-cover rounded"
-                                                />
+                                            <VideoThumbnail 
+    src={video.thumbnailUrl} 
+    alt={video.title}
+/>
                                             </td>
                                             <td className="p-4">{video.title}</td>
                                             <td className="p-4">

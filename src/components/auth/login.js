@@ -75,6 +75,9 @@ const LoginForm = ({ onClose }) => {
         setLoading(false);
     }
 };
+const handleClose=()=> {
+    navigate(-1);
+}
 
 
    const handleRegisterClick = (e) => {
@@ -104,7 +107,7 @@ const LoginForm = ({ onClose }) => {
 
                <div className="bg-white p-8 relative">
                    <button 
-                       onClick={onClose}
+                       onClick={handleClose}
                        className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-[#6095FF] rounded-full hover:opacity-90 z-10"
                    >
                        <X className="w-5 h-5 text-white" />

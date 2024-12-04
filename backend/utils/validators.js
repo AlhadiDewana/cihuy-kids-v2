@@ -14,6 +14,7 @@ module.exports = {
         }
     },
 
+
     validateThumbnailUrl: (url) => {
         if (!url) return false;
         try {

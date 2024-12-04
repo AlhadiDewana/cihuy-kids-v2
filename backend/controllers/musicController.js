@@ -1,29 +1,36 @@
-// controllers/musicController.js
 const Music = require('../models/Music');
+const { validateVideoUrl, validateThumbnailUrl } = require('../utils/validators');
 
 module.exports = {
     async uploadMusic(req, res) {
         try {
-            // if (req.userRole !== 'admin') {
-            //     return res.status(403).json({
-            //         error: 'Unauthorized'
-            //     });
-            // }
-
             const {
                 title,
-                musicUrl,         // Ubah dari url
+                musicUrl,
                 thumbnailUrl,
-                category,         // Ubah dari genre
+                genre,
                 isPremium,
                 ageRange
             } = req.body;
-            
+
+            // Validasi URL musik dan thumbnail
+            if (!validateVideoUrl(musicUrl)) {
+                return res.status(400).json({
+                    error: 'Invalid music URL. Must be YouTube or Google Drive URL'
+                });
+            }
+
+            if (!validateThumbnailUrl(thumbnailUrl)) {
+                return res.status(400).json({
+                    error: 'Invalid thumbnail URL'
+                });
+            }
+
             const music = await Music.create({
                 title,
-                url: musicUrl,    // Sesuaikan dengan nama kolom di database
-                thumbnailUrl,
-                genre: category,  // Sesuaikan dengan nama kolom di database
+                url: musicUrl.trim(),
+                thumbnailUrl: thumbnailUrl.trim(),
+                genre,
                 isPremium: isPremium === 'true',
                 ageRange
             });
@@ -33,6 +40,7 @@ module.exports = {
                 music
             });
         } catch (error) {
+            console.error('Music upload error:', error);
             res.status(500).json({
                 error: error.message
             });
@@ -41,23 +49,26 @@ module.exports = {
 
     async getMusicList(req, res) {
         try {
-            let query = {};
-            if (req.query.genre) {
-                query.genre = req.query.genre;
-            }
+            const { page = 1, limit = 10, genre, ageRange, isPremium } = req.query;
+            const offset = (page - 1) * limit;
 
-            if (req.query.ageRange) {
-                query.ageRange = req.query.ageRange;
-            }
-            const musics = await Music.findAll({
+            const query = {};
+            if (genre) query.genre = genre;
+            if (ageRange) query.ageRange = ageRange;
+            if (isPremium !== undefined) query.isPremium = isPremium === 'true';
+
+            const { count, rows: musics } = await Music.findAndCountAll({
                 where: query,
-                order: [
-                    ['createdAt', 'DESC']
-                ]
+                limit: parseInt(limit),
+                offset: parseInt(offset),
+                order: [['createdAt', 'DESC']]
             });
+
             res.json({
                 musics,
-                
+                total: count,
+                totalPages: Math.ceil(count / limit),
+                currentPage: parseInt(page)
             });
         } catch (error) {
             res.status(500).json({
@@ -69,35 +80,26 @@ module.exports = {
     async getMusicById(req, res) {
         try {
             const music = await Music.findByPk(req.params.id);
-            if (!music) return res.status(404).json({
-                error: 'Music tidak ditemukan'
-            });
+            if (!music) return res.status(404).json({ error: 'Music tidak ditemukan' });
 
-            if (music.isPremium && req.user.role === 'user') {
-                return res.status(403).json({
-                    error: 'Music ini hanya untuk pengguna premium'
-                });
-            }
             res.json(music);
         } catch (error) {
-            res.status(500).json({
-                error: error.message
-            });
+            res.status(500).json({ error: error.message });
         }
     },
 
     async updateMusic(req, res) {
         try {
-            if (req.user.role !== 'admin') {
-                return res.status(403).json({
-                    error: 'Unauthorized'
-                });
+            const music = await Music.findByPk(req.params.id);
+            if (!music) return res.status(404).json({ error: 'Music tidak ditemukan' });
+
+            if (req.body.musicUrl && !validateVideoUrl(req.body.musicUrl)) {
+                return res.status(400).json({ error: 'Invalid music URL' });
             }
 
-            const music = await Music.findByPk(req.params.id);
-            if (!music) return res.status(404).json({
-                error: 'Music tidak ditemukan'
-            });
+            if (req.body.thumbnailUrl && !validateThumbnailUrl(req.body.thumbnailUrl)) {
+                return res.status(400).json({ error: 'Invalid thumbnail URL' });
+            }
 
             await music.update(req.body);
             res.json({
@@ -113,16 +115,8 @@ module.exports = {
 
     async deleteMusic(req, res) {
         try {
-            if (req.user.role !== 'admin') {
-                return res.status(403).json({
-                    error: 'Unauthorized'
-                });
-            }
-
             const music = await Music.findByPk(req.params.id);
-            if (!music) return res.status(404).json({
-                error: 'Music tidak ditemukan'
-            });
+            if (!music) return res.status(404).json({ error: 'Music tidak ditemukan' });
 
             await music.destroy();
             res.json({

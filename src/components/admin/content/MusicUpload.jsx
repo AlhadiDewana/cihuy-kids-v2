@@ -1,20 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, Upload, Link } from 'lucide-react';
 import { musicAPI } from '../../../api';
 import { data } from 'autoprefixer';
 
-const UploadMusicModal = ({ isOpen, onClose, onUploadSuccess }) => {
+const UploadMusicModal = ({ isOpen, onClose, onUploadSuccess, editData = null }) => {
    const [formData, setFormData] = useState({
        title: '',
        musicUrl: '',
        thumbnailUrl: '',
-       category: 'Lagu Anak',
+       genre: 'Lagu Anak',
        isPremium: false,
-       ageRange: '4-5'
+       ageRange: '6-7'
    });
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState('');
    console.log(formData)
+
+   useEffect(() => {
+    if (editData) {
+      setFormData({
+        title: editData.title,
+        musicUrl: editData.url,
+        thumbnailUrl: editData.thumbnailUrl,
+        genre: editData.genre,
+        isPremium: editData.isPremium,
+        ageRange: editData.ageRange
+      });
+    } else {
+      // Reset form jika tidak ada editData
+      setFormData({
+        title: '',
+        
+        musicUrl: '',
+        thumbnailUrl: '',
+        genre: 'Lagu Anak',
+        isPremium: false,
+        ageRange: '6-7'
+      });
+    }
+  }, [editData]);
 
    const validateMusicUrl = (url) => {
        if (!url) return false;
@@ -35,25 +59,32 @@ const UploadMusicModal = ({ isOpen, onClose, onUploadSuccess }) => {
    };
 
    const handleSubmit = async (e) => {
-       e.preventDefault();
-       setError('');
+    e.preventDefault();
+    setError('');
 
-       if (!validateMusicUrl(formData.musicUrl)) {
-           setError('Please enter a valid Google Drive URL');
-           return;
-       }
+    if (!validateMusicUrl(formData.musicUrl)) {
+        setError('Please enter a valid Google Drive URL');
+        return;
+    }
 
-       try {
-           setLoading(true);
-           const response = await musicAPI.uploadMusic(formData);
-           onUploadSuccess?.(response.data);
-           onClose();
-       } catch (error) {
-           setError(error.response?.data?.error || 'Gagal mengupload musik');
-       } finally {
-           setLoading(false);
-       }
-   };
+    try {
+        setLoading(true);
+        let response;
+        if (editData) {
+            // Update existing data
+            response = await musicAPI.updateMusic(editData.id, formData);
+        } else {
+            // Create new data
+            response = await musicAPI.uploadMusic(formData);
+        }
+        onUploadSuccess?.(response.data);
+        onClose();
+    } catch (error) {
+        setError(error.response?.data?.error || 'Gagal mengupload musik');
+    } finally {
+        setLoading(false);
+    }
+};
 
    if (!isOpen) return null;
 
@@ -131,8 +162,8 @@ const UploadMusicModal = ({ isOpen, onClose, onUploadSuccess }) => {
                            <div>
                                <label className="block mb-2 font-medium">Kategori</label>
                                <select
-                                   name="category"
-                                   value={formData.category}
+                                   name="genre"
+                                   value={formData.genre}
                                    onChange={handleChange}
                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                >
@@ -160,7 +191,7 @@ const UploadMusicModal = ({ isOpen, onClose, onUploadSuccess }) => {
                   onChange={(e) => setFormData({ ...formData, ageRange: e.target.value })}
                   className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="4-5">4-5 years</option>
+                  
                   <option value="6-7">6-7 years</option>
                   <option value="8-9">8-9 years</option>
                   <option value="10-12">10-12 years</option>
