@@ -53,7 +53,7 @@ const ReadingPage = () => {
         {/* Rekomendasi */}
         <div className="bg-[#FCC729] rounded-lg p-6">
           <h2 className="text-white font-semibold mb-4">Herdin Lainnya</h2>
-          <div className="space-y-4 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="space-y-4 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-1 gap-4">
             {[1, 2, 3, 4, 5].map((_, index) => (
               <div key={index} className="bg-[#FE4C64] rounded-lg p-4 text-white hover:bg-opacity-90 transition-colors cursor-pointer">
                 <div className="flex gap-4 flex-col sm:flex-row">

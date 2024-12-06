@@ -26,24 +26,28 @@ const Navbar = ({ selectedAge, handleAgeChange }) => {
 
                     {/* Dropdown for Age Selection */}
                     <div style={{ position: 'relative', display: 'inline-block' }}>
-                        <select 
-                            value={selectedAge}
-                            onChange={(e) => handleAgeChange(e.target.value)}
-                            style={{
-                                backgroundColor: 'transparent',
-                                color: 'white',
-                                border: '1px solid white',
-                                borderRadius: '9999px',
-                                padding: '8px 32px 8px 16px',
-                                cursor: 'pointer',
-                                appearance: 'none',
-                            }}
-                        >
-                            <option style={{ color: 'black', backgroundColor: 'white' }} value="4-5 Tahun">4-5 Tahun</option>
-                            <option style={{ color: 'black', backgroundColor: 'white' }} value="6-7 Tahun">6-7 Tahun</option>
-                            <option style={{ color: 'black', backgroundColor: 'white' }} value="8-9 Tahun">8-9 Tahun</option>
-                            <option style={{ color: 'black', backgroundColor: 'white' }} value="10-12 Tahun">10-12 Tahun</option>
-                        </select>
+                    <select
+    value={selectedAge}
+    onChange={(e) => {
+        const value = e.target.value;
+        handleAgeChange(value);
+        localStorage.setItem('lastSelectedAge', value); // Set item ke localStorage
+    }}
+    style={{
+        backgroundColor: 'transparent',
+        color: 'white',
+        border: '1px solid white',
+        borderRadius: '9999px',
+        padding: '8px 32px 8px 16px',
+        cursor: 'pointer',
+        appearance: 'none',
+    }}
+>
+    <option style={{ color: 'black', backgroundColor: 'white' }} value="4-5 Tahun">4-5 Tahun</option>
+    <option style={{ color: 'black', backgroundColor: 'white' }} value="6-7 Tahun">6-7 Tahun</option>
+    <option style={{ color: 'black', backgroundColor: 'white' }} value="8-9 Tahun">8-9 Tahun</option>
+    <option style={{ color: 'black', backgroundColor: 'white' }} value="10-12 Tahun">10-12 Tahun</option>
+</select>
                         <ChevronDown 
                             style={{
                                 position: 'absolute',

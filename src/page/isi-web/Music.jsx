@@ -5,45 +5,63 @@ import HeaderCont from '../../components/Header/HeaderCont';
 import Footer from '../../components/footer/Footer';
 import balonkuImg from '../../assets/isi-web/balonku.png';
 import AudioPlayer from '../../components/audio/AudioPlayer';
-import { musicAPI } from '../../api'; 
+import { musicAPI } from '../../api';
 
-const convertGoogleDriveURL = (url) => {
-  const match = url.match(/\/d\/(.*?)\//);
-  return match ? `https://drive.google.com/uc?export=download&id=${match[1]}` : url;
+const getThumbnailUrl = (url) => {
+  if (!url) return null;
+
+  try {
+    const isGoogleDrive = url.includes('drive.google.com');
+    const isYouTube = url.includes('youtu');
+
+    if (isGoogleDrive) {
+      // Extract Google Drive file ID
+      const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      return match ? `https://drive.google.com/thumbnail?id=${match[1]}` : null;
+    }
+
+    if (isYouTube) {
+      // Extract YouTube video ID
+      const match = url.match(/(?:youtube\.com\/.*v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)/);
+      return match ? `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg` : null;
+    }
+
+    return null;
+  } catch (err) {
+    console.error('Failed to parse thumbnail URL:', err);
+    return null;
+  }
 };
-
-
 
 const MusicPage = () => {
   const [musicList, setMusicList] = useState([]);
-  const[musicById, setMusicById] = useState(null);
+  const [musicById, setMusicById] = useState(null);
   const [showPlayer, setShowPlayer] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 
+  // Fetch music data
   useEffect(() => {
     const fetchMusic = async () => {
       try {
         const response = await musicAPI.getAllMusic();
         const musicId = await musicAPI.getMusicById(id);
-  
+
         setMusicList(response.data.musics);
-  
-        // Convert Google Drive URL
-        const convertedUrl = convertGoogleDriveURL(musicId.data.url);
-        setMusicById({ ...musicId.data, url: convertedUrl });
-  
-        console.log("Music List:", response.data.musics);
-        console.log("Music by ID:", musicId.data);
+        setMusicById(musicId.data); // Set langsung tanpa konversi
       } catch (error) {
         console.error('Error fetching music:', error);
       }
     };
-  
+
     fetchMusic();
   }, [id]);
-  
-console.log(musicById)
+
+  const thumbnailUrl = getThumbnailUrl(musicList.thumbnailUrl || '');
+  console.log(musicList.thumbnailUrl);
+
+
+
   return (
     <div className="min-h-screen bg-[#6095FF]">
       <HeaderCont />
@@ -54,8 +72,10 @@ console.log(musicById)
           <div className="flex justify-between items-center">
             {/* Left side content */}
             <div className="p-20 text-white">
-              <h1 className="text-4xl font-bold mb-2 text-[#FCC729]">.</h1>
-              <p className="text-sm mb-2">AT Mahmud dan Pak Kasur</p>
+              <h1 className="text-4xl font-bold mb-2 text-[#FCC729]">
+                {musicById?.title || ''}
+              </h1>
+              <p className="text-sm mb-2">Artis Favorit dari kami</p>
               <p className="mb-4">5 Juta Kali Didengar</p>
               <div className="flex gap-4">
                 <button
@@ -72,9 +92,9 @@ console.log(musicById)
             {/* Right side image */}
             <div className="flex-1 h-[300px] relative flex justify-end items-center pr-8">
               <img
-                src={balonkuImg}
-                alt="Balonku"
-                className="w-[80%] h-[350px] object-cover rounded-3xl"
+                src={getThumbnailUrl(musicById?.thumbnailUrl || '')}
+                alt={musicById?.title || 'Music Thumbnail'}
+                className="w-[50%] h-full object-cover rounded-3xl"
               />
             </div>
           </div>
@@ -91,10 +111,13 @@ console.log(musicById)
                 <div
                   key={music.id}
                   className="flex gap-4 items-center hover:bg-[#ff5c7d] p-4 rounded-xl transition-colors cursor-pointer"
-                  onClick={() => navigate(`/music/${music.id}`)}>
+                  onClick={() => {
+                    setMusicById(music);
+                    setShowPlayer(true);
+                  }}>
                   <div className="relative w-40 h-24 bg-black rounded-lg overflow-hidden">
                     <img
-                      src={music.thumbnailUrl}
+                      src={getThumbnailUrl(music.thumbnailUrl || '')}
                       alt={music.title}
                       className="w-full h-full object-cover"
                     />
@@ -120,14 +143,13 @@ console.log(musicById)
 
       {/* Audio Player */}
       <AudioPlayer
-  show={showPlayer}
-  title={musicById?.title || ''}
-  artist="AT Mahmud dan Pak Kasur"
-  thumbnail={musicById?.thumbnailUrl || ''}
-  src={musicById?.url || ''}
-  onClose={() => setShowPlayer(false)}
-/>
-
+        show={showPlayer}
+        title={musicById?.title || ''}
+        artist={musicById?.artist || 'Artist Favorit'}
+        thumbnail={musicById?.thumbnailUrl || balonkuImg}
+        src={musicById?.url || ''}
+        onClose={() => setShowPlayer(false)}
+      />
     </div>
   );
 };

@@ -105,7 +105,7 @@ const MusicPage = () => {
             <AudioPlayer
                 show={showPlayer}
                 title="Balonku"
-                artist="AT Mahmud dan Pak Kasur"
+                artist="p"
                 thumbnail={balonkuImg}
             />
         </div>

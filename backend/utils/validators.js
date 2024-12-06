@@ -1,4 +1,3 @@
-// backend/utils/validators.js
 module.exports = {
     validateVideoUrl: (url) => {
         if (!url) return false;
@@ -7,19 +6,19 @@ module.exports = {
             return (
                 urlObj.hostname.includes('youtube.com') || 
                 urlObj.hostname.includes('youtu.be') ||
-                urlObj.hostname.includes('drive.google.com')
+                urlObj.hostname.includes('drive.google.com') ||
+                urlObj.hostname.includes('soundcloud.com') // Tambahkan SoundCloud
             );
         } catch (error) {
             return false;
         }
     },
 
-
     validateThumbnailUrl: (url) => {
         if (!url) return false;
         try {
-            new URL(url); // Hanya validasi URL valid
-            return true;  // Terima semua URL valid
+            new URL(url); // Validasi hanya untuk URL valid
+            return true;
         } catch (error) {
             return false;
         }

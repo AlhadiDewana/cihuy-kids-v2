@@ -40,15 +40,15 @@ const UploadMusicModal = ({ isOpen, onClose, onUploadSuccess, editData = null })
     }
   }, [editData]);
 
-   const validateMusicUrl = (url) => {
-       if (!url) return false;
-       try {
-           const urlObj = new URL(url);
-           return urlObj.hostname.includes('drive.google.com');
-       } catch (error) {
-           return false;
-       }
-   };
+  const validateMusicUrl = (url) => {
+    if (!url) return false;
+    try {
+        const urlObj = new URL(url);
+        return urlObj.hostname.includes('soundcloud.com');
+    } catch (error) {
+        return false;
+    }
+};
 
    const handleChange = (e) => {
        const { name, value } = e.target;
@@ -63,7 +63,7 @@ const UploadMusicModal = ({ isOpen, onClose, onUploadSuccess, editData = null })
     setError('');
 
     if (!validateMusicUrl(formData.musicUrl)) {
-        setError('Please enter a valid Google Drive URL');
+        setError('Please enter a valid SoundCloud URL');
         return;
     }
 
@@ -108,29 +108,29 @@ const UploadMusicModal = ({ isOpen, onClose, onUploadSuccess, editData = null })
 
                <div className="flex-1 overflow-y-auto p-6">
                    <form onSubmit={handleSubmit} className="space-y-6">
-                       <div>
-                           <label className="block mb-2 font-medium">Music URL (Google Drive)</label>
-                           <div className="flex gap-2">
-                               <input
-                                   type="url"
-                                   name="musicUrl"
-                                   value={formData.musicUrl}
-                                   onChange={handleChange}
-                                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                   placeholder="https://drive.google.com/file/d/..."
-                                   required
-                               />
-                               <button
-                                   type="button"
-                                   onClick={() => window.open('https://drive.google.com', '_blank')}
-                                   className="p-2 bg-gray-100 rounded hover:bg-gray-200"
-                                   title="Open Google Drive"
-                               >
-                                   <Link className="w-5 h-5" />
-                               </button>
-                           </div>
-                           <p className="text-xs text-gray-500 mt-1">Pastikan file di Google Drive sudah di-set sebagai public</p>
-                       </div>
+                   <div>
+    <label className="block mb-2 font-medium">Music URL (SoundCloud)</label>
+    <div className="flex gap-2">
+        <input
+            type="url"
+            name="musicUrl"
+            value={formData.musicUrl}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="https://soundcloud.com/..."
+            required
+        />
+        <button
+            type="button"
+            onClick={() => window.open('https://soundcloud.com', '_blank')}
+            className="p-2 bg-gray-100 rounded hover:bg-gray-200"
+            title="Open SoundCloud"
+        >
+            <Link className="w-5 h-5" />
+        </button>
+    </div>
+    <p className="text-xs text-gray-500 mt-1">Masukkan URL dari SoundCloud</p>
+</div>
 
                        <div>
                            <label className="block mb-2 font-medium">Thumbnail URL</label>

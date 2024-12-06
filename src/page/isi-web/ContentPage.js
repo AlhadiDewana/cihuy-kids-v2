@@ -176,7 +176,7 @@ const ContentPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(8);
   
-  const initialAge = location.state?.selectedAge || localStorage.getItem('lastSelectedAge') || '4-5 Tahun';
+  const initialAge = localStorage.getItem('lastSelectedAge') || '4-5 Tahun';
   const [videoContent, setVideoContent] = useState([]);
   const [musicContent, setMusicContent] = useState([]);
   const [readingContent, setReadingContent] = useState([]);

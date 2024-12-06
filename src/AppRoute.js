@@ -14,7 +14,7 @@ import VideoPage from './page/isi-web/content/Video';
 import Profile from './page/isi-web/Profile';
 import EditProfile from './components/auth/EditProfile';
 import ChangePassword from './components/auth/ChangePassword';
-import MusicPage from './page/isi-web/content/Music';
+import Music from './page/isi-web/Music';
 import GamePage from './page/isi-web/content/Game';
 import ReadingPage from './page/isi-web/content/Bacaan';
 import Konfirm from './components/Premium/KonfirmPay';
@@ -80,7 +80,7 @@ const AppRoutes = () => {
           <Route path="/parent" element={<ParentPage />} />
           <Route path="/content" element={<ContentPage />} />
           <Route path="/video/:id" element={<VideoPage />} />
-          <Route path="/music/:id" element={<MusicPage />} />
+          <Route path="/music/:id" element={<Music />} />
           <Route path="/game/:id" element={<GamePage />} />
           <Route path="/bacaan/:id" element={<ReadingPage />} />
           <Route path="/penawaranpremium" element={<Premium isOpen={true} onClose={() => window.history.back()} />} />

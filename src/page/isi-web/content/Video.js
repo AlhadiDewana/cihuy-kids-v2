@@ -6,16 +6,29 @@ import HeaderCont from '../../../components/Header/HeaderCont';
 import { videoAPI } from '../../../api';
 
 const getGoogleDriveThumbnailUrl = (url) => {
-  if (!url) return '/path/to/default-thumbnail.png';
-
-  let fileId;
+  if (!url) return '/api/placeholder/300/200';
+  
   if (url.includes('drive.google.com')) {
-    fileId = url.match(/\/file\/d\/([^/]+)/)?.[1] || url.match(/id=([^&]+)/)?.[1];
+    let fileId;
+    if (url.includes('/file/d/')) {
+      fileId = url.match(/\/file\/d\/([^/]+)/)?.[1];
+    } else if (url.includes('id=')) {
+      fileId = url.match(/id=([^&]+)/)?.[1];
+    } else {
+      fileId = url.match(/\/d\/(.*?)\/view/)?.[1];
+    }
+    
+    if (fileId) {
+      return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+    }
   }
-
-  return fileId
-    ? `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`
-    : '/path/to/default-thumbnail.png';
+  
+  if (url.includes('youtu.be') || url.includes('youtube.com')) {
+    const videoId = url.split('/').pop().split('?')[0];
+    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+  }
+  
+  return url;
 };
 
 const getVideoEmbedUrl = (url) => {
@@ -43,30 +56,34 @@ const getVideoEmbedUrl = (url) => {
   return url;
 };
 
-const RelatedVideoCard = ({ video, onClick }) => (
-  <div
-    className="bg-[#FE4C64] rounded-lg p-4 text-white hover:bg-opacity-90 transition-colors cursor-pointer"
-    onClick={onClick}
-  >
-    <div className="flex gap-4">
-      <div className="relative w-40 h-24 bg-black rounded-lg overflow-hidden">
-        <img
-          src={getGoogleDriveThumbnailUrl(video.thumbnailUrl)}
-          alt={video.title}
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Play className="w-8 h-8 text-white" />
+const RelatedVideoCard = ({ item, video, onClick }) => {
+  const thumbnailUrl = getGoogleDriveThumbnailUrl(video?.thumbnailUrl || '');
+  console.log(video);
+
+  return (
+    <div
+      className="bg-[#FE4C64] rounded-lg p-4 text-white hover:bg-opacity-90 transition-colors cursor-pointer"
+      onClick={onClick}
+    >
+      <div className="flex gap-4">
+        <div className="relative w-40 h-24 bg-black rounded-lg overflow-hidden">
+          <img
+            src={thumbnailUrl}
+            alt={video.title || 'Thumbnail'}
+            className="w-full h-auto"
+          />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Play className="w-8 h-8 text-white" />
+          </div>
+        </div>
+        <div>
+          <h3 className="font-semibold mb-2">{video.title || 'Judul Tidak Tersedia'}</h3>
+          <p className="text-sm text-white/80">{video.description || 'Deskripsi tidak tersedia.'}</p>
         </div>
       </div>
-      <div>
-        <h3 className="font-semibold mb-2">{video.title}</h3>
-        <p className="text-sm text-white/80">{video.description}</p>
-      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const VideoPage = () => {
   const { id } = useParams();

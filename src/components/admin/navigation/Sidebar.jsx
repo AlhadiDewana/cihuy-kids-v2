@@ -74,13 +74,7 @@ const Sidebar = () => {
                                 <Music className="w-5 h-5" />
                                 <span>Musik</span>
                             </button>
-                            <button 
-                                onClick={() => navigate('/admin/game', 'Game List')}
-                                className="flex items-center space-x-2 w-full p-2 rounded hover:bg-white/10"
-                            >
-                                <GamepadIcon className="w-5 h-5" />
-                                <span>Game</span>
-                            </button>
+                            
                             <button 
                                 onClick={() => navigate('/admin/reading', 'Reading List')}
                                 className="flex items-center space-x-2 w-full p-2 rounded hover:bg-white/10"
