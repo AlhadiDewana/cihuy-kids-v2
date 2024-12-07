@@ -30,9 +30,10 @@ export const userAPI = {
     register: (data) => api.post('/register', data),
     login: (data) => api.post('/login', data),
     getProfile: () => api.get('/profile'),  // Tambah endpoint get profile
+    getAllUsers: () => api.get('/all-users'),  // Tambah endpoint get profile
     updateProfile: (data) => api.put('/update-profile', data),  // Tambah endpoint update profile
     changePassword: (data) => api.put('/change-password', data),
-    forgotPassword: (data) => api.post('/forgot-password', data)// Tambah endpoint change password
+    forgotPassword: (data) => api.post('/forgot-password', data),// Tambah endpoint change password
 };
 
 export const paymentAPI = {

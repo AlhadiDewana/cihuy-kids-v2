@@ -89,11 +89,7 @@ const AudioPlayer = ({ title, artist, thumbnail, show, src, onClose }) => {
     >
       <div className="flex items-center p-4 gap-4 max-w-7xl mx-auto relative">
         {/* Thumbnail */}
-        <img
-          src={thumbnail}
-          alt={title}
-          className="w-12 h-12 rounded-xl object-cover"
-        />
+        
 
         {/* Title & Artist */}
         <div className="w-48">

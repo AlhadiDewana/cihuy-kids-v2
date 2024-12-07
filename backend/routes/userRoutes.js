@@ -9,7 +9,8 @@ const {
     changePassword,
     getProfile,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    getAllUsers
 } = require('../controllers/userController');
 const jwtMiddleware = require('../middleware/jwtMiddleware');
 
@@ -26,6 +27,7 @@ router.post('/upgrade', jwtMiddleware, upload.none(), upgrade);
 router.get('/profile', jwtMiddleware, getProfile);
 router.put('/update-profile', jwtMiddleware, upload.none(), updateProfile);
 router.put('/change-password', jwtMiddleware, upload.none(), changePassword);
+router.get('/all-users', jwtMiddleware, upload.none(), getAllUsers);
 
 // Route untuk testing
 router.get('/test', jwtMiddleware, (req, res) => {

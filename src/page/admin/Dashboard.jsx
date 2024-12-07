@@ -1,46 +1,58 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../../components/admin/navigation/Sidebar';
 import TopNavigation from '../../components/admin/navigation/TopNavigation';
+import { readingAPI, videoAPI, userAPI, musicAPI } from '../../api';
 
 const AdminDashboard = () => {
     const [currentTitle, setCurrentTitle] = useState('Dashboard');
-    
+    const [videoData, setVideoData] = useState([]);
+    const [musicData, setMusicData] = useState([]);
+    const [readingData, setReadingData] = useState([]);
+    const [userData, setUserData] = useState([]);
+
+    useEffect(() => {
+        const fetchDashboard = async () => {
+            try {
+                const video = await videoAPI.getAllVideos();
+                const music = await musicAPI.getAllMusic();
+                const bacaan = await readingAPI.getAllReading();
+                const users = await userAPI.getAllUsers();
+
+                setVideoData(video.data.videos || []);
+                setMusicData(music.data.musics || []);
+                setReadingData(bacaan.data.readings || []);
+                setUserData(users.data.users || []);
+            } catch (error) {
+                console.error('Error fetching dashboard data:', error);
+            }
+        };
+
+        fetchDashboard();
+    }, []);
+
     const handleMenuClick = (newTitle) => {
         setCurrentTitle(newTitle);
     };
 
     const stats = [
         {
-            title: "Total Order",
-            value: "10293",
-            change: "+1.3%",
+            title: "Total Musik",
+            value: musicData.length,
             changeText: "Up from past week",
-            icon: "📦",
-            changeType: "positive"
+            icon: "🎵",
         },
         {
-            title: "Total Sales",
-            value: "$89,000",
-            change: "-4.3%",
+            title: "Total Video",
+            value: videoData.length,
             changeText: "Down from yesterday",
-            icon: "📈",
-            changeType: "negative"
+            icon: "🎥",
         },
         {
-            title: "Total Pending",
-            value: "2040",
-            change: "+1.8%",
+            title: "Total Bacaan",
+            value: readingData.length,
             changeText: "Up from yesterday",
-            icon: "⏳",
-            changeType: "positive"
-        }
-    ];
-
-    const contentStats = [
-        { name: 'Bacaan', percentage: 10 },
-        { name: 'Musik', percentage: 30 },
-        { name: 'Video', percentage: 45 },
-        { name: 'Game', percentage: 15 }
+            icon: "📖",
+        },
     ];
 
     return (
@@ -62,9 +74,6 @@ const AdminDashboard = () => {
                                     </div>
                                     <span className="text-2xl">{stat.icon}</span>
                                 </div>
-                                <p className={`mt-2 ${stat.changeType === 'positive' ? 'text-green-500' : 'text-red-500'}`}>
-                                    {stat.change} {stat.changeText}
-                                </p>
                             </div>
                         ))}
                     </div>
@@ -74,13 +83,10 @@ const AdminDashboard = () => {
                         <div className="flex justify-between items-start">
                             <div>
                                 <h3 className="text-gray-500">Total User</h3>
-                                <p className="text-2xl font-bold mt-2">40,689</p>
+                                <p className="text-2xl font-bold mt-2">{userData.length}</p>
                             </div>
                             <span className="text-2xl">👥</span>
                         </div>
-                        <p className="text-green-500 mt-2">
-                            +8.5% Up from yesterday
-                        </p>
                     </div>
                 </div>
             </div>

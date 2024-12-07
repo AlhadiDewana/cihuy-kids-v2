@@ -154,6 +154,20 @@ module.exports = {
            res.status(500).json({ error: error.message });
        }
    },
+   async getAllUsers(req, res) {
+    try {
+        const users = await User.findAll({
+            where: {
+                role: { [Op.ne]: 'admin' } // Mengambil user dengan role selain admin
+            },
+            attributes: { exclude: ['password'] } // Menghilangkan password dari data yang diambil
+        });
+
+        res.json({ message: 'Daftar user berhasil diambil', users });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+},
 
    async updateProfile(req, res) {
        try {
