@@ -10,15 +10,57 @@ const GamePage = () => {
     const [showInstructions, setShowInstructions] = useState(false);
     const navigate = useNavigate();
 
-    const relatedMusic = [
+    // Daftar game terkait lainnya
+    const relatedGames = [
         {
             id: 1,
-            title: "Chapter One : The Vanishing of Will Byers",
-            description: "On his way from a friend's house, young Will sees something terrifying. Nearby, a sinister secret lurks in the depths of a government lab.",
-            thumbnail: "/api/placeholder/160/96"
+            title: "Space Invaders",
+            description: "Defend Earth from waves of alien invaders in this classic arcade game.",
+            thumbnail: "https://example.com/images/space-invaders-thumbnail.jpg", // URL gambar untuk thumbnail
+            url: "https://play.famobi.com/space-invaders"
         },
-        // ... add more items if needed
+        {
+            id: 2,
+            title: "Tetris",
+            description: "Place the falling blocks to clear the lines in this iconic puzzle game.",
+            thumbnail: "https://example.com/images/tetris-thumbnail.jpg", // URL gambar untuk thumbnail
+            url: "https://play.famobi.com/tetris"
+        },
+        {
+            id: 3,
+            title: "Candy Crush",
+            description: "Match 3 candies to score points and move through levels.",
+            thumbnail: "https://example.com/images/candy-crush-thumbnail.jpg", // URL gambar untuk thumbnail
+            url: "https://play.famobi.com/candy-crush"
+        },
+        // Tambahkan game lainnya di sini
     ];
+
+    // Daftar game yang ingin ditampilkan
+    const games = [
+        {
+            id: 1,
+            title: 'Zoo Boom',
+            description: 'Match cute animal cubes in this colorful puzzle game!',
+            thumbnail: "https://img.cdn.famobi.com/portal/html5games/images/tmp/ZooBoomTeaser.jpg?v=0.2-766f7fc0", // URL gambar untuk thumbnail
+            level: 'Easy',
+            url: 'https://play.famobi.com/zoo-boom',
+        },
+        {
+            id: 2,
+            title: 'Bottle Flip',
+            description: 'Flip, soar, and conquer in Bottle Flip - the ultimate test of timing and precision!',
+            thumbnail: "https://img.cdn.famobi.com/portal/html5games/images/tmp/BottleFlipTeaser.jpg?v=0.2-766f7fc0", // URL gambar untuk thumbnail
+            level: 'Medium',
+            url: 'https://play.famobi.com/bottle-flip',
+        },
+        // Tambahkan game lainnya di sini
+    ];
+
+    // Fungsi untuk membuka game di tab baru
+    const openGame = (url) => {
+        window.open(url, '_blank');
+    };
 
     return (
         <div className="min-h-screen bg-[#6095FF]">
@@ -60,31 +102,23 @@ const GamePage = () => {
                     </div>
                 </div>
 
-                {/* Game Area */}
-                <div className="bg-[#FE4C64] mx-4 sm:mx-8 rounded-3xl border-4 border-[#FCC729] aspect-[14/7] relative mb-12">
-                    <div className="absolute top-4 left-1/2 -translate-x-1/2 text-4xl text-white font-bold">
-                        0
-                    </div>
-                    {/* Pipes and bird components remain the same */}
-                </div>
-
-                {/* Related Music Section */}
+                {/* Game List Section */}
                 <div className="bg-[#FCC729] mx-4 sm:mx-8 mb-8 rounded-lg p-6">
                     <h2 className="text-white text-xl font-semibold mb-4">
-                        Musik lain yang banyak didengar orang
+                        Game Lainnya
                     </h2>
                     <div className="bg-[#FE4C64] rounded-3xl p-6">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {relatedMusic.map((music) => (
+                            {games.map((gameItem) => (
                                 <div
-                                    key={music.id}
+                                    key={gameItem.id}
                                     className="flex gap-4 items-center hover:bg-[#ff5c7d] p-4 rounded-xl transition-colors cursor-pointer"
-                                    onClick={() => navigate(`/musik/${music.id}`)}
+                                    onClick={() => openGame(gameItem.url)} // Panggil fungsi openGame dengan URL game
                                 >
                                     <div className="relative w-40 h-24 bg-black rounded-lg overflow-hidden">
                                         <img
-                                            src={music.thumbnail}
-                                            alt={music.title}
+                                            src={gameItem.thumbnail}
+                                            alt={gameItem.title}
                                             className="w-full h-full object-cover"
                                         />
                                         <div className="absolute inset-0 flex items-center justify-center">
@@ -92,8 +126,42 @@ const GamePage = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <h3 className="text-white font-semibold">{music.title}</h3>
-                                        <p className="text-white/80 text-sm">{music.description}</p>
+                                        <h3 className="text-white font-semibold">{gameItem.title}</h3>
+                                        <p className="text-white/80 text-sm">{gameItem.description}</p>
+                                        <p className="text-white/60 text-xs">Level: {gameItem.level}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Rekomendasi Game Lainnya Section */}
+                <div className="bg-[#FCC729] mx-4 sm:mx-8 mb-8 rounded-lg p-6">
+                    <h2 className="text-white text-xl font-semibold mb-4">
+                        Rekomendasi Game Lainnya
+                    </h2>
+                    <div className="bg-[#FE4C64] rounded-3xl p-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {relatedGames.map((game) => (
+                                <div
+                                    key={game.id}
+                                    className="flex gap-4 items-center hover:bg-[#ff5c7d] p-4 rounded-xl transition-colors cursor-pointer"
+                                    onClick={() => openGame(game.url)} // Panggil fungsi openGame dengan URL game
+                                >
+                                    <div className="relative w-40 h-24 bg-black rounded-lg overflow-hidden">
+                                        <img
+                                            src={game.thumbnail}
+                                            alt={game.title}
+                                            className="w-full h-full object-cover"
+                                        />
+                                        <div className="absolute inset-0 flex items-center justify-center">
+                                            <Play className="w-8 h-8 text-white" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-white font-semibold">{game.title}</h3>
+                                        <p className="text-white/80 text-sm">{game.description}</p>
                                     </div>
                                 </div>
                             ))}

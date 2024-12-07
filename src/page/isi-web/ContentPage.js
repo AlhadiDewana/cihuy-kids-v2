@@ -10,9 +10,9 @@ import banner4 from '../../assets/isi-web/dongeng.png'
 import { useNavigate } from 'react-router-dom';
 import { videoAPI, musicAPI, readingAPI } from '../../api';
 
-const getGoogleDriveThumbnailUrl = (url) => {
-  if (!url) return '/api/placeholder/300/200';
-  
+const getGoogleDriveThumbnailUrl = (url, item) => {
+  if (!url) return item?.thumbnail || '/api/placeholder/300/200'; // Provide a default fallback if no thumbnail is found
+
   if (url.includes('drive.google.com')) {
     let fileId;
     if (url.includes('/file/d/')) {
@@ -22,18 +22,18 @@ const getGoogleDriveThumbnailUrl = (url) => {
     } else {
       fileId = url.match(/\/d\/(.*?)\/view/)?.[1];
     }
-    
+
     if (fileId) {
       return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
     }
   }
-  
+
   if (url.includes('youtu.be') || url.includes('youtube.com')) {
     const videoId = url.split('/').pop().split('?')[0];
     return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
   }
-  
-  return url;
+
+  return item?.thumbnail || '/api/placeholder/300/200'; // Ensure there's a fallback for undefined thumbnails
 };
 
 const Pagination = ({ totalItems, itemsPerPage, currentPage, setCurrentPage }) => {
@@ -130,7 +130,7 @@ const ContentCard = ({ item, type }) => {
         )}
         
         <img 
-          src={getGoogleDriveThumbnailUrl(item.thumbnailUrl)}
+          src={getGoogleDriveThumbnailUrl(item?.thumbnailUrl, item)}
           alt={item.title}
           className={`w-full aspect-video object-cover transition-opacity duration-300 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
           onLoad={() => setIsImageLoaded(true)}
@@ -184,10 +184,16 @@ const ContentPage = () => {
   const [activeTab, setActiveTab] = useState('Video');
 
   const gameContent = [
-    { id: 1, title: 'Adventure Quest', thumbnail: '/api/placeholder/300/200', level: 'Easy' },
-    { id: 2, title: 'Math Challenge', thumbnail: '/api/placeholder/300/200', level: 'Medium' },
-    { id: 3, title: 'Memory Game', thumbnail: '/api/placeholder/300/200', level: 'Easy' },
+    { 
+      id: 1, 
+      title: 'Flappy Bird',
+      description: 'A classic arcade game where you flap your wings to avoid obstacles.',
+      thumbnail: "https://img.cdn.famobi.com/portal/html5games/images/tmp/ZooBoomTeaser.jpg?v=0.2-766f7fc0", 
+      level: 'Easy',
+      url: 'https://play.famobi.com/zoo-boom',
+    },
   ];
+  
 
   const featuredContent = [
     {

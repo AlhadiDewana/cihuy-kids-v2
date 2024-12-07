@@ -23,15 +23,15 @@ const Navbar = ({ selectedAge, handleAgeChange }) => {
                         alt="Cihuy Kids Logo"
                         className="h-10"
                     />
-                </div>
-
-                {/* back  */}
                 <button
                     onClick={handleBack}
                     className="text-white font-semibold px-4 py-2 md:block"
                 >
                     Kembali
                 </button>
+                </div>
+
+                {/* back  */}
 
                 {/* Profile  */}
                 <div className="flex items-center gap-4 mt-2 md:mt-0">
