@@ -1,4 +1,3 @@
-// ContentCard.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,10 +16,10 @@ const ContentCard = ({ item, type }) => {
         navigate(`/video/${item.id}`, { state: { videoData: item } });
         break;
       case 'musik':
-        navigate(`/music/${item.id}`, { state: { readingData: item } });
+        navigate(`/music/${item.id}`, { state: { musicData: item } });
         break;
       case 'game':
-        navigate(`/game/${item.id}`, { state: { readingData: item } });
+        navigate(`/game/${item.id}`, { state: { gameData: item } });
         break;
       case 'bacaan':
         navigate(`/bacaan/${item.id}`, { state: { readingData: item } });
@@ -50,7 +49,7 @@ const ContentCard = ({ item, type }) => {
   const getMetadata = () => {
     switch(type) {
       case 'video':
-        return item.views;
+        return formatViews(item.views);
       case 'musik':
         return item.category;
       case 'game':
@@ -60,6 +59,14 @@ const ContentCard = ({ item, type }) => {
       default:
         return '';
     }
+  };
+
+  // Format views for video content
+  const formatViews = (views) => {
+    if (views >= 1000) {
+      return (views / 1000).toFixed(1) + 'K views';
+    }
+    return views + ' views';
   };
 
   return (
@@ -78,10 +85,14 @@ const ContentCard = ({ item, type }) => {
         {/* Thumbnail image */}
         <img 
           src={item.thumbnail}
-          alt={item.title}
+          alt={`${item.title} thumbnail`}  // Descriptive alt text
           className={`w-full aspect-video object-cover transition-opacity duration-300
                     ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
           onLoad={() => setIsImageLoaded(true)}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = '/path/to/placeholder-image.jpg';  // Placeholder if image fails
+          }}
         />
         
         {/* Hover overlay */}
