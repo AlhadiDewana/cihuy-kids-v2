@@ -3,38 +3,10 @@ import { Play } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import HeaderCont from '../../../components/Header/HeaderCont';
 import Footer from '../../../components/footer/Footer';
-import game from '../../../assets/isi-web/game/banner.png';
-import GameInstructions from '../../../components/game/HowToPlay';
+
 
 const GamePage = () => {
-    const [showInstructions, setShowInstructions] = useState(false);
     const navigate = useNavigate();
-
-    // Daftar game terkait lainnya
-    const relatedGames = [
-        {
-            id: 1,
-            title: "Space Invaders",
-            description: "Defend Earth from waves of alien invaders in this classic arcade game.",
-            thumbnail: "https://example.com/images/space-invaders-thumbnail.jpg", // URL gambar untuk thumbnail
-            url: "https://play.famobi.com/space-invaders"
-        },
-        {
-            id: 2,
-            title: "Tetris",
-            description: "Place the falling blocks to clear the lines in this iconic puzzle game.",
-            thumbnail: "https://example.com/images/tetris-thumbnail.jpg", // URL gambar untuk thumbnail
-            url: "https://play.famobi.com/tetris"
-        },
-        {
-            id: 3,
-            title: "Candy Crush",
-            description: "Match 3 candies to score points and move through levels.",
-            thumbnail: "https://example.com/images/candy-crush-thumbnail.jpg", // URL gambar untuk thumbnail
-            url: "https://play.famobi.com/candy-crush"
-        },
-        // Tambahkan game lainnya di sini
-    ];
 
     // Daftar game yang ingin ditampilkan
     const games = [
@@ -79,6 +51,20 @@ const GamePage = () => {
             description: 'Master the art of matching in Pair Up 3D! Dive into the captivating world of Pair Up 3D.',
             thumbnail: "https://img.cdn.famobi.com/portal/html5games/images/tmp/PairUp3dTeaser.jpg?v=0.2-eb120258", 
             url: 'https://play.famobi.com/pair-up-3d',
+        },
+        {
+            id: 7, 
+            title: '7 Words',
+            description: 'If you like puzzles and crosswords, this is the perfect game for you!',
+            thumbnail: "https://img.cdn.famobi.com/portal/html5games/images/tmp/7WordsTeaser.jpg?v=0.2-eb120258", 
+            url: 'https://play.famobi.com/7-words',
+        },
+        {
+            id: 8, 
+            title: 'Guess Their Answer',
+            description: 'Compete, guess, and conquer in Guess Their Answer - the ultimate trivia showdown!',
+            thumbnail: "https://img.cdn.famobi.com/portal/html5games/images/tmp/GuessTheirAnswerTeaser.jpg?v=0.2-eb120258", 
+            url: 'https://play.famobi.com/guess-their-answer',
         },
     ];
 

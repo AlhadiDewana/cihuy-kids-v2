@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Des 2024 pada 06.38
+-- Waktu pembuatan: 09 Des 2024 pada 05.02
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -95,11 +95,11 @@ CREATE TABLE `musics` (
 --
 
 INSERT INTO `musics` (`id`, `title`, `url`, `thumbnailUrl`, `genre`, `view_count`, `isPremium`, `ageRange`, `createdAt`, `updatedAt`) VALUES
-(1, 'cocomelon remix', 'https://drive.google.com/file/d/13rWt0w3S3d_Ju-M29SgM43Y9dv2yQB9v/view?usp=sharing', 'https://drive.google.com/file/d/13rWt0w3S3d_Ju-M29SgM43Y9dv2yQB9v/view?usp=sharing', 'Lagu Anak', 0, 0, '10-12', '2024-11-26 14:12:57', '2024-11-28 12:12:10'),
-(2, 'dandandan', 'https://drive.google.com/file/d/1f-DvpwkgIWjPxgqxxJeqIlUH0WGI3P0N/view?usp=drive_link', 'https://drive.google.com/file/d/13rWt0w3S3d_Ju-M29SgM43Y9dv2yQB9v/view?usp=drive_link', 'Lagu Nasional', 0, 0, '4-5', '2024-11-27 17:44:03', '2024-11-27 17:44:03'),
-(4, 'Lagu pengantar tidur', 'https://drive.google.com/file/d/1aA04oaBzTR9fRh6AyfdnAmvet_L0rf2z/view?usp=drive_link', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'Lagu Nasional', 0, 0, '4-5', '2024-12-02 18:42:50', '2024-12-02 18:42:50'),
-(5, 'awdawdawd', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'Lagu Anak', 0, 0, '4-5', '2024-12-02 19:12:41', '2024-12-02 19:12:41'),
-(6, 'awdawdawd', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'Lagu Nasional', 0, 0, '4-5', '2024-12-02 19:12:46', '2024-12-02 19:12:46');
+(1, 'cocomelon remix', 'https://drive.google.com/file/d/1f-DvpwkgIWjPxgqxxJeqIlUH0WGI3P0N/view?usp=drive_link', 'https://drive.google.com/file/d/13rWt0w3S3d_Ju-M29SgM43Y9dv2yQB9v/view?usp=sharing', 'Lagu Anak', 0, 0, '10-12', '2024-11-26 14:12:57', '2024-12-04 06:13:43'),
+(2, 'dandandan', 'https://drive.google.com/file/d/1f-DvpwkgIWjPxgqxxJeqIlUH0WGI3P0N/view?usp=drive_link', 'https://drive.google.com/file/d/13rWt0w3S3d_Ju-M29SgM43Y9dv2yQB9v/view?usp=drive_link', 'Lagu Nasional', 0, 0, '6-7', '2024-11-27 17:44:03', '2024-12-04 06:24:57'),
+(4, 'Lagu pengantar tidur', 'https://drive.google.com/file/d/1f-DvpwkgIWjPxgqxxJeqIlUH0WGI3P0N/view?usp=drive_link', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'Lagu Nasional', 0, 0, '6-7', '2024-12-02 18:42:50', '2024-12-04 06:25:02'),
+(5, 'awdawdawd', 'https://drive.google.com/file/d/1f-DvpwkgIWjPxgqxxJeqIlUH0WGI3P0N/view?usp=drive_link', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'Lagu Anak', 0, 0, '6-7', '2024-12-02 19:12:41', '2024-12-04 06:13:53'),
+(9, 'Labubu naik mobil', 'https://soundcloud.com/kelompok-cihuy/lagu-labubu-naik-mobil-lagu-anak-indonesia?si=fdc055d93fc7484f86ba81fa5f011657&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'Lagu Anak', 0, 0, '6-7', '2024-12-04 13:14:09', '2024-12-04 13:14:09');
 
 -- --------------------------------------------------------
 
@@ -156,6 +156,16 @@ CREATE TABLE `readings` (
   `description` text DEFAULT NULL,
   `isPremium` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `readings`
+--
+
+INSERT INTO `readings` (`id`, `title`, `content`, `thumbnailUrl`, `genre`, `author`, `views`, `createdAt`, `updatedAt`, `ageRange`, `description`, `isPremium`) VALUES
+(2, 'naik gunung vexana', 'uji coba cerita nana', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'story', NULL, 0, '2024-12-06 18:12:40', '2024-12-06 18:12:40', '10-12', 'ini deskripsi', 0),
+(3, 'naik gunung nana', 'uji coba cerita nana', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'story', NULL, 0, '2024-12-06 18:12:44', '2024-12-06 18:12:44', '10-12', 'ini deskripsi', 0),
+(4, 'naik gunung gatot kaca', 'uji coba cerita nana', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'story', NULL, 0, '2024-12-06 18:12:49', '2024-12-06 18:12:49', '10-12', 'ini deskripsi', 0),
+(5, 'bintang', 'aadwdawda', 'https://drive.google.com/file/d/1gJpj2VhbZsQfbNZUp3vZQscRpnnv5S6q/view?usp=sharing', 'Cerita Rakyat', NULL, 0, '2024-12-06 18:19:50', '2024-12-06 18:54:18', '10-12', 'dawawdawdaw', 1);
 
 -- --------------------------------------------------------
 
@@ -251,7 +261,8 @@ INSERT INTO `videos` (`id`, `title`, `description`, `videoUrl`, `thumbnailUrl`, 
 (33, 'Junior Squad Makan Ulat', '', 'https://youtu.be/fnsKhd2QLyU?si=xRyWrPi70-wO6kdy', 'https://youtu.be/fnsKhd2QLyU?si=xRyWrPi70-wO6kdy', '2024-11-28 09:26:44', '2024-11-28 09:26:44', '8-9', 'Edukasi', 1, 0),
 (34, 'Nussa Belajar Doa!', '', 'https://youtu.be/1uGFLo4Oy94?si=cD8PMeIgcq4EIPRy', 'https://youtu.be/1uGFLo4Oy94?si=cD8PMeIgcq4EIPRy', '2024-11-28 09:27:24', '2024-11-28 09:27:24', '8-9', 'Edukasi', 0, 0),
 (35, 'Kisah Sedih Bot EfEf di Bermuda', '', 'https://youtu.be/hd7b7Thu7gY?si=bCmVlpy5dUZPPROx', 'https://youtu.be/hd7b7Thu7gY?si=bCmVlpy5dUZPPROx', '2024-11-28 09:30:01', '2024-11-28 09:31:33', '10-12', 'Edukasi', 0, 0),
-(36, 'Kisah sedih! Ibuku Meningal Dunia! Ketika Aku Dirantau Orang.', '', 'https://youtu.be/RKYKgsIpEWE?si=3SYIF4fcu5Jb8RoF', 'https://youtu.be/RKYKgsIpEWE?si=3SYIF4fcu5Jb8RoF', '2024-11-28 09:30:52', '2024-11-28 09:30:52', '10-12', 'Edukasi', 1, 0);
+(36, 'Kisah sedih! Ibuku Meningal Dunia! Ketika Aku Dirantau Orang.', '', 'https://youtu.be/RKYKgsIpEWE?si=3SYIF4fcu5Jb8RoF', 'https://youtu.be/RKYKgsIpEWE?si=3SYIF4fcu5Jb8RoF', '2024-11-28 09:30:52', '2024-11-28 09:30:52', '10-12', 'Edukasi', 1, 0),
+(38, 'valorant', 'awdawdaiwhdauiwhduiahwdiahwduiawdhuiawuidhauiwda', 'https://drive.google.com/file/d/1tAuf1jYQCqhI-8VEnePvOoCZGXS3qFyC/view?usp=sharing', 'https://drive.google.com/file/d/1tAuf1jYQCqhI-8VEnePvOoCZGXS3qFyC/view?usp=sharing', '2024-12-06 17:35:53', '2024-12-06 17:35:53', '4-5', 'Edukasi', 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -343,7 +354,7 @@ ALTER TABLE `music`
 -- AUTO_INCREMENT untuk tabel `musics`
 --
 ALTER TABLE `musics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `payments`
@@ -355,7 +366,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT untuk tabel `readings`
 --
 ALTER TABLE `readings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
@@ -367,7 +378,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `videos`
 --
 ALTER TABLE `videos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

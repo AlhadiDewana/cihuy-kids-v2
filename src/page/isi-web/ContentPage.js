@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import Banner from '../../components/content/Banner';
 import Footer from '../../components/footer/Footer.js'
 import Navbar2 from '../../components/Header/Navbar2.jsx'
@@ -7,6 +6,7 @@ import banner1 from '../../assets/isi-web/kinderflix.png'
 import banner2 from '../../assets/isi-web/balonku.png'
 import banner3 from '../../assets/isi-web/flappy.png'
 import banner4 from '../../assets/isi-web/dongeng.png'
+import gameContent from '../../components/admin/content/GameData.jsx';
 import { useNavigate } from 'react-router-dom';
 import { videoAPI, musicAPI, readingAPI } from '../../api';
 
@@ -109,7 +109,7 @@ const ContentCard = ({ item, type }) => {
         navigate(`/music/${item.id}`);
         break;
       case 'game':
-        navigate(`/game/${item.id}`);
+        window.open(item.url, '_blank');
         break;
       case 'bacaan':
         navigate(`/bacaan/${item.id}`);
@@ -171,8 +171,6 @@ const ContentCard = ({ item, type }) => {
 };
 
 const ContentPage = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(8);
   
@@ -183,37 +181,6 @@ const ContentPage = () => {
   const [selectedAge, setSelectedAge] = useState(initialAge);
   const [activeTab, setActiveTab] = useState('Video');
 
-  const gameContent = [
-    { 
-      id: 1, 
-      title: 'Flappy Bird',
-      description: 'A classic arcade game where you flap your wings to avoid obstacles.',
-      thumbnail: "https://img.cdn.famobi.com/portal/html5games/images/tmp/ZooBoomTeaser.jpg?v=0.2-766f7fc0", 
-      level: 'Easy',
-      url: 'https://play.famobi.com/zoo-boom',
-    },
-    {
-      id: 2, 
-      title: 'Shopaholic Black Friday',
-      thumbnail: "https://agamecdn.com/system/static/thumbs/spil_thumb_big/93373/webp_shopaholic-black-friday_200x120.webp?1731328303", 
-      level: 'Easy',
-      url: 'https://www.games.co.id/permainan_/shopaholic-black-friday',
-    },
-    {
-      id: 3, 
-      title: 'Pengu Slide',
-      thumbnail: "https://img.cdn.famobi.com/portal/html5games/images/tmp/PenguSlideTeaser.jpg?v=0.2-eb120258", 
-      level: 'Easy',
-      url: 'https://play.famobi.com/pengu-slide',
-    },
-    {
-      id: 4, 
-      title: 'Bubble Tower 3D',
-      thumbnail: "https://img.cdn.famobi.com/portal/html5games/images/tmp/BubbleTower3dTeaser.jpg?v=0.2-eb120258", 
-      level: 'Easy',
-      url: 'https://play.famobi.com/bubble-tower-3d',
-    },
-  ];
   
 
   const featuredContent = [

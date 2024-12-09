@@ -84,7 +84,7 @@ const LandingPage = () => {
             </div>
 
             {/* Right side - Image Carousel */}
-            <div className="w-full mt-6 md:mt-0 md:flex-1 md:-mr-[200px]">
+            <div className="w-full px-12 mt-6 md:mt-0 md:flex-1 md:-mr-[200px]">
               <ImageCarousel />
             </div>
           </div>
