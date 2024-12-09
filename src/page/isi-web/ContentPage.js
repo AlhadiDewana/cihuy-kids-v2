@@ -192,6 +192,27 @@ const ContentPage = () => {
       level: 'Easy',
       url: 'https://play.famobi.com/zoo-boom',
     },
+    {
+      id: 2, 
+      title: 'Shopaholic Black Friday',
+      thumbnail: "https://agamecdn.com/system/static/thumbs/spil_thumb_big/93373/webp_shopaholic-black-friday_200x120.webp?1731328303", 
+      level: 'Easy',
+      url: 'https://www.games.co.id/permainan_/shopaholic-black-friday',
+    },
+    {
+      id: 3, 
+      title: 'Pengu Slide',
+      thumbnail: "https://img.cdn.famobi.com/portal/html5games/images/tmp/PenguSlideTeaser.jpg?v=0.2-eb120258", 
+      level: 'Easy',
+      url: 'https://play.famobi.com/pengu-slide',
+    },
+    {
+      id: 4, 
+      title: 'Bubble Tower 3D',
+      thumbnail: "https://img.cdn.famobi.com/portal/html5games/images/tmp/BubbleTower3dTeaser.jpg?v=0.2-eb120258", 
+      level: 'Easy',
+      url: 'https://play.famobi.com/bubble-tower-3d',
+    },
   ];
   
 
