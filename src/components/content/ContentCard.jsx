@@ -7,6 +7,7 @@ const ContentCard = ({ item, type }) => {
   
   // Determine background color based on content type
   const bgColor = type === 'video' || type === 'game' ? 'bg-[#FCC729]' : 'bg-[#FE4C64]';
+  const textColor = type ==='video' || type === 'game' ? 'text-[#FE4C64]' : 'text-[#FFFF]';
 
   // Handle navigation based on content type
   const handleClick = () => {
@@ -72,7 +73,7 @@ const ContentCard = ({ item, type }) => {
   return (
     <div 
       onClick={handleClick}
-      className={`${bgColor} rounded-xl overflow-hidden transform transition-all duration-300 
+      className={`${bgColor} ${textColor}  rounded-xl overflow-hidden transform transition-all duration-300 
                   hover:scale-105 hover:shadow-xl cursor-pointer`}
     >
       {/* Thumbnail Container */}
