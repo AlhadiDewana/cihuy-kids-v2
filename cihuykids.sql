@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 09 Des 2024 pada 05.02
+-- Waktu pembuatan: 09 Des 2024 pada 09.59
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -95,11 +95,12 @@ CREATE TABLE `musics` (
 --
 
 INSERT INTO `musics` (`id`, `title`, `url`, `thumbnailUrl`, `genre`, `view_count`, `isPremium`, `ageRange`, `createdAt`, `updatedAt`) VALUES
-(1, 'cocomelon remix', 'https://drive.google.com/file/d/1f-DvpwkgIWjPxgqxxJeqIlUH0WGI3P0N/view?usp=drive_link', 'https://drive.google.com/file/d/13rWt0w3S3d_Ju-M29SgM43Y9dv2yQB9v/view?usp=sharing', 'Lagu Anak', 0, 0, '10-12', '2024-11-26 14:12:57', '2024-12-04 06:13:43'),
-(2, 'dandandan', 'https://drive.google.com/file/d/1f-DvpwkgIWjPxgqxxJeqIlUH0WGI3P0N/view?usp=drive_link', 'https://drive.google.com/file/d/13rWt0w3S3d_Ju-M29SgM43Y9dv2yQB9v/view?usp=drive_link', 'Lagu Nasional', 0, 0, '6-7', '2024-11-27 17:44:03', '2024-12-04 06:24:57'),
-(4, 'Lagu pengantar tidur', 'https://drive.google.com/file/d/1f-DvpwkgIWjPxgqxxJeqIlUH0WGI3P0N/view?usp=drive_link', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'Lagu Nasional', 0, 0, '6-7', '2024-12-02 18:42:50', '2024-12-04 06:25:02'),
-(5, 'awdawdawd', 'https://drive.google.com/file/d/1f-DvpwkgIWjPxgqxxJeqIlUH0WGI3P0N/view?usp=drive_link', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'Lagu Anak', 0, 0, '6-7', '2024-12-02 19:12:41', '2024-12-04 06:13:53'),
-(9, 'Labubu naik mobil', 'https://soundcloud.com/kelompok-cihuy/lagu-labubu-naik-mobil-lagu-anak-indonesia?si=fdc055d93fc7484f86ba81fa5f011657&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'Lagu Anak', 0, 0, '6-7', '2024-12-04 13:14:09', '2024-12-04 13:14:09');
+(10, 'Indonesia Pusaka', 'https://soundcloud.com/kelompok-cihuy/indonesia-pusaka?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing&si=62c0e45f5fd5460aa9ca587ef8edd3cb', 'https://drive.google.com/file/d/178SwntPDo--dtE77qLqPFhX3twQrCQiW/view?usp=sharing', 'Lagu Anak', 0, 0, '6-7', '2024-12-09 08:32:34', '2024-12-09 08:32:34'),
+(11, 'Berkibarlah Benderaku', 'https://soundcloud.com/kelompok-cihuy/berkibarlah-benderaku?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing&si=5dad91fac0504685baa46977ecd95cc5', 'https://drive.google.com/file/d/1GVdhOBzRq4xL62_5cPwb0E1G-qpple2p/view?usp=sharing', 'Lagu Anak', 0, 0, '8-9', '2024-12-09 08:34:51', '2024-12-09 08:34:51'),
+(12, 'Maju Tak Gentar', 'https://soundcloud.com/kelompok-cihuy/lirik-lagu-maju-tak-gentar?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing&si=7fac49707756494c9f3373bf8131620e', 'https://drive.google.com/file/d/1o_gDy90ush8PVZv1mE2VqOJJb-NF04M-/view?usp=sharing', 'Lagu Anak', 0, 0, '10-12', '2024-12-09 08:36:19', '2024-12-09 08:36:19'),
+(13, 'Ibu Pertiwi', 'https://soundcloud.com/kelompok-cihuy/ibu-pertiwi?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing&si=19b7eb78dae14e5bb556a4a233df77e2', 'https://drive.google.com/file/d/10gtQMPOLK_miB1AFO8l0V6RHaivAISTo/view?usp=sharing', 'Lagu Anak', 0, 0, '6-7', '2024-12-09 08:37:37', '2024-12-09 08:37:37'),
+(14, 'Garuda Pancasila', 'https://soundcloud.com/kelompok-cihuy/garuda-pancasila?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing&si=8ba0de732d1a4c1ebab170af9457677d', 'https://drive.google.com/file/d/10gtQMPOLK_miB1AFO8l0V6RHaivAISTo/view?usp=sharing', 'Lagu Anak', 0, 0, '8-9', '2024-12-09 08:38:37', '2024-12-09 08:38:37'),
+(15, 'labubu Naik Mobil', 'https://soundcloud.com/kelompok-cihuy/lagu-labubu-naik-mobil-lagu-anak-indonesia?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing&si=25fa0254232d4833bde6df98511c0c12', 'https://drive.google.com/file/d/1UyJadvvrvMIMECiw4pLgFYpQEf67X13D/view?usp=drive_link', 'Lagu Anak', 0, 1, '10-12', '2024-12-09 08:57:27', '2024-12-09 08:57:27');
 
 -- --------------------------------------------------------
 
@@ -162,10 +163,11 @@ CREATE TABLE `readings` (
 --
 
 INSERT INTO `readings` (`id`, `title`, `content`, `thumbnailUrl`, `genre`, `author`, `views`, `createdAt`, `updatedAt`, `ageRange`, `description`, `isPremium`) VALUES
-(2, 'naik gunung vexana', 'uji coba cerita nana', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'story', NULL, 0, '2024-12-06 18:12:40', '2024-12-06 18:12:40', '10-12', 'ini deskripsi', 0),
-(3, 'naik gunung nana', 'uji coba cerita nana', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'story', NULL, 0, '2024-12-06 18:12:44', '2024-12-06 18:12:44', '10-12', 'ini deskripsi', 0),
-(4, 'naik gunung gatot kaca', 'uji coba cerita nana', 'https://drive.google.com/file/d/1fu0ugeCudCMOJxTLdEVyLxPqUIW96FNg/view?usp=drive_link', 'story', NULL, 0, '2024-12-06 18:12:49', '2024-12-06 18:12:49', '10-12', 'ini deskripsi', 0),
-(5, 'bintang', 'aadwdawda', 'https://drive.google.com/file/d/1gJpj2VhbZsQfbNZUp3vZQscRpnnv5S6q/view?usp=sharing', 'Cerita Rakyat', NULL, 0, '2024-12-06 18:19:50', '2024-12-06 18:54:18', '10-12', 'dawawdawdaw', 1);
+(6, 'Mimpi Si Kelinci', 'Kelinci kecil bernama Lilo bermimpi ingin menjadi pelari tercepat di hutan. Namun, ia sering diejek karena tubuhnya kecil. Dengan semangat dan latihan, Lilo akhirnya memenangkan perlombaan lari melawan semua binatang, termasuk serigala yang sombong.', 'https://drive.google.com/file/d/1xCWS9LIcJG-QZ81TSr7iIlGKsVXbWHTH/view?usp=sharing', 'Dongeng', NULL, 0, '2024-12-09 08:51:33', '2024-12-09 08:51:33', '10-12', 'Ketika kelinci memiliki mimpi', 0),
+(7, 'Petualangan di Pulau Ajaib', 'Rani menemukan sebuah peta kuno di loteng rumahnya. Peta itu membawanya ke Pulau Ajaib yang penuh dengan tanaman berbicara dan hewan aneh. Di sana, ia belajar keberanian dan persahabatan sebelum kembali ke dunia nyata.', 'https://drive.google.com/file/d/13uJdRg7LxwZOnP1IMiFrrwNX70cIw_nd/view?usp=drive_link', 'Dongeng', NULL, 0, '2024-12-09 08:52:32', '2024-12-09 08:52:32', '10-12', 'Menemukan pulau dengan segala keunikannya', 0),
+(8, 'Robot dan Anak Kecil', 'Rio menemukan robot rusak di taman belakang rumahnya. Setelah memperbaikinya, robot itu menjadi sahabatnya. Mereka bersama-sama membantu orang-orang di desa hingga robot itu harus kembali ke tempat asalnya di angkasa.', 'https://drive.google.com/file/d/1UqPufxIttGbqI8M91oAZG020E3Ss3dKn/view?usp=drive_link', 'Dongeng', NULL, 0, '2024-12-09 08:53:12', '2024-12-09 08:53:12', '10-12', 'Suatu hari', 1),
+(9, 'Sepatu Ajaib', 'Dani menemukan sepasang sepatu tua di toko barang bekas. Ketika dipakai, sepatu itu membuatnya bisa melompat setinggi pohon. Namun, Dani belajar bahwa ia harus menggunakannya dengan bijak untuk membantu orang lain.', 'https://drive.google.com/file/d/1YI67H9dZhPLVNTj9uvnpEBiBcidF1Vc6/view?usp=drive_link', 'Fabel', NULL, 0, '2024-12-09 08:53:47', '2024-12-09 08:53:47', '10-12', 'sepatu ajaib merupakan', 0),
+(10, 'Pohon Keinginan', 'Di desa kecil, ada pohon ajaib yang bisa mengabulkan satu keinginan setiap bulan. Ketika tiba giliran Rara, ia memilih agar desanya selalu bahagia daripada meminta harta untuk dirinya sendiri.', 'https://drive.google.com/file/d/12HgdcvgvEfJCdQ8KyXzslnRhAEfvNfGO/view?usp=drive_link', 'Cerita Rakyat', NULL, 0, '2024-12-09 08:54:21', '2024-12-09 08:54:21', '10-12', 'Pohon kehidupan yaitu', 1);
 
 -- --------------------------------------------------------
 
@@ -354,7 +356,7 @@ ALTER TABLE `music`
 -- AUTO_INCREMENT untuk tabel `musics`
 --
 ALTER TABLE `musics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `payments`
@@ -366,7 +368,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT untuk tabel `readings`
 --
 ALTER TABLE `readings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
